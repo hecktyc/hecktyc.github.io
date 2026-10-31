@@ -7,60 +7,116 @@
   <meta name="color-scheme" content="dark">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      height: 100%;
-      margin: 0;
-      background: var(--bg);
-    }
-
-    body {
-      display: grid;
-      place-items: center;
-      padding: env(safe-area-inset-top, 0px) 1rem env(safe-area-inset-bottom, 0px);
-      overflow: hidden;
-    }
-
-    h1 {
-      position: relative;
-      isolation: isolate;
-      margin: 0;
-      color: var(--fg);
-      font-family: "Orbitron", "Audiowide", "Eurostile", "Bank Gothic", "Segoe UI", sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.5rem, 13vw, 9rem);
-      letter-spacing: 0.12em;
-      text-transform: lowercase;
-      text-align: center;
-      text-shadow:
-        /* soft 3D extrusion, cool-tinted */
+      --font: "Monoton", "Audiowide", "Eurostile", "Bank Gothic", "Segoe UI", sans-serif;
+      /* big glow: soft 3D edge + white core + chromatic fringes + halo */
+      --glow:
         1px 1px 0 rgba(215, 230, 255, 0.85),
         2px 2px 0 rgba(180, 200, 255, 0.6),
         3px 3px 0 rgba(150, 170, 245, 0.4),
         4px 4px 3px rgba(110, 130, 225, 0.25),
-        /* bright white core glow */
         0 0 6px #fff,
         0 0 16px rgba(255, 255, 255, 0.95),
         0 0 34px rgba(255, 255, 255, 0.7),
-        /* faint chromatic fringes */
         -2px 0 12px rgba(0, 240, 255, 0.55),
         2px 0 12px rgba(255, 60, 220, 0.5),
-        /* wide halo */
         0 0 70px rgba(150, 130, 255, 0.55),
         0 0 120px rgba(90, 200, 255, 0.4);
+      /* lighter glow for the clock digits */
+      --glow-soft:
+        0 0 6px #fff,
+        0 0 18px rgba(255, 255, 255, 0.8),
+        -2px 0 12px rgba(0, 240, 255, 0.5),
+        2px 0 12px rgba(255, 60, 220, 0.45),
+        0 0 46px rgba(150, 130, 255, 0.5);
     }
 
-    /* iridescent layer: a blurred copy of the text, behind it, with colours that drift */
-    h1::before {
-      content: attr(data-text);
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* ---------- film grain over the whole site ---------- */
+    :root { --grain: 0.75; } /* strength: 0 = off, 0.4 = subtle, 0.75 = heavy, 1 = maximum */
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 100;
+      pointer-events: none;
+      mix-blend-mode: multiply; /* black stays black, so only the design and its glow show grain */
+      opacity: var(--grain);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.6' intercept='-.8'/%3E%3CfeFuncG type='linear' slope='2.6' intercept='-.8'/%3E%3CfeFuncB type='linear' slope='2.6' intercept='-.8'/%3E%3C/feComponentTransfer%3E%3CfeComponentTransfer%3E%3CfeFuncR type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3CfeFuncG type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3CfeFuncB type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      animation: grain 0.9s steps(1) infinite; /* the grain jumps around, like film */
+    }
+
+    @keyframes grain {
+      0%   { transform: translate(0, 0); }
+      11%  { transform: translate(-5%, 3%); }
+      22%  { transform: translate(4%, -6%); }
+      33%  { transform: translate(-8%, 6%); }
+      44%  { transform: translate(7%, 2%); }
+      55%  { transform: translate(-3%, -8%); }
+      66%  { transform: translate(6%, 7%); }
+      77%  { transform: translate(-7%, -3%); }
+      88%  { transform: translate(2%, 8%); }
+    }
+
+    /* ---------- first screen ---------- */
+    .hero {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: env(safe-area-inset-top, 0px) 1rem 0;
+    }
+
+    h1 {
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      line-height: 1;
+      padding-left: 0.06em; /* balances the trailing letter-spacing so the word sits centred */
+      perspective: 900px;
+      color: var(--fg);
+      font-family: var(--font);
+      font-weight: 400; /* Monoton has one weight */
+      font-size: 10vw; /* the script below refines this so the word fills 80% of the width */
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      text-shadow: var(--glow);
+    }
+
+    /* each letter floats on its own, starting one after another */
+    h1 span {
+      position: relative;
+      display: inline-block;
+      transform-origin: 50% 60%;
+      animation: bubble calc(6s + var(--i) * 0.4s) ease-in-out infinite;
+      animation-delay: calc(var(--i) * 0.35s);
+    }
+
+    /* iridescent layer: a blurred copy of the letter behind it, with drifting colours */
+    h1 span::before {
+      content: attr(data-l);
       position: absolute;
       inset: 0;
       z-index: -1;
@@ -68,12 +124,32 @@
       background: linear-gradient(100deg,
         #5ef2ff, #a78bff, #ff7ad9, #ffe27a, #7affc2, #5ef2ff);
       background-size: 300% 100%;
+      background-position: calc(var(--i) * 40%) 50%;
       -webkit-background-clip: text;
       background-clip: text;
       filter: blur(14px) saturate(1.3);
       opacity: 0.75;
       text-shadow: none;
       animation: drift 9s linear infinite;
+      animation-delay: calc(var(--i) * -1.2s);
+    }
+
+    @keyframes bubble {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+      }
+      30% {
+        transform: translate3d(var(--sx), -0.2em, 40px)
+                   rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(1.04);
+      }
+      55% {
+        transform: translate3d(0, -0.34em, 70px)
+                   rotateX(calc(var(--rx) * -0.6)) rotateY(calc(var(--ry) * -1)) rotateZ(calc(var(--rz) * -1)) scale(1.07);
+      }
+      80% {
+        transform: translate3d(calc(var(--sx) * -1), -0.12em, 25px)
+                   rotateX(calc(var(--rx) * 0.4)) rotateY(calc(var(--ry) * 0.5)) rotateZ(calc(var(--rz) * 0.5)) scale(1.02);
+      }
     }
 
     @keyframes drift {
@@ -81,12 +157,332 @@
       to   { background-position: 300% 50%; }
     }
 
+    /* ---------- scroll hint ---------- */
+    .scroll-hint {
+      position: absolute;
+      left: 50%;
+      bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-left: -1.375rem;
+      color: var(--fg);
+      border-radius: 50%;
+      transition: opacity 0.2s linear;
+    }
+
+    .scroll-hint svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px rgba(150, 130, 255, 0.8));
+      animation: nudge 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 2px;
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateY(-3px); opacity: 0.6; }
+      50%      { transform: translateY(5px);  opacity: 1; }
+    }
+
+    /* ---------- second screen: eye clock ---------- */
+    .below {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .stage {
+      display: grid;
+      place-items: center;
+      perspective: 1500px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.on {
+      opacity: 1;
+      transform: none;
+    }
+
+    .clock {
+      position: relative;
+      width: min(90vw, 510px);
+      aspect-ratio: 1;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .dial {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 18px rgba(150, 130, 255, 0.7));
+    }
+
+    .face {
+      position: absolute;
+      inset: 6%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 45%,
+        rgba(150, 130, 255, 0.30), rgba(90, 200, 255, 0.10) 55%, rgba(0, 0, 0, 0) 74%);
+    }
+
+    /* soft dark shadow sitting between the dial and the eye; the gap creates depth when it tilts */
+    .eye-shadow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      transform: translateZ(45px);
+      background: radial-gradient(ellipse 40% 26% at 50% 56%,
+        rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 55%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    .ring-bg { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 3; }
+    .ticks line { stroke: rgba(255, 255, 255, 0.6); stroke-width: 2; stroke-linecap: round; }
+
+    /* the eye floats above the dial, so tilting shows depth */
+    .eye-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      transform: translateZ(90px);
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(150, 130, 255, 0.7));
+    }
+    .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
+    .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
+    .eye {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: blink 5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 90%, 100% { transform: scaleY(1); }
+      94%           { transform: scaleY(0.08); }
+    }
     @media (prefers-reduced-motion: reduce) {
-      h1::before { animation: none; }
+      html { scroll-behavior: auto; }
+      body::after { animation: none; }
+      h1 span, h1 span::before, .scroll-hint svg, .eye { animation: none; }
+      .reveal { transition: none; }
     }
   </style>
 </head>
 <body>
-  <h1 data-text="hecktyc">hecktyc</h1>
+  <header class="hero">
+    <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
+
+    <a class="scroll-hint" href="#below" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 9l7 7 7-7"/>
+      </svg>
+    </a>
+  </header>
+
+  <main id="below" class="below">
+    <div class="stage">
+      <div class="reveal">
+        <div class="clock" id="clock" role="img" aria-label="An eye that follows your cursor">
+          <div class="face" aria-hidden="true"></div>
+          <svg class="dial" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="ring-bg" cx="100" cy="100" r="88"/>
+            <g class="ticks"></g>
+          </svg>
+          <div class="eye-shadow" aria-hidden="true"></div>
+          <svg class="eye-svg" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <clipPath id="lid"><path d="M36 100Q100 40 164 100Q100 160 36 100Z"/></clipPath>
+              <linearGradient id="irisGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ff5a4d"/>
+                <stop offset="0.5" stop-color="#e00019"/>
+                <stop offset="1" stop-color="#7a000f"/>
+              </linearGradient>
+            </defs>
+            <g class="eye">
+              <path d="M36 100Q100 40 164 100Q100 160 36 100Z" fill="#05050c"/>
+              <g clip-path="url(#lid)">
+                <g class="iris">
+                  <circle cx="100" cy="100" r="25" fill="url(#irisGrad)"/>
+                  <circle cx="100" cy="100" r="11" fill="#000"/>
+                  <circle cx="108" cy="92" r="4" fill="#fff"/>
+                </g>
+              </g>
+              <path class="lid-line" d="M36 100Q100 40 164 100Q100 160 36 100Z"/>
+              <g class="lashes">
+                <polygon class="lash" points="51.9,86.9 58.5,82.5 44.2,68"/>
+                <polygon class="lash" points="96,70 104,70 100,44"/>
+                <polygon class="lash" points="141.5,82.5 148.1,86.9 155.8,68"/>
+                <polygon class="lash" points="51.9,113.1 58.5,117.5 44.2,132"/>
+                <polygon class="lash" points="96,130 104,130 100,156"/>
+                <polygon class="lash" points="141.5,117.5 148.1,113.1 155.8,132"/>
+                <polygon class="lash" points="40,95.5 40,104.5 18,100"/>
+                <polygon class="lash" points="160,95.5 160,104.5 182,100"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var arrow = document.querySelector('.scroll-hint');
+      var section = document.getElementById('below');
+      var reveal = document.querySelector('.reveal');
+      var clock = document.getElementById('clock');
+      var iris = clock.querySelector('.iris');
+      var ticks = clock.querySelector('.ticks');
+
+      var NS = 'http://www.w3.org/2000/svg';
+
+      // tick marks every 30 degrees, longer at 12 and 6
+      for (var i = 0; i < 12; i++) {
+        if (i === 3 || i === 9) continue; // the eye's corner lashes sit here
+        var l = document.createElementNS(NS, 'line');
+        l.setAttribute('x1', 100);
+        l.setAttribute('x2', 100);
+        l.setAttribute('y1', 24);
+        l.setAttribute('y2', i % 3 === 0 ? 36 : 30);
+        l.setAttribute('transform', 'rotate(' + (i * 30) + ' 100 100)');
+        ticks.appendChild(l);
+      }
+
+      // arrow fades out once you start scrolling
+      function updateArrow() {
+        var o = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.35));
+        arrow.style.opacity = o;
+        arrow.style.visibility = o <= 0 ? 'hidden' : 'visible';
+      }
+      window.addEventListener('scroll', updateArrow, { passive: true });
+      updateArrow();
+
+      // cursor position, from -1 (left/top) to 1 (right/bottom)
+      var tx = 0, ty = 0, cx = 0, cy = 0;
+      window.addEventListener('pointermove', function (e) {
+        tx = (e.clientX / window.innerWidth - 0.5) * 2;
+        ty = (e.clientY / window.innerHeight - 0.5) * 2;
+      }, { passive: true });
+
+      var running = false, raf = 0;
+
+      // the whole clock tilts toward the cursor, and the iris looks at it
+      function loop() {
+        if (!running) return;
+        if (!reduce) {
+          cx += (tx - cx) * 0.08;
+          cy += (ty - cy) * 0.08;
+          clock.style.transform =
+            'translate3d(' + (cx * 60) + 'px,' + (cy * 42) + 'px,0) ' +
+            'rotateX(' + (-cy * 24) + 'deg) rotateY(' + (cx * 24) + 'deg)';
+          iris.setAttribute('transform', 'translate(' + (cx * 16) + ' ' + (cy * 7) + ')');
+        }
+        raf = requestAnimationFrame(loop);
+      }
+
+      function start() {
+        running = true;
+        reveal.classList.add('on');
+        raf = requestAnimationFrame(loop);
+      }
+
+      function stop() {
+        running = false;
+        cancelAnimationFrame(raf);
+        reveal.classList.remove('on');
+      }
+
+      // the clock appears when the second screen is mostly in view
+      new IntersectionObserver(function (entries) {
+        var r = entries[0].intersectionRatio;
+        if (r >= 0.5 && !running) start();
+        else if (r < 0.1 && running) stop();
+      }, { threshold: [0, 0.1, 0.5] }).observe(section);
+    })();
+  </script>
+  <script>
+    /* keeps the heading 80% of the window wide in every font, and swaps the font every 0.1 s */
+    (function () {
+      var SHARE = 0.8;      // fraction of the window width the word fills
+      var INTERVAL = 100;   // milliseconds between font changes
+      var h1 = document.querySelector('h1');
+      var hero = document.querySelector('.hero');
+      var letters = h1.querySelectorAll('span');
+      var size = parseFloat(getComputedStyle(h1).fontSize) || 100;
+
+      // every font has different letter widths, so measure the word and rescale the font size
+      function fit() {
+        var w = 0;
+        for (var k = 0; k < letters.length; k++) w += letters[k].offsetWidth;
+        if (!w) return;
+        size = size * (SHARE * document.documentElement.clientWidth) / w;
+        h1.style.fontSize = size + 'px';
+      }
+      window.addEventListener('resize', fit);
+      fit();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var fonts = [
+        ['Michroma', 400],
+        ['Syncopate', 700],
+        ['Orbitron', 800],
+        ['Audiowide', 400],
+        ['Righteous', 400],
+        ['Zen Dots', 400],
+        ['Bungee', 400],
+        ['Alfa Slab One', 400],
+        ['Abril Fatface', 400],
+        ['Playfair Display', 900],
+        ['Cinzel', 800],
+        ['UnifrakturCook', 700],
+        ['Pacifico', 400],
+        ['Permanent Marker', 400],
+        ['Rubik Glitch', 400],
+        ['Wallpoet', 400],
+        ['Bruno Ace', 400],
+        ['Chakra Petch', 700],
+        ['Tektur', 800],
+        ['Oxanium', 800],
+        ['Monoton', 400]
+      ];
+      var i = fonts.length - 1, timer = null, visible = true; // Monoton (the CSS default) is last, so the first change is smooth
+
+      function tick() {
+        i = (i + 1) % fonts.length;
+        h1.style.fontFamily = '"' + fonts[i][0] + '", "Segoe UI", sans-serif';
+        h1.style.fontWeight = fonts[i][1];
+        fit();
+      }
+      function run() { if (!timer && visible && !document.hidden) timer = setInterval(tick, INTERVAL); }
+      function halt() { clearInterval(timer); timer = null; }
+
+      // pause when the tab is hidden or the heading is scrolled out of view
+      document.addEventListener('visibilitychange', function () { if (document.hidden) halt(); else run(); });
+      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; if (visible) run(); else halt(); }).observe(hero);
+
+      // start only once every font has loaded, so you never see fallback fonts flash by
+      Promise.all(fonts.map(function (f) {
+        return document.fonts.load(f[1] + ' 1em "' + f[0] + '"', 'hecktyc');
+      })).then(run, run);
+    })();
+  </script>
 </body>
 </html>
