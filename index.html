@@ -11,49 +11,55 @@
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- search -->
+  <!-- search & SEO -->
   <meta name="description" content="hecktyc: find me on Instagram, Behance and SoundCloud.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://YOUR-USERNAME.github.io/">
+  <link rel="canonical" href="https://hecktyc.github.io/">
 
-  <!-- link previews (Instagram, Discord, WhatsApp, iMessage, X, ...) -->
+  <!-- link previews -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="hecktyc">
   <meta property="og:title" content="hecktyc">
   <meta property="og:description" content="Find me on Instagram, Behance and SoundCloud.">
-  <meta property="og:url" content="https://YOUR-USERNAME.github.io/">
-  <meta property="og:image" content="https://YOUR-USERNAME.github.io/og-image.png">
+  <meta property="og:url" content="https://hecktyc.github.io/">
+  <meta property="og:image" content="https://hecktyc.github.io/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="hecktyc, with the Jupiter symbol, glowing white on black">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="hecktyc">
   <meta name="twitter:description" content="Find me on Instagram, Behance and SoundCloud.">
-  <meta name="twitter:image" content="https://YOUR-USERNAME.github.io/og-image.png">
+  <meta name="twitter:image" content="https://hecktyc.github.io/og-image.png">
 
-  <!-- structured data for search engines -->
+  <!-- structured data -->
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "hecktyc",
-  "url": "https://YOUR-USERNAME.github.io/",
+  "url": "https://hecktyc.github.io/",
   "sameAs": [
     "https://www.instagram.com/hecktyc",
     "https://www.behance.net/hecktyc",
     "https://soundcloud.com/hecktyc"
   ]
 }</script>
-  <script>/* weak devices (4 cores/4 GB or less) get a lighter page; add ?lite to the address to test */
-    (function(){var d=document.documentElement,m=navigator.deviceMemory,c=navigator.hardwareConcurrency;if((m&&m<=4)||(c&&c<=4)||/[?&]lite/.test(location.search))d.className+=" lite";})();</script>
+  
+  <script>
+    (function(){
+      var d = document.documentElement, m = navigator.deviceMemory, c = navigator.hardwareConcurrency;
+      if ((m && m <= 4) || (c && c <= 4) || /[?&]lite/.test(location.search)) d.className += " lite";
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&text=hecktyc&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
       --font: "Monoton", "Audiowide", "Eurostile", "Bank Gothic", "Segoe UI", sans-serif;
-      /* plain white glow, sized in em so it scales with the small heading */
       --glow:
         1px 1px 0 rgba(255, 255, 255, 0.8),
         2px 2px 0 rgba(255, 255, 255, 0.5),
@@ -62,19 +68,24 @@
         0 0 0.25em rgba(255, 255, 255, 0.9),
         0 0 0.55em rgba(255, 255, 255, 0.6),
         0 0 1.1em rgba(255, 255, 255, 0.35);
-      --grain: 0.6; /* grain strength: 0 = off, 0.3 = subtle, 0.6 = heavy, 1 = maximum */
+      --grain: 0.6;
     }
 
     * { box-sizing: border-box; }
 
-    html, body {
-      height: 100%;
-      margin: 0;
+    html {
       background: var(--bg);
-      overflow: hidden;
+      color: var(--fg);
     }
 
-    /* ---------- film grain: black specks, so they only show on the design and its glow ---------- */
+    body {
+      margin: 0;
+      height: 350vh; /* scroll track for eye expansion */
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* ---------- film grain overlay ---------- */
     body::after {
       content: "";
       position: fixed;
@@ -101,7 +112,7 @@
       88%  { transform: translate(2%, 6%); }
     }
 
-    /* ---------- small heading, top centre ---------- */
+    /* ---------- top heading ---------- */
     .top {
       position: fixed;
       top: calc(env(safe-area-inset-top, 0px) + 2rem);
@@ -111,20 +122,21 @@
       display: flex;
       justify-content: center;
       pointer-events: none;
+      will-change: opacity, transform;
+      transition: opacity 0.2s linear;
     }
 
     h1 {
       display: flex;
       justify-content: center;
+      align-items: center;
       margin: 0;
       line-height: 1;
-      padding-left: 0.06em; /* balances the trailing letter-spacing so the word sits centred */
+      padding-left: 0.08em;
       perspective: 900px;
       color: var(--fg);
-      font-family: var(--font);
-      font-weight: 400;
-      font-size: clamp(1rem, 3vw, 2rem); /* the script below refines this */
-      letter-spacing: 0.06em;
+      font-size: clamp(1rem, 3vw, 2rem);
+      letter-spacing: 0.09em;
       text-transform: lowercase;
       text-shadow: var(--glow);
     }
@@ -132,12 +144,12 @@
     h1 span {
       position: relative;
       display: inline-block;
+      margin: 0 0.03em;
       transform-origin: 50% 60%;
       animation: bubble calc(6s + var(--i) * 0.4s) ease-in-out infinite;
       animation-delay: calc(var(--i) * 0.35s);
     }
 
-    /* plain white haze: a blurred copy of each letter behind it */
     h1 span::before {
       content: attr(data-l);
       position: absolute;
@@ -150,24 +162,13 @@
     }
 
     @keyframes bubble {
-      0%, 100% {
-        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-      }
-      30% {
-        transform: translate3d(var(--sx), -0.2em, 40px)
-                   rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(1.04);
-      }
-      55% {
-        transform: translate3d(0, -0.34em, 70px)
-                   rotateX(calc(var(--rx) * -0.6)) rotateY(calc(var(--ry) * -1)) rotateZ(calc(var(--rz) * -1)) scale(1.07);
-      }
-      80% {
-        transform: translate3d(calc(var(--sx) * -1), -0.12em, 25px)
-                   rotateX(calc(var(--rx) * 0.4)) rotateY(calc(var(--ry) * 0.5)) rotateZ(calc(var(--rz) * 0.5)) scale(1.02);
-      }
+      0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+      30% { transform: translate3d(var(--sx), -0.2em, 40px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(1.04); }
+      55% { transform: translate3d(0, -0.34em, 70px) rotateX(calc(var(--rx) * -0.6)) rotateY(calc(var(--ry) * -1)) rotateZ(calc(var(--rz) * -1)) scale(1.07); }
+      80% { transform: translate3d(calc(var(--sx) * -1), -0.12em, 25px) rotateX(calc(var(--rx) * 0.4)) rotateY(calc(var(--ry) * 0.5)) rotateZ(calc(var(--rz) * 0.5)) scale(1.02); }
     }
 
-    /* ---------- the eye, centred on the front page ---------- */
+    /* ---------- stage & eye element ---------- */
     .stage {
       position: fixed;
       inset: 0;
@@ -176,6 +177,9 @@
       place-items: center;
       perspective: 1500px;
       pointer-events: none;
+      contain: layout paint;
+      will-change: opacity, filter;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     .reveal {
@@ -191,6 +195,7 @@
       aspect-ratio: 1;
       transform-style: preserve-3d;
       will-change: transform;
+      transform-origin: center center;
     }
 
     .eye-svg {
@@ -199,39 +204,136 @@
       width: 100%;
       height: 100%;
       overflow: visible;
-      transform: translateZ(90px); /* floats in front, so tilting shows depth */
+      transform: translateZ(90px);
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
+      transition: filter 0.3s ease;
     }
+
+    body.is-scrolling .eye-svg {
+      filter: none;
+    }
+
     .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
     .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
 
-    /* ---------- tiny social icons + e-mail, bottom centre ---------- */
-    .links {
+    /* ---------- scroll indicator ---------- */
+    .scroll-indicator {
       position: fixed;
       left: 0;
       right: 0;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
       z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .scroll-indicator span {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .scroll-indicator svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.7);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(6px); }
+      60% { transform: translateY(3px); }
+    }
+
+    /* ---------- gallery inside pupil ---------- */
+    .gallery-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      padding: 5rem 2rem;
+    }
+    .gallery-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      width: min(1000px, 90vw);
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.3) transparent;
+    }
+    .gallery-item {
+      aspect-ratio: 4/3;
+      background: #111;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      color: rgba(255,255,255,0.4);
+      font-family: sans-serif;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ---------- social links & email ---------- */
+    .links {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1.2rem);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    .icons { display: flex; gap: 0.35rem; }
+    .icons { display: flex; gap: 0.5rem; }
     .icons a {
       display: grid;
       place-items: center;
-      width: 2rem;
-      height: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
       border-radius: 50%;
       color: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
     }
-    .icons a:hover, .icons a:focus-visible { color: #fff; filter: drop-shadow(0 0 4px #fff); }
+    .icons a:hover, .icons a:focus-visible {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+    }
     .icons a:focus-visible, .mail:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
     .icons svg {
-      width: 1.05rem;
-      height: 1.05rem;
+      width: 1.1rem;
+      height: 1.1rem;
       fill: none;
       stroke: currentColor;
       stroke-width: 1.8;
@@ -240,13 +342,14 @@
     }
     .mail {
       color: rgba(255, 255, 255, 0.55);
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
       text-decoration: none;
+      transition: color 0.2s ease;
     }
     .mail:hover, .mail:focus-visible { color: #fff; }
 
-    /* lite mode: no moving grain, no haze behind the letters */
+    /* lite mode & motion accessibility */
     .lite body::after { animation: none; }
     .lite h1 span::before { display: none; }
 
@@ -257,11 +360,13 @@
   </style>
 </head>
 <body>
-  <header class="top">
-    <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
+  <header class="top" id="headerTop">
+    <h1 aria-label="hecktyc">
+      <span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span>
+    </h1>
   </header>
 
-  <main class="stage">
+  <main class="stage" id="eyeStage">
     <div class="reveal">
       <div class="clock" id="clock" role="img" aria-label="An eye that follows your cursor">
         <svg class="eye-svg" viewBox="0 0 200 200" aria-hidden="true">
@@ -299,14 +404,33 @@
     </div>
   </main>
 
+  <div class="scroll-indicator" id="scrollIndicator">
+    <span>explore</span>
+    <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></svg>
+  </div>
+
+  <section class="gallery-overlay" id="galleryOverlay" aria-label="Work Gallery">
+    <div class="gallery-grid">
+      <div class="gallery-item">Artwork 01</div>
+      <div class="gallery-item">Artwork 02</div>
+      <div class="gallery-item">Artwork 03</div>
+      <div class="gallery-item">Artwork 04</div>
+      <div class="gallery-item">Artwork 05</div>
+      <div class="gallery-item">Artwork 06</div>
+    </div>
+  </section>
+
   <nav class="links" aria-label="Links">
     <div class="icons">
+      <!-- Instagram -->
       <a href="https://www.instagram.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
+      <!-- Behance -->
       <a href="https://www.behance.net/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Behance" title="Behance">
         <svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="700" font-family="Segoe UI, Arial, sans-serif" fill="currentColor" stroke="none">B&#275;</text></svg>
       </a>
+      <!-- SoundCloud -->
       <a href="https://soundcloud.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud" title="SoundCloud">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.3A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
       </a>
@@ -315,22 +439,41 @@
   </nav>
 
   <script>
-    /* the eye: follows the cursor, blinks with lids that close over a round iris */
+    /* Eye behavior, progressive blur, and scroll-driven fade-out logic */
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var reveal = document.querySelector('.reveal');
+      var eyeStage = document.getElementById('eyeStage');
       var clock = document.getElementById('clock');
       var iris = clock.querySelector('.iris');
       var lids = clock.querySelectorAll('.lid-d');
       var lashes = clock.querySelector('.lashes');
+      var headerTop = document.getElementById('headerTop');
+      var scrollIndicator = document.getElementById('scrollIndicator');
+      var galleryOverlay = document.getElementById('galleryOverlay');
 
-      var tx = 0, ty = 0, cx = 0, cy = 0; // cursor, from -1 to 1
+      var tx = 0, ty = 0, cx = 0, cy = 0;
+      var scrollProgress = 0;
+      var scrollTimer = null;
+
       window.addEventListener('pointermove', function (e) {
+        if (scrollProgress > 0.05) return;
         tx = (e.clientX / window.innerWidth - 0.5) * 2;
         ty = (e.clientY / window.innerHeight - 0.5) * 2;
       }, { passive: true });
 
-      function setLid(o) { // o = how open the lids are (1 = open); iris and pupil never change size
+      window.addEventListener('scroll', function () {
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+        
+        document.body.classList.add('is-scrolling');
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function() {
+          document.body.classList.remove('is-scrolling');
+        }, 150);
+      }, { passive: true });
+
+      function setLid(o) {
         var h = 60 * o;
         var d = 'M36 100Q100 ' + (100 - h) + ' 164 100Q100 ' + (100 + h) + ' 36 100Z';
         for (var k = 0; k < lids.length; k++) lids[k].setAttribute('d', d);
@@ -341,14 +484,52 @@
       function loop(now) {
         requestAnimationFrame(loop);
         if (reduce) return;
-        if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005) { // only touch the page when moving
-          cx += (tx - cx) * 0.08;
-          cy += (ty - cy) * 0.08;
-          clock.style.transform =
-            'translate3d(' + (cx * 60) + 'px,' + (cy * 42) + 'px,0) ' +
-            'rotateX(' + (-cy * 24) + 'deg) rotateY(' + (cx * 24) + 'deg)';
-          iris.setAttribute('transform', 'translate(' + (cx * 16) + ' ' + (cy * 7) + ')');
+
+        var targetX = scrollProgress > 0.05 ? 0 : tx;
+        var targetY = scrollProgress > 0.05 ? 0 : ty;
+
+        cx += (targetX - cx) * 0.08;
+        cy += (targetY - cy) * 0.08;
+
+        var eyeScale = 1 + scrollProgress * 15;
+        clock.style.transform =
+          'scale(' + eyeScale + ') ' +
+          'translate3d(' + (cx * 60) + 'px,' + (cy * 42) + 'px,0) ' +
+          'rotateX(' + (-cy * 24) + 'deg) rotateY(' + (cx * 24) + 'deg)';
+        
+        iris.setAttribute('transform', 'translate(' + (cx * 16) + ' ' + (cy * 7) + ')');
+
+        // Eye Blur and Complete Disappearance Logic
+        if (eyeStage) {
+          // Blur gradually builds up from 0px to 14px as you scroll
+          var blurPx = scrollProgress * 14;
+          eyeStage.style.filter = 'blur(' + blurPx.toFixed(1) + 'px)';
+
+          // Fade out the eye stage as scroll progress nears the pupil center (0.65 to 0.82)
+          if (scrollProgress >= 0.82) {
+            eyeStage.style.opacity = '0';
+            eyeStage.style.visibility = 'hidden';
+          } else if (scrollProgress >= 0.65) {
+            var fadeOpacity = 1 - ((scrollProgress - 0.65) / 0.17);
+            eyeStage.style.opacity = Math.max(0, fadeOpacity).toString();
+            eyeStage.style.visibility = 'visible';
+          } else {
+            eyeStage.style.opacity = '1';
+            eyeStage.style.visibility = 'visible';
+          }
         }
+
+        if (headerTop) headerTop.style.opacity = Math.max(0, 1 - scrollProgress * 3.5);
+        if (scrollIndicator) scrollIndicator.style.opacity = Math.max(0, 1 - scrollProgress * 4);
+        
+        if (galleryOverlay) {
+          if (scrollProgress > 0.75) {
+            galleryOverlay.classList.add('active');
+          } else {
+            galleryOverlay.classList.remove('active');
+          }
+        }
+
         if (blinkStart < 0 && now >= nextBlink) blinkStart = now;
         if (blinkStart >= 0) {
           var t = (now - blinkStart) / BLINK_MS;
@@ -362,11 +543,11 @@
   </script>
 
   <script>
-    /* keeps the heading small (about 140 px wide) in every font, and swaps the font every 0.1 s */
+    /* Independent letter font-cycling ticker logic - EXACT ORIGINAL IMPLEMENTATION */
     (function () {
       var root = document.documentElement;
       var lite = root.className.indexOf('lite') > -1;
-      var INTERVAL = lite ? 160 : 100; // milliseconds between font changes
+      var INTERVAL = lite ? 160 : 100;
       var h1 = document.querySelector('h1');
       var letters = h1.querySelectorAll('span');
 
@@ -376,53 +557,81 @@
         ['Abril Fatface', 400], ['Playfair Display', 900], ['Cinzel', 800], ['UnifrakturCook', 700],
         ['Pacifico', 400], ['Permanent Marker', 400], ['Rubik Glitch', 400], ['Wallpoet', 400],
         ['Bruno Ace', 400], ['Chakra Petch', 700], ['Tektur', 800], ['Oxanium', 800],
-        ['Monoton', 400] // the CSS default, last, so the first change is smooth
+        ['Monoton', 400]
       ];
-      var i = fonts.length - 1, timer = null;
-      var size = parseFloat(getComputedStyle(h1).fontSize) || 60;
-      var ratios = null; // word width per 1px of font size, for each font (measured once)
 
-      function share() { return Math.min(0.275, Math.max(0.07, 140 / root.clientWidth)); } // 140 px, but at least 7% and at most 27.5% of the width
-      function applyFont(k) {
-        h1.style.fontFamily = '"' + fonts[k][0] + '", "Segoe UI", sans-serif';
-        h1.style.fontWeight = fonts[k][1];
-      }
-      function sumWidths() {
-        var w = 0;
-        for (var k = 0; k < letters.length; k++) w += letters[k].offsetWidth;
-        return w;
-      }
-      function fit() {
-        if (ratios) size = share() * root.clientWidth / ratios[i];
-        else { var w = sumWidths(); if (!w) return; size = size * (share() * root.clientWidth) / w; }
-        h1.style.fontSize = size + 'px';
-      }
-      function measureAll() {
-        h1.style.fontSize = '100px';
-        var r = [];
-        for (var k = 0; k < fonts.length; k++) { applyFont(k); r.push(sumWidths() / 100); }
-        ratios = r;
-        applyFont(i);
-        fit();
+      var timers = [];
+      var baseFontSize = parseFloat(getComputedStyle(h1).fontSize) || 60;
+
+      function share() { return Math.min(0.27, Math.max(0.07, 145 / root.clientWidth)); }
+
+      function fitTotal() {
+        var totalW = 0;
+        for (var k = 0; k < letters.length; k++) {
+          totalW += letters[k].offsetWidth;
+        }
+        if (!totalW) return;
+        var targetW = share() * root.clientWidth;
+        baseFontSize = baseFontSize * (targetW / totalW);
+        h1.style.fontSize = baseFontSize + 'px';
       }
 
-      window.addEventListener('resize', fit);
-      fit();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!ratios) fit(); });
+      function setLetterFont(span, fontIndex) {
+        span.style.fontFamily = '"' + fonts[fontIndex][0] + '", "Segoe UI", sans-serif';
+        span.style.fontWeight = fonts[fontIndex][1];
+      }
+
+      function initFonts() {
+        for (var k = 0; k < letters.length; k++) {
+          var randIdx = Math.floor(Math.random() * fonts.length);
+          setLetterFont(letters[k], randIdx);
+        }
+        fitTotal();
+      }
+
+      window.addEventListener('resize', fitTotal);
+      initFonts();
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitTotal);
+      }
+
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      function tick() { i = (i + 1) % fonts.length; applyFont(i); fit(); }
-      function run() { if (!timer && !document.hidden) timer = setInterval(tick, INTERVAL); }
-      function halt() { clearInterval(timer); timer = null; }
-      function go() { measureAll(); run(); }
+      function startTickers() {
+        if (timers.length > 0 || document.hidden) return;
+        for (var k = 0; k < letters.length; k++) {
+          (function(index) {
+            var jitter = Math.random() * 40;
+            var t = setInterval(function() {
+              var currentFamily = letters[index].style.fontFamily.replace(/["']/g, '').split(',')[0].trim();
+              var curIdx = fonts.findIndex(function(f) { return f[0] === currentFamily; });
+              if (curIdx === -1) curIdx = 0;
+              var nextIdx = (curIdx + 1) % fonts.length;
+              setLetterFont(letters[index], nextIdx);
+              fitTotal();
+            }, INTERVAL + jitter);
+            timers.push(t);
+          })(k);
+        }
+      }
 
-      document.addEventListener('visibilitychange', function () { if (document.hidden) halt(); else run(); });
-      // start only once every font has loaded, so you never see fallback fonts flash by
+      function haltTickers() {
+        for (var k = 0; k < timers.length; k++) {
+          clearInterval(timers[k]);
+        }
+        timers = [];
+      }
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) haltTickers();
+        else startTickers();
+      });
+
       Promise.all(fonts.map(function (f) {
         return document.fonts.load(f[1] + ' 1em "' + f[0] + '"', 'hecktyc');
-      })).then(go, go);
+      })).then(startTickers, startTickers);
     })();
   </script>
-
 </body>
 </html>
