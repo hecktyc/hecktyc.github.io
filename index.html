@@ -3,8 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>hecktyc</title>
+  <title>♃ hecktyc</title>
   <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#000000">
+
+  <!-- tab icon: the Jupiter symbol -->
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <!-- search -->
+  <meta name="description" content="hecktyc: find me on Instagram, Behance and SoundCloud.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://YOUR-USERNAME.github.io/">
+
+  <!-- link previews (Instagram, Discord, WhatsApp, iMessage, X, ...) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hecktyc">
+  <meta property="og:title" content="hecktyc">
+  <meta property="og:description" content="Find me on Instagram, Behance and SoundCloud.">
+  <meta property="og:url" content="https://YOUR-USERNAME.github.io/">
+  <meta property="og:image" content="https://YOUR-USERNAME.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="hecktyc, with the Jupiter symbol, glowing white on black">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="hecktyc">
+  <meta name="twitter:description" content="Find me on Instagram, Behance and SoundCloud.">
+  <meta name="twitter:image" content="https://YOUR-USERNAME.github.io/og-image.png">
+
+  <!-- structured data for search engines -->
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "hecktyc",
+  "url": "https://YOUR-USERNAME.github.io/",
+  "sameAs": [
+    "https://www.instagram.com/hecktyc",
+    "https://www.behance.net/hecktyc",
+    "https://soundcloud.com/hecktyc"
+  ]
+}</script>
   <script>/* weak devices (4 cores/4 GB or less) get a lighter page; add ?lite to the address to test */
     (function(){var d=document.documentElement,m=navigator.deviceMemory,c=navigator.hardwareConcurrency;if((m&&m<=4)||(c&&c<=4)||/[?&]lite/.test(location.search))d.className+=" lite";})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,20 +101,10 @@
       88%  { transform: translate(2%, 6%); }
     }
 
-    /* ---------- audio visualiser canvas (behind everything) ---------- */
-    #viz {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
     /* ---------- small heading, top centre ---------- */
     .top {
       position: fixed;
-      top: calc(env(safe-area-inset-top, 0px) + 1rem);
+      top: calc(env(safe-area-inset-top, 0px) + 2rem);
       left: 0;
       right: 0;
       z-index: 5;
@@ -95,7 +123,7 @@
       color: var(--fg);
       font-family: var(--font);
       font-weight: 400;
-      font-size: clamp(2rem, 6vw, 4rem); /* the script below refines this */
+      font-size: clamp(1rem, 3vw, 2rem); /* the script below refines this */
       letter-spacing: 0.06em;
       text-transform: lowercase;
       text-shadow: var(--glow);
@@ -172,13 +200,13 @@
       height: 100%;
       overflow: visible;
       transform: translateZ(90px); /* floats in front, so tilting shows depth */
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(150, 130, 255, 0.7));
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
     }
     .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
     .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
 
-    /* ---------- audio controls, bottom centre ---------- */
-    .controls {
+    /* ---------- tiny social icons + e-mail, bottom centre ---------- */
+    .links {
       position: fixed;
       left: 0;
       right: 0;
@@ -187,27 +215,36 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0 1rem;
+      gap: 0.3rem;
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-    .controls button {
-      padding: 0.45rem 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.55);
-      color: #fff;
-      font: inherit;
-      font-size: 0.8rem;
-      cursor: pointer;
+    .icons { display: flex; gap: 0.35rem; }
+    .icons a {
+      display: grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      color: rgba(255, 255, 255, 0.75);
     }
-    .controls button:hover { border-color: #fff; }
-    .controls button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-    .controls button:disabled { opacity: 0.4; cursor: not-allowed; }
-    .controls [hidden] { display: none; }
-    #status { min-height: 1.2em; max-width: 34rem; color: rgba(255, 255, 255, 0.7); font-size: 0.78rem; text-align: center; }
-    #player { max-width: 90vw; height: 32px; }
+    .icons a:hover, .icons a:focus-visible { color: #fff; filter: drop-shadow(0 0 4px #fff); }
+    .icons a:focus-visible, .mail:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .icons svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .mail {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .mail:hover, .mail:focus-visible { color: #fff; }
 
     /* lite mode: no moving grain, no haze behind the letters */
     .lite body::after { animation: none; }
@@ -220,8 +257,6 @@
   </style>
 </head>
 <body>
-  <canvas id="viz" aria-hidden="true"></canvas>
-
   <header class="top">
     <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
   </header>
@@ -264,17 +299,20 @@
     </div>
   </main>
 
-  <div class="controls">
-    <div class="buttons">
-      <button type="button" id="btnTab">Tab / system audio</button>
-      <button type="button" id="btnMic">Microphone</button>
-      <button type="button" id="btnFile">Audio file</button>
-      <button type="button" id="btnStop" hidden>Stop</button>
+  <nav class="links" aria-label="Links">
+    <div class="icons">
+      <a href="https://www.instagram.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://www.behance.net/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Behance" title="Behance">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="700" font-family="Segoe UI, Arial, sans-serif" fill="currentColor" stroke="none">B&#275;</text></svg>
+      </a>
+      <a href="https://soundcloud.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud" title="SoundCloud">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.3A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      </a>
     </div>
-    <input type="file" id="fileIn" accept="audio/*" hidden>
-    <audio id="player" controls hidden></audio>
-    <div id="status" role="status" aria-live="polite">Pick a sound source to wake the triangles.</div>
-  </div>
+    <a class="mail" href="mailto:hecktyc@gmail.com">hecktyc@gmail.com</a>
+  </nav>
 
   <script>
     /* the eye: follows the cursor, blinks with lids that close over a round iris */
@@ -324,7 +362,7 @@
   </script>
 
   <script>
-    /* keeps the heading small (about 280 px wide) in every font, and swaps the font every 0.1 s */
+    /* keeps the heading small (about 140 px wide) in every font, and swaps the font every 0.1 s */
     (function () {
       var root = document.documentElement;
       var lite = root.className.indexOf('lite') > -1;
@@ -344,7 +382,7 @@
       var size = parseFloat(getComputedStyle(h1).fontSize) || 60;
       var ratios = null; // word width per 1px of font size, for each font (measured once)
 
-      function share() { return Math.min(0.55, Math.max(0.14, 280 / root.clientWidth)); } // 280 px, but at least 14% and at most 55% of the width
+      function share() { return Math.min(0.275, Math.max(0.07, 140 / root.clientWidth)); } // 140 px, but at least 7% and at most 27.5% of the width
       function applyFont(k) {
         h1.style.fontFamily = '"' + fonts[k][0] + '", "Segoe UI", sans-serif';
         h1.style.fontWeight = fonts[k][1];
@@ -386,177 +424,5 @@
     })();
   </script>
 
-  <script>
-    /* audio visualiser: two triangles that send waves outward on every bass hit */
-    (function () {
-      var lite = document.documentElement.className.indexOf('lite') > -1;
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var viz = document.getElementById('viz');
-      var g = viz.getContext('2d');
-      var W = 0, H = 0, S = 20, active = false;
-
-      function resize() {
-        var dpr = Math.min(window.devicePixelRatio || 1, lite ? 1 : 1.5);
-        W = window.innerWidth; H = window.innerHeight;
-        viz.width = W * dpr; viz.height = H * dpr;
-        g.setTransform(dpr, 0, 0, dpr, 0, 0);
-        S = Math.max(18, Math.min(W, H) * 0.06);
-        if (!active) idle();
-      }
-
-      // an equilateral triangle centred on (x, y), pointing inward (dir 1 = right, -1 = left), scaled by k
-      function tri(x, y, dir, k) {
-        var a = S * 1.8 * k, h = a * 0.866;
-        g.beginPath();
-        g.moveTo(x + dir * 2 * h / 3, y);
-        g.lineTo(x - dir * h / 3, y - a / 2);
-        g.lineTo(x - dir * h / 3, y + a / 2);
-        g.closePath();
-      }
-      function both(k, fn) { fn(S * 1.5, H / 2, 1, k); fn(W - S * 1.5, H / 2, -1, k); }
-
-      function drawTriangles(level, dim) {
-        var k = 1 + level * 0.25;
-        g.fillStyle = 'rgba(255,255,255,' + (0.1 + level * 0.55) + ')';
-        g.strokeStyle = 'rgba(255,255,255,' + (dim ? 0.45 : 0.95) + ')';
-        g.lineWidth = 2;
-        both(k, function (x, y, d, kk) { tri(x, y, d, kk); g.fill(); g.stroke(); });
-      }
-      function idle() { g.clearRect(0, 0, W, H); drawTriangles(0, true); }
-
-      // ---------- audio plumbing ----------
-      var ac = null, analyser = null, data = null, node = null, fileNode = null, stream = null, raf = 0, fileUrl = '';
-      var player = document.getElementById('player');
-      var statusEl = document.getElementById('status');
-      var btnStop = document.getElementById('btnStop');
-      function say(t) { statusEl.textContent = t; }
-
-      function ensureAudio() {
-        if (!ac) {
-          var AC = window.AudioContext || window.webkitAudioContext;
-          ac = new AC();
-          analyser = ac.createAnalyser();
-          analyser.fftSize = 2048;
-          analyser.smoothingTimeConstant = 0.55;
-          data = new Uint8Array(analyser.frequencyBinCount);
-        }
-        if (ac.state === 'suspended') ac.resume();
-      }
-      function disconnect() {
-        try { if (node) node.disconnect(); } catch (e) {}
-        try { if (fileNode) fileNode.disconnect(); } catch (e) {}
-        try { analyser.disconnect(); } catch (e) {}
-        node = null;
-        if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
-        player.pause(); player.hidden = true;
-      }
-      function begin(msg) {
-        active = true; btnStop.hidden = false; say(msg);
-        waves.length = 0; level = 0; avg = 0;
-        if (!raf) raf = requestAnimationFrame(frame);
-      }
-      function end(msg) {
-        disconnect();
-        active = false; btnStop.hidden = true; say(msg || 'Stopped.');
-        cancelAnimationFrame(raf); raf = 0;
-        idle();
-      }
-      function useStream(st, tracks, msg) {
-        disconnect();
-        stream = st;
-        node = ac.createMediaStreamSource(new MediaStream(tracks));
-        node.connect(analyser); // not connected to the speakers, so you never hear an echo
-        tracks[0].addEventListener('ended', function () { if (stream === st) end('The audio source stopped.'); });
-        begin(msg);
-      }
-
-      var noFx = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
-
-      document.getElementById('btnTab').addEventListener('click', async function () {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) { say('This browser cannot share tab audio. Try Chrome or Edge, or use the microphone or an audio file.'); return; }
-        try {
-          ensureAudio();
-          var st = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: noFx });
-          var tracks = st.getAudioTracks();
-          if (!tracks.length) {
-            st.getTracks().forEach(function (t) { t.stop(); });
-            say('No audio was shared. In the share window choose a Chrome tab (or the entire screen on Windows) and tick "Share audio".');
-            return;
-          }
-          st.getVideoTracks().forEach(function (t) { t.stop(); }); // only the sound is needed
-          useStream(st, tracks, 'Listening to the shared audio.');
-        } catch (e) { say('Sharing was cancelled or blocked.'); }
-      });
-
-      document.getElementById('btnMic').addEventListener('click', async function () {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { say('Microphone access is not available here.'); return; }
-        try {
-          ensureAudio();
-          var st = await navigator.mediaDevices.getUserMedia({ audio: noFx });
-          useStream(st, st.getAudioTracks(), 'Listening to the microphone.');
-        } catch (e) { say('Microphone access was denied or is not available.'); }
-      });
-
-      var fileIn = document.getElementById('fileIn');
-      document.getElementById('btnFile').addEventListener('click', function () { fileIn.click(); });
-      fileIn.addEventListener('change', function () {
-        var f = fileIn.files && fileIn.files[0];
-        if (!f) return;
-        ensureAudio();
-        disconnect();
-        if (fileUrl) URL.revokeObjectURL(fileUrl);
-        fileUrl = URL.createObjectURL(f);
-        player.src = fileUrl;
-        if (!fileNode) fileNode = ac.createMediaElementSource(player);
-        fileNode.connect(analyser);
-        analyser.connect(ac.destination); // the file is played through your speakers
-        player.hidden = false;
-        player.play().catch(function () {});
-        begin('Playing ' + f.name);
-        fileIn.value = '';
-      });
-      btnStop.addEventListener('click', function () { end('Stopped.'); });
-
-      // ---------- bass detection and drawing ----------
-      var level = 0, avg = 0, lastBeat = 0, waves = [], LIFE = 1100;
-
-      function frame(now) {
-        raf = requestAnimationFrame(frame);
-        analyser.getByteFrequencyData(data);
-        var hz = ac.sampleRate / analyser.fftSize;
-        var lo = Math.max(1, Math.round(25 / hz)), hi = Math.max(lo + 1, Math.round(150 / hz)); // about 25-150 Hz
-        var sum = 0;
-        for (var k = lo; k <= hi; k++) sum += data[k];
-        var bass = sum / (hi - lo + 1) / 255;
-
-        level += (bass - level) * (bass > level ? 0.6 : 0.12);
-        avg += (bass - avg) * 0.04;
-        if (!reduce && bass > avg * 1.15 + 0.03 && bass > 0.3 && now - lastBeat > 170) {
-          lastBeat = now;
-          waves.push({ t: now, p: Math.min(1, 0.45 + (bass - avg) * 3) });
-          if (waves.length > 14) waves.shift();
-        }
-
-        g.clearRect(0, 0, W, H);
-        for (var n = waves.length - 1; n >= 0; n--) {
-          var w = waves[n], age = (now - w.t) / LIFE;
-          if (age >= 1) { waves.splice(n, 1); continue; }
-          var kk = 1 + age * (3 + w.p * 5), a = (1 - age) * w.p;
-          if (!lite) { // soft outer glow
-            g.strokeStyle = 'rgba(255,255,255,' + (a * 0.25) + ')';
-            g.lineWidth = 7 * (1 - age) + 2;
-            both(kk, function (x, y, d, k2) { tri(x, y, d, k2); g.stroke(); });
-          }
-          g.strokeStyle = 'rgba(255,255,255,' + (a * 0.9) + ')';
-          g.lineWidth = 2.5 * (1 - age) + 0.6;
-          both(kk, function (x, y, d, k2) { tri(x, y, d, k2); g.stroke(); });
-        }
-        drawTriangles(level, false);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-    })();
-  </script>
 </body>
 </html>
