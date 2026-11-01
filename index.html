@@ -5,88 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>hecktyc</title>
   <meta name="color-scheme" content="dark">
+  <script>/* weak devices (4 cores/4 GB or less) get a lighter page; add ?lite to the address to test */
+    (function(){var d=document.documentElement,m=navigator.deviceMemory,c=navigator.hardwareConcurrency;if((m&&m<=4)||(c&&c<=4)||/[?&]lite/.test(location.search))d.className+=" lite";})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&text=hecktyc&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
       --font: "Monoton", "Audiowide", "Eurostile", "Bank Gothic", "Segoe UI", sans-serif;
-      /* big glow: soft 3D edge + white core + chromatic fringes + halo */
+      /* plain white glow, sized in em so it scales with the small heading */
       --glow:
-        1px 1px 0 rgba(215, 230, 255, 0.85),
-        2px 2px 0 rgba(180, 200, 255, 0.6),
-        3px 3px 0 rgba(150, 170, 245, 0.4),
-        4px 4px 3px rgba(110, 130, 225, 0.25),
-        0 0 6px #fff,
-        0 0 16px rgba(255, 255, 255, 0.95),
-        0 0 34px rgba(255, 255, 255, 0.7),
-        -2px 0 12px rgba(0, 240, 255, 0.55),
-        2px 0 12px rgba(255, 60, 220, 0.5),
-        0 0 70px rgba(150, 130, 255, 0.55),
-        0 0 120px rgba(90, 200, 255, 0.4);
-      /* lighter glow for the clock digits */
-      --glow-soft:
-        0 0 6px #fff,
-        0 0 18px rgba(255, 255, 255, 0.8),
-        -2px 0 12px rgba(0, 240, 255, 0.5),
-        2px 0 12px rgba(255, 60, 220, 0.45),
-        0 0 46px rgba(150, 130, 255, 0.5);
+        1px 1px 0 rgba(255, 255, 255, 0.8),
+        2px 2px 0 rgba(255, 255, 255, 0.5),
+        3px 3px 0 rgba(255, 255, 255, 0.3),
+        0 0 0.08em #fff,
+        0 0 0.25em rgba(255, 255, 255, 0.9),
+        0 0 0.55em rgba(255, 255, 255, 0.6),
+        0 0 1.1em rgba(255, 255, 255, 0.35);
+      --grain: 0.6; /* grain strength: 0 = off, 0.3 = subtle, 0.6 = heavy, 1 = maximum */
     }
 
     * { box-sizing: border-box; }
 
-    html {
-      background: var(--bg);
-      scroll-behavior: smooth;
-    }
-
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       background: var(--bg);
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* ---------- film grain over the whole site ---------- */
-    :root { --grain: 0.75; } /* strength: 0 = off, 0.4 = subtle, 0.75 = heavy, 1 = maximum */
-
+    /* ---------- film grain: black specks, so they only show on the design and its glow ---------- */
     body::after {
       content: "";
       position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
+      top: -10%;
+      left: -10%;
+      width: 120%;
+      height: 120%;
       z-index: 100;
       pointer-events: none;
-      mix-blend-mode: multiply; /* black stays black, so only the design and its glow show grain */
       opacity: var(--grain);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.6' intercept='-.8'/%3E%3CfeFuncG type='linear' slope='2.6' intercept='-.8'/%3E%3CfeFuncB type='linear' slope='2.6' intercept='-.8'/%3E%3C/feComponentTransfer%3E%3CfeComponentTransfer%3E%3CfeFuncR type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3CfeFuncG type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3CfeFuncB type='gamma' amplitude='1' exponent='.4' offset='0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      animation: grain 0.9s steps(1) infinite; /* the grain jumps around, like film */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 3.4 0 0 0 -1.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      animation: grain 0.9s steps(1) infinite;
     }
-
     @keyframes grain {
       0%   { transform: translate(0, 0); }
-      11%  { transform: translate(-5%, 3%); }
-      22%  { transform: translate(4%, -6%); }
-      33%  { transform: translate(-8%, 6%); }
-      44%  { transform: translate(7%, 2%); }
-      55%  { transform: translate(-3%, -8%); }
-      66%  { transform: translate(6%, 7%); }
-      77%  { transform: translate(-7%, -3%); }
-      88%  { transform: translate(2%, 8%); }
+      11%  { transform: translate(-4%, 3%); }
+      22%  { transform: translate(3%, -5%); }
+      33%  { transform: translate(-6%, 5%); }
+      44%  { transform: translate(5%, 2%); }
+      55%  { transform: translate(-2%, -6%); }
+      66%  { transform: translate(4%, 5%); }
+      77%  { transform: translate(-5%, -2%); }
+      88%  { transform: translate(2%, 6%); }
     }
 
-    /* ---------- first screen ---------- */
-    .hero {
-      position: relative;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      min-height: 100svh;
-      padding: env(safe-area-inset-top, 0px) 1rem 0;
+    /* ---------- audio visualiser canvas (behind everything) ---------- */
+    #viz {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ---------- small heading, top centre ---------- */
+    .top {
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 1rem);
+      left: 0;
+      right: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
     }
 
     h1 {
@@ -98,14 +94,13 @@
       perspective: 900px;
       color: var(--fg);
       font-family: var(--font);
-      font-weight: 400; /* Monoton has one weight */
-      font-size: 10vw; /* the script below refines this so the word fills 80% of the width */
+      font-weight: 400;
+      font-size: clamp(2rem, 6vw, 4rem); /* the script below refines this */
       letter-spacing: 0.06em;
       text-transform: lowercase;
       text-shadow: var(--glow);
     }
 
-    /* each letter floats on its own, starting one after another */
     h1 span {
       position: relative;
       display: inline-block;
@@ -114,24 +109,16 @@
       animation-delay: calc(var(--i) * 0.35s);
     }
 
-    /* iridescent layer: a blurred copy of the letter behind it, with drifting colours */
+    /* plain white haze: a blurred copy of each letter behind it */
     h1 span::before {
       content: attr(data-l);
       position: absolute;
       inset: 0;
       z-index: -1;
-      color: transparent;
-      background: linear-gradient(100deg,
-        #5ef2ff, #a78bff, #ff7ad9, #ffe27a, #7affc2, #5ef2ff);
-      background-size: 300% 100%;
-      background-position: calc(var(--i) * 40%) 50%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      filter: blur(14px) saturate(1.3);
-      opacity: 0.75;
+      color: #fff;
+      filter: blur(0.12em);
+      opacity: 0.8;
       text-shadow: none;
-      animation: drift 9s linear infinite;
-      animation-delay: calc(var(--i) * -1.2s);
     }
 
     @keyframes bubble {
@@ -152,57 +139,15 @@
       }
     }
 
-    @keyframes drift {
-      from { background-position: 0% 50%; }
-      to   { background-position: 300% 50%; }
-    }
-
-    /* ---------- scroll hint ---------- */
-    .scroll-hint {
-      position: absolute;
-      left: 50%;
-      bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
-      display: grid;
-      place-items: center;
-      width: 2.75rem;
-      height: 2.75rem;
-      margin-left: -1.375rem;
-      color: var(--fg);
-      border-radius: 50%;
-      transition: opacity 0.2s linear;
-    }
-
-    .scroll-hint svg {
-      width: 1.25rem;
-      height: 1.25rem;
-      filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px rgba(150, 130, 255, 0.8));
-      animation: nudge 2.2s ease-in-out infinite;
-    }
-
-    .scroll-hint:focus-visible {
-      outline: 2px solid var(--fg);
-      outline-offset: 2px;
-    }
-
-    @keyframes nudge {
-      0%, 100% { transform: translateY(-3px); opacity: 0.6; }
-      50%      { transform: translateY(5px);  opacity: 1; }
-    }
-
-    /* ---------- second screen: eye clock ---------- */
-    .below {
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      min-height: 100svh;
-      padding: 1rem;
-      overflow: hidden;
-    }
-
+    /* ---------- the eye, centred on the front page ---------- */
     .stage {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
       display: grid;
       place-items: center;
       perspective: 1500px;
+      pointer-events: none;
     }
 
     .reveal {
@@ -210,182 +155,155 @@
       transform: scale(0.85);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-
-    .reveal.on {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.on { opacity: 1; transform: none; }
 
     .clock {
       position: relative;
-      width: min(90vw, 510px);
+      width: min(90vw, 510px, 78vh);
       aspect-ratio: 1;
       transform-style: preserve-3d;
       will-change: transform;
     }
 
-    .dial {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 18px rgba(150, 130, 255, 0.7));
-    }
-
-    .face {
-      position: absolute;
-      inset: 6%;
-      border-radius: 50%;
-      background: radial-gradient(circle at 50% 45%,
-        rgba(150, 130, 255, 0.30), rgba(90, 200, 255, 0.10) 55%, rgba(0, 0, 0, 0) 74%);
-    }
-
-    /* soft dark shadow sitting between the dial and the eye; the gap creates depth when it tilts */
-    .eye-shadow {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      transform: translateZ(45px);
-      background: radial-gradient(ellipse 40% 26% at 50% 56%,
-        rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.75) 55%, rgba(0, 0, 0, 0) 100%);
-    }
-
-    .ring-bg { fill: none; stroke: rgba(255, 255, 255, 0.85); stroke-width: 3; }
-    .ticks line { stroke: rgba(255, 255, 255, 0.6); stroke-width: 2; stroke-linecap: round; }
-
-    /* the eye floats above the dial, so tilting shows depth */
     .eye-svg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       overflow: visible;
-      transform: translateZ(90px);
+      transform: translateZ(90px); /* floats in front, so tilting shows depth */
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(150, 130, 255, 0.7));
     }
     .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
     .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
-    .eye {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: blink 5s ease-in-out infinite;
+
+    /* ---------- audio controls, bottom centre ---------- */
+    .controls {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0 1rem;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    @keyframes blink {
-      0%, 90%, 100% { transform: scaleY(1); }
-      94%           { transform: scaleY(0.08); }
+    .buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+    .controls button {
+      padding: 0.45rem 0.95rem;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
     }
+    .controls button:hover { border-color: #fff; }
+    .controls button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .controls button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .controls [hidden] { display: none; }
+    #status { min-height: 1.2em; max-width: 34rem; color: rgba(255, 255, 255, 0.7); font-size: 0.78rem; text-align: center; }
+    #player { max-width: 90vw; height: 32px; }
+
+    /* lite mode: no moving grain, no haze behind the letters */
+    .lite body::after { animation: none; }
+    .lite h1 span::before { display: none; }
+
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      body::after { animation: none; }
-      h1 span, h1 span::before, .scroll-hint svg, .eye { animation: none; }
+      h1 span { animation: none; }
       .reveal { transition: none; }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
+  <canvas id="viz" aria-hidden="true"></canvas>
 
-    <a class="scroll-hint" href="#below" aria-label="Scroll down">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 9l7 7 7-7"/>
-      </svg>
-    </a>
+  <header class="top">
+    <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
   </header>
 
-  <main id="below" class="below">
-    <div class="stage">
-      <div class="reveal">
-        <div class="clock" id="clock" role="img" aria-label="An eye that follows your cursor">
-          <div class="face" aria-hidden="true"></div>
-          <svg class="dial" viewBox="0 0 200 200" aria-hidden="true">
-            <circle class="ring-bg" cx="100" cy="100" r="88"/>
-            <g class="ticks"></g>
-          </svg>
-          <div class="eye-shadow" aria-hidden="true"></div>
-          <svg class="eye-svg" viewBox="0 0 200 200" aria-hidden="true">
-            <defs>
-              <clipPath id="lid"><path d="M36 100Q100 40 164 100Q100 160 36 100Z"/></clipPath>
-              <linearGradient id="irisGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ff5a4d"/>
-                <stop offset="0.5" stop-color="#e00019"/>
-                <stop offset="1" stop-color="#7a000f"/>
-              </linearGradient>
-            </defs>
-            <g class="eye">
-              <path d="M36 100Q100 40 164 100Q100 160 36 100Z" fill="#05050c"/>
-              <g clip-path="url(#lid)">
-                <g class="iris">
-                  <circle cx="100" cy="100" r="25" fill="url(#irisGrad)"/>
-                  <circle cx="100" cy="100" r="11" fill="#000"/>
-                  <circle cx="108" cy="92" r="4" fill="#fff"/>
-                </g>
-              </g>
-              <path class="lid-line" d="M36 100Q100 40 164 100Q100 160 36 100Z"/>
-              <g class="lashes">
-                <polygon class="lash" points="51.9,86.9 58.5,82.5 44.2,68"/>
-                <polygon class="lash" points="96,70 104,70 100,44"/>
-                <polygon class="lash" points="141.5,82.5 148.1,86.9 155.8,68"/>
-                <polygon class="lash" points="51.9,113.1 58.5,117.5 44.2,132"/>
-                <polygon class="lash" points="96,130 104,130 100,156"/>
-                <polygon class="lash" points="141.5,117.5 148.1,113.1 155.8,132"/>
-                <polygon class="lash" points="40,95.5 40,104.5 18,100"/>
-                <polygon class="lash" points="160,95.5 160,104.5 182,100"/>
+  <main class="stage">
+    <div class="reveal">
+      <div class="clock" id="clock" role="img" aria-label="An eye that follows your cursor">
+        <svg class="eye-svg" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <clipPath id="lid"><path class="lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z"/></clipPath>
+            <linearGradient id="irisGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff5a4d"/>
+              <stop offset="0.5" stop-color="#e00019"/>
+              <stop offset="1" stop-color="#7a000f"/>
+            </linearGradient>
+          </defs>
+          <g class="eye">
+            <path class="lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z" fill="#05050c"/>
+            <g clip-path="url(#lid)">
+              <g class="iris">
+                <circle cx="100" cy="100" r="25" fill="url(#irisGrad)"/>
+                <circle cx="100" cy="100" r="11" fill="#000"/>
+                <circle cx="108" cy="92" r="4" fill="#fff"/>
               </g>
             </g>
-          </svg>
-        </div>
+            <path class="lid-line lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z"/>
+            <g class="lashes">
+              <polygon class="lash" points="51.9,86.9 58.5,82.5 44.2,68"/>
+              <polygon class="lash" points="96,70 104,70 100,44"/>
+              <polygon class="lash" points="141.5,82.5 148.1,86.9 155.8,68"/>
+              <polygon class="lash" points="51.9,113.1 58.5,117.5 44.2,132"/>
+              <polygon class="lash" points="96,130 104,130 100,156"/>
+              <polygon class="lash" points="141.5,117.5 148.1,113.1 155.8,132"/>
+              <polygon class="lash" points="40,95.5 40,104.5 18,100"/>
+              <polygon class="lash" points="160,95.5 160,104.5 182,100"/>
+            </g>
+          </g>
+        </svg>
       </div>
     </div>
   </main>
 
+  <div class="controls">
+    <div class="buttons">
+      <button type="button" id="btnTab">Tab / system audio</button>
+      <button type="button" id="btnMic">Microphone</button>
+      <button type="button" id="btnFile">Audio file</button>
+      <button type="button" id="btnStop" hidden>Stop</button>
+    </div>
+    <input type="file" id="fileIn" accept="audio/*" hidden>
+    <audio id="player" controls hidden></audio>
+    <div id="status" role="status" aria-live="polite">Pick a sound source to wake the triangles.</div>
+  </div>
+
   <script>
+    /* the eye: follows the cursor, blinks with lids that close over a round iris */
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var arrow = document.querySelector('.scroll-hint');
-      var section = document.getElementById('below');
       var reveal = document.querySelector('.reveal');
       var clock = document.getElementById('clock');
       var iris = clock.querySelector('.iris');
-      var ticks = clock.querySelector('.ticks');
+      var lids = clock.querySelectorAll('.lid-d');
+      var lashes = clock.querySelector('.lashes');
 
-      var NS = 'http://www.w3.org/2000/svg';
-
-      // tick marks every 30 degrees, longer at 12 and 6
-      for (var i = 0; i < 12; i++) {
-        if (i === 3 || i === 9) continue; // the eye's corner lashes sit here
-        var l = document.createElementNS(NS, 'line');
-        l.setAttribute('x1', 100);
-        l.setAttribute('x2', 100);
-        l.setAttribute('y1', 24);
-        l.setAttribute('y2', i % 3 === 0 ? 36 : 30);
-        l.setAttribute('transform', 'rotate(' + (i * 30) + ' 100 100)');
-        ticks.appendChild(l);
-      }
-
-      // arrow fades out once you start scrolling
-      function updateArrow() {
-        var o = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.35));
-        arrow.style.opacity = o;
-        arrow.style.visibility = o <= 0 ? 'hidden' : 'visible';
-      }
-      window.addEventListener('scroll', updateArrow, { passive: true });
-      updateArrow();
-
-      // cursor position, from -1 (left/top) to 1 (right/bottom)
-      var tx = 0, ty = 0, cx = 0, cy = 0;
+      var tx = 0, ty = 0, cx = 0, cy = 0; // cursor, from -1 to 1
       window.addEventListener('pointermove', function (e) {
         tx = (e.clientX / window.innerWidth - 0.5) * 2;
         ty = (e.clientY / window.innerHeight - 0.5) * 2;
       }, { passive: true });
 
-      var running = false, raf = 0;
+      function setLid(o) { // o = how open the lids are (1 = open); iris and pupil never change size
+        var h = 60 * o;
+        var d = 'M36 100Q100 ' + (100 - h) + ' 164 100Q100 ' + (100 + h) + ' 36 100Z';
+        for (var k = 0; k < lids.length; k++) lids[k].setAttribute('d', d);
+        lashes.setAttribute('transform', 'translate(0 100) scale(1 ' + o + ') translate(0 -100)');
+      }
 
-      // the whole clock tilts toward the cursor, and the iris looks at it
-      function loop() {
-        if (!running) return;
-        if (!reduce) {
+      var BLINK_MS = 240, blinkStart = -1, nextBlink = performance.now() + 2500;
+      function loop(now) {
+        requestAnimationFrame(loop);
+        if (reduce) return;
+        if (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005) { // only touch the page when moving
           cx += (tx - cx) * 0.08;
           cy += (ty - cy) * 0.08;
           clock.style.transform =
@@ -393,95 +311,251 @@
             'rotateX(' + (-cy * 24) + 'deg) rotateY(' + (cx * 24) + 'deg)';
           iris.setAttribute('transform', 'translate(' + (cx * 16) + ' ' + (cy * 7) + ')');
         }
-        raf = requestAnimationFrame(loop);
+        if (blinkStart < 0 && now >= nextBlink) blinkStart = now;
+        if (blinkStart >= 0) {
+          var t = (now - blinkStart) / BLINK_MS;
+          if (t >= 1) { setLid(1); blinkStart = -1; nextBlink = now + 3000 + Math.random() * 3500; }
+          else setLid(1 - 0.93 * Math.sin(Math.PI * t));
+        }
       }
-
-      function start() {
-        running = true;
-        reveal.classList.add('on');
-        raf = requestAnimationFrame(loop);
-      }
-
-      function stop() {
-        running = false;
-        cancelAnimationFrame(raf);
-        reveal.classList.remove('on');
-      }
-
-      // the clock appears when the second screen is mostly in view
-      new IntersectionObserver(function (entries) {
-        var r = entries[0].intersectionRatio;
-        if (r >= 0.5 && !running) start();
-        else if (r < 0.1 && running) stop();
-      }, { threshold: [0, 0.1, 0.5] }).observe(section);
+      reveal.classList.add('on');
+      requestAnimationFrame(loop);
     })();
   </script>
+
   <script>
-    /* keeps the heading 80% of the window wide in every font, and swaps the font every 0.1 s */
+    /* keeps the heading small (about 280 px wide) in every font, and swaps the font every 0.1 s */
     (function () {
-      var SHARE = 0.8;      // fraction of the window width the word fills
-      var INTERVAL = 100;   // milliseconds between font changes
+      var root = document.documentElement;
+      var lite = root.className.indexOf('lite') > -1;
+      var INTERVAL = lite ? 160 : 100; // milliseconds between font changes
       var h1 = document.querySelector('h1');
-      var hero = document.querySelector('.hero');
       var letters = h1.querySelectorAll('span');
-      var size = parseFloat(getComputedStyle(h1).fontSize) || 100;
-
-      // every font has different letter widths, so measure the word and rescale the font size
-      function fit() {
-        var w = 0;
-        for (var k = 0; k < letters.length; k++) w += letters[k].offsetWidth;
-        if (!w) return;
-        size = size * (SHARE * document.documentElement.clientWidth) / w;
-        h1.style.fontSize = size + 'px';
-      }
-      window.addEventListener('resize', fit);
-      fit();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       var fonts = [
-        ['Michroma', 400],
-        ['Syncopate', 700],
-        ['Orbitron', 800],
-        ['Audiowide', 400],
-        ['Righteous', 400],
-        ['Zen Dots', 400],
-        ['Bungee', 400],
-        ['Alfa Slab One', 400],
-        ['Abril Fatface', 400],
-        ['Playfair Display', 900],
-        ['Cinzel', 800],
-        ['UnifrakturCook', 700],
-        ['Pacifico', 400],
-        ['Permanent Marker', 400],
-        ['Rubik Glitch', 400],
-        ['Wallpoet', 400],
-        ['Bruno Ace', 400],
-        ['Chakra Petch', 700],
-        ['Tektur', 800],
-        ['Oxanium', 800],
-        ['Monoton', 400]
+        ['Michroma', 400], ['Syncopate', 700], ['Orbitron', 800], ['Audiowide', 400],
+        ['Righteous', 400], ['Zen Dots', 400], ['Bungee', 400], ['Alfa Slab One', 400],
+        ['Abril Fatface', 400], ['Playfair Display', 900], ['Cinzel', 800], ['UnifrakturCook', 700],
+        ['Pacifico', 400], ['Permanent Marker', 400], ['Rubik Glitch', 400], ['Wallpoet', 400],
+        ['Bruno Ace', 400], ['Chakra Petch', 700], ['Tektur', 800], ['Oxanium', 800],
+        ['Monoton', 400] // the CSS default, last, so the first change is smooth
       ];
-      var i = fonts.length - 1, timer = null, visible = true; // Monoton (the CSS default) is last, so the first change is smooth
+      var i = fonts.length - 1, timer = null;
+      var size = parseFloat(getComputedStyle(h1).fontSize) || 60;
+      var ratios = null; // word width per 1px of font size, for each font (measured once)
 
-      function tick() {
-        i = (i + 1) % fonts.length;
-        h1.style.fontFamily = '"' + fonts[i][0] + '", "Segoe UI", sans-serif';
-        h1.style.fontWeight = fonts[i][1];
+      function share() { return Math.min(0.55, Math.max(0.14, 280 / root.clientWidth)); } // 280 px, but at least 14% and at most 55% of the width
+      function applyFont(k) {
+        h1.style.fontFamily = '"' + fonts[k][0] + '", "Segoe UI", sans-serif';
+        h1.style.fontWeight = fonts[k][1];
+      }
+      function sumWidths() {
+        var w = 0;
+        for (var k = 0; k < letters.length; k++) w += letters[k].offsetWidth;
+        return w;
+      }
+      function fit() {
+        if (ratios) size = share() * root.clientWidth / ratios[i];
+        else { var w = sumWidths(); if (!w) return; size = size * (share() * root.clientWidth) / w; }
+        h1.style.fontSize = size + 'px';
+      }
+      function measureAll() {
+        h1.style.fontSize = '100px';
+        var r = [];
+        for (var k = 0; k < fonts.length; k++) { applyFont(k); r.push(sumWidths() / 100); }
+        ratios = r;
+        applyFont(i);
         fit();
       }
-      function run() { if (!timer && visible && !document.hidden) timer = setInterval(tick, INTERVAL); }
+
+      window.addEventListener('resize', fit);
+      fit();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!ratios) fit(); });
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      function tick() { i = (i + 1) % fonts.length; applyFont(i); fit(); }
+      function run() { if (!timer && !document.hidden) timer = setInterval(tick, INTERVAL); }
       function halt() { clearInterval(timer); timer = null; }
+      function go() { measureAll(); run(); }
 
-      // pause when the tab is hidden or the heading is scrolled out of view
       document.addEventListener('visibilitychange', function () { if (document.hidden) halt(); else run(); });
-      new IntersectionObserver(function (e) { visible = e[0].isIntersecting; if (visible) run(); else halt(); }).observe(hero);
-
       // start only once every font has loaded, so you never see fallback fonts flash by
       Promise.all(fonts.map(function (f) {
         return document.fonts.load(f[1] + ' 1em "' + f[0] + '"', 'hecktyc');
-      })).then(run, run);
+      })).then(go, go);
+    })();
+  </script>
+
+  <script>
+    /* audio visualiser: two triangles that send waves outward on every bass hit */
+    (function () {
+      var lite = document.documentElement.className.indexOf('lite') > -1;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var viz = document.getElementById('viz');
+      var g = viz.getContext('2d');
+      var W = 0, H = 0, S = 20, active = false;
+
+      function resize() {
+        var dpr = Math.min(window.devicePixelRatio || 1, lite ? 1 : 1.5);
+        W = window.innerWidth; H = window.innerHeight;
+        viz.width = W * dpr; viz.height = H * dpr;
+        g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        S = Math.max(18, Math.min(W, H) * 0.06);
+        if (!active) idle();
+      }
+
+      // an equilateral triangle centred on (x, y), pointing inward (dir 1 = right, -1 = left), scaled by k
+      function tri(x, y, dir, k) {
+        var a = S * 1.8 * k, h = a * 0.866;
+        g.beginPath();
+        g.moveTo(x + dir * 2 * h / 3, y);
+        g.lineTo(x - dir * h / 3, y - a / 2);
+        g.lineTo(x - dir * h / 3, y + a / 2);
+        g.closePath();
+      }
+      function both(k, fn) { fn(S * 1.5, H / 2, 1, k); fn(W - S * 1.5, H / 2, -1, k); }
+
+      function drawTriangles(level, dim) {
+        var k = 1 + level * 0.25;
+        g.fillStyle = 'rgba(255,255,255,' + (0.1 + level * 0.55) + ')';
+        g.strokeStyle = 'rgba(255,255,255,' + (dim ? 0.45 : 0.95) + ')';
+        g.lineWidth = 2;
+        both(k, function (x, y, d, kk) { tri(x, y, d, kk); g.fill(); g.stroke(); });
+      }
+      function idle() { g.clearRect(0, 0, W, H); drawTriangles(0, true); }
+
+      // ---------- audio plumbing ----------
+      var ac = null, analyser = null, data = null, node = null, fileNode = null, stream = null, raf = 0, fileUrl = '';
+      var player = document.getElementById('player');
+      var statusEl = document.getElementById('status');
+      var btnStop = document.getElementById('btnStop');
+      function say(t) { statusEl.textContent = t; }
+
+      function ensureAudio() {
+        if (!ac) {
+          var AC = window.AudioContext || window.webkitAudioContext;
+          ac = new AC();
+          analyser = ac.createAnalyser();
+          analyser.fftSize = 2048;
+          analyser.smoothingTimeConstant = 0.55;
+          data = new Uint8Array(analyser.frequencyBinCount);
+        }
+        if (ac.state === 'suspended') ac.resume();
+      }
+      function disconnect() {
+        try { if (node) node.disconnect(); } catch (e) {}
+        try { if (fileNode) fileNode.disconnect(); } catch (e) {}
+        try { analyser.disconnect(); } catch (e) {}
+        node = null;
+        if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
+        player.pause(); player.hidden = true;
+      }
+      function begin(msg) {
+        active = true; btnStop.hidden = false; say(msg);
+        waves.length = 0; level = 0; avg = 0;
+        if (!raf) raf = requestAnimationFrame(frame);
+      }
+      function end(msg) {
+        disconnect();
+        active = false; btnStop.hidden = true; say(msg || 'Stopped.');
+        cancelAnimationFrame(raf); raf = 0;
+        idle();
+      }
+      function useStream(st, tracks, msg) {
+        disconnect();
+        stream = st;
+        node = ac.createMediaStreamSource(new MediaStream(tracks));
+        node.connect(analyser); // not connected to the speakers, so you never hear an echo
+        tracks[0].addEventListener('ended', function () { if (stream === st) end('The audio source stopped.'); });
+        begin(msg);
+      }
+
+      var noFx = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+
+      document.getElementById('btnTab').addEventListener('click', async function () {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) { say('This browser cannot share tab audio. Try Chrome or Edge, or use the microphone or an audio file.'); return; }
+        try {
+          ensureAudio();
+          var st = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: noFx });
+          var tracks = st.getAudioTracks();
+          if (!tracks.length) {
+            st.getTracks().forEach(function (t) { t.stop(); });
+            say('No audio was shared. In the share window choose a Chrome tab (or the entire screen on Windows) and tick "Share audio".');
+            return;
+          }
+          st.getVideoTracks().forEach(function (t) { t.stop(); }); // only the sound is needed
+          useStream(st, tracks, 'Listening to the shared audio.');
+        } catch (e) { say('Sharing was cancelled or blocked.'); }
+      });
+
+      document.getElementById('btnMic').addEventListener('click', async function () {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { say('Microphone access is not available here.'); return; }
+        try {
+          ensureAudio();
+          var st = await navigator.mediaDevices.getUserMedia({ audio: noFx });
+          useStream(st, st.getAudioTracks(), 'Listening to the microphone.');
+        } catch (e) { say('Microphone access was denied or is not available.'); }
+      });
+
+      var fileIn = document.getElementById('fileIn');
+      document.getElementById('btnFile').addEventListener('click', function () { fileIn.click(); });
+      fileIn.addEventListener('change', function () {
+        var f = fileIn.files && fileIn.files[0];
+        if (!f) return;
+        ensureAudio();
+        disconnect();
+        if (fileUrl) URL.revokeObjectURL(fileUrl);
+        fileUrl = URL.createObjectURL(f);
+        player.src = fileUrl;
+        if (!fileNode) fileNode = ac.createMediaElementSource(player);
+        fileNode.connect(analyser);
+        analyser.connect(ac.destination); // the file is played through your speakers
+        player.hidden = false;
+        player.play().catch(function () {});
+        begin('Playing ' + f.name);
+        fileIn.value = '';
+      });
+      btnStop.addEventListener('click', function () { end('Stopped.'); });
+
+      // ---------- bass detection and drawing ----------
+      var level = 0, avg = 0, lastBeat = 0, waves = [], LIFE = 1100;
+
+      function frame(now) {
+        raf = requestAnimationFrame(frame);
+        analyser.getByteFrequencyData(data);
+        var hz = ac.sampleRate / analyser.fftSize;
+        var lo = Math.max(1, Math.round(25 / hz)), hi = Math.max(lo + 1, Math.round(150 / hz)); // about 25-150 Hz
+        var sum = 0;
+        for (var k = lo; k <= hi; k++) sum += data[k];
+        var bass = sum / (hi - lo + 1) / 255;
+
+        level += (bass - level) * (bass > level ? 0.6 : 0.12);
+        avg += (bass - avg) * 0.04;
+        if (!reduce && bass > avg * 1.15 + 0.03 && bass > 0.3 && now - lastBeat > 170) {
+          lastBeat = now;
+          waves.push({ t: now, p: Math.min(1, 0.45 + (bass - avg) * 3) });
+          if (waves.length > 14) waves.shift();
+        }
+
+        g.clearRect(0, 0, W, H);
+        for (var n = waves.length - 1; n >= 0; n--) {
+          var w = waves[n], age = (now - w.t) / LIFE;
+          if (age >= 1) { waves.splice(n, 1); continue; }
+          var kk = 1 + age * (3 + w.p * 5), a = (1 - age) * w.p;
+          if (!lite) { // soft outer glow
+            g.strokeStyle = 'rgba(255,255,255,' + (a * 0.25) + ')';
+            g.lineWidth = 7 * (1 - age) + 2;
+            both(kk, function (x, y, d, k2) { tri(x, y, d, k2); g.stroke(); });
+          }
+          g.strokeStyle = 'rgba(255,255,255,' + (a * 0.9) + ')';
+          g.lineWidth = 2.5 * (1 - age) + 0.6;
+          both(kk, function (x, y, d, k2) { tri(x, y, d, k2); g.stroke(); });
+        }
+        drawTriangles(level, false);
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
     })();
   </script>
 </body>
