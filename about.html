@@ -34,7 +34,9 @@
     .wrap {
       position: relative;
       z-index: 5;
-      max-width: 68rem;
+      max-width: 76rem;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
 
     .hud-ticker {
@@ -48,44 +50,101 @@
       width: 100%;
       border-bottom: 1px solid rgba(255, 0, 68, 0.4);
       padding-bottom: 3px;
-      margin-bottom: 6px;
+      margin-bottom: 1.2rem;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    .hud-box {
+    /* Make intro bigger and give it a prominent backdrop */
+    .intro-poem {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(8, 0, 4, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 0, 60, 0.6);
+      border-left: 4px solid #ff0033;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      white-space: pre-line;
+      box-shadow: 0 0 50px rgba(255, 0, 50, 0.25), inset 0 0 25px rgba(255, 0, 50, 0.1);
       position: relative;
-      border: 1px solid rgba(255, 0, 50, 0.7);
-      background: rgba(6, 0, 4, 0.9);
-      backdrop-filter: blur(6px);
-      padding: 1.5rem 1rem;
-      margin-top: 0.8rem;
-      box-shadow: 0 0 40px rgba(255, 0, 40, 0.3), inset 0 0 20px rgba(255, 0, 50, 0.15);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      text-align: left;
+      text-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
     }
-    .hud-box::before {
-      content: "MAGI-01 // SYSTEM EMERGENCY // OVERRIDE 0xFF88A";
+    .intro-poem span.flicker {
+      animation: textFlicker 3s infinite steps(1);
+    }
+    @keyframes textFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.82; text-shadow: 1px 0 #00ffff, -1px 0 #ff0055; }
+      52% { opacity: 0.95; }
+      54% { opacity: 0.4; transform: skewX(-5deg); }
+      56% { opacity: 1; transform: none; }
+    }
+
+    /* Remove background colors (transparent backgrounds with borders) & layout with bio identifier on the left */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .bio-box-left {
+      border: 1px solid rgba(255, 0, 50, 0.6);
+      background: transparent;
+      padding: 1.2rem;
+      box-shadow: 0 0 30px rgba(255, 0, 40, 0.15);
+      position: relative;
+    }
+    .bio-box-left::before {
+      content: "PRIMARY NODE // BIO IDENT";
       position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: -10px;
+      left: 15px;
       background: #ff0033;
       color: #000;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       font-weight: bold;
-      padding: 1px 10px;
-      letter-spacing: 0.22em;
-      white-space: nowrap;
+      padding: 1px 8px;
+      letter-spacing: 0.2em;
+    }
+    .bio-box-left h2 {
+      font-size: 0.85rem;
+      color: #ff3300;
+      border-bottom: 1px solid #ff3300;
+      padding-bottom: 4px;
+      margin-top: 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .bio-box-left p {
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      color: #ff0055;
+      margin: 1rem 0;
+      text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+    }
+
+    .hud-box-right {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
     }
 
     .hud-col {
-      border: 1px dashed rgba(255, 0, 50, 0.35);
-      padding: 0.7rem;
-      background: rgba(18, 0, 8, 0.5);
+      border: 1px dashed rgba(255, 0, 50, 0.4);
+      background: transparent;
+      padding: 1rem;
     }
     .hud-col h2 {
       font-size: 0.8rem;
@@ -101,7 +160,6 @@
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.85);
       text-align: left;
-      max-width: 100%;
       margin: 0.4rem 0;
     }
 
@@ -110,7 +168,7 @@
       font-family: 'VT323', monospace;
       font-size: 0.9rem;
       color: #00ff66;
-      background: rgba(0, 10, 3, 0.85);
+      background: transparent;
       border: 1px solid rgba(0, 255, 102, 0.4);
       padding: 8px;
       margin-top: 8px;
@@ -141,36 +199,11 @@
       text-shadow: 0 0 6px rgba(0, 225, 255, 0.6);
     }
 
-    /* Intro text styling with subtle glitch/readable effect */
-    .intro-poem {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.9);
-      background: rgba(10, 0, 8, 0.8);
-      border-left: 2px solid #ff0033;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      white-space: pre-line;
-      text-shadow: 0 0 8px rgba(255, 0, 50, 0.3);
-      position: relative;
-    }
-    .intro-poem span.flicker {
-      animation: textFlicker 3s infinite steps(1);
-    }
-    @keyframes textFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.82; text-shadow: 1px 0 #00ffff, -1px 0 #ff0055; }
-      52% { opacity: 0.95; }
-      54% { opacity: 0.4; transform: skewX(-5deg); }
-      56% { opacity: 1; transform: none; }
-    }
-
     .data-stream {
       font-family: 'VT323', monospace;
       font-size: 0.8rem;
       color: #00ff66;
-      background: rgba(0, 15, 5, 0.8);
+      background: transparent;
       padding: 5px;
       border: 1px solid rgba(0, 255, 102, 0.35);
       height: 65px;
@@ -185,12 +218,12 @@
       gap: 3px;
       font-size: 0.58rem;
       color: #00e1ff;
-      margin-top: 5px;
+      margin-top: 8px;
     }
     .telemetry-cell {
-      background: rgba(0, 225, 255, 0.08);
+      background: transparent;
       border: 1px solid rgba(0, 225, 255, 0.25);
-      padding: 2px;
+      padding: 3px;
       text-align: center;
     }
 
@@ -205,22 +238,6 @@
       user-select: none;
       line-height: 1;
     }
-
-    .glitch-title {
-      font-family: 'Rajdhani', sans-serif;
-      text-shadow: 2px 0 #ff0055, -2px 0 #00ffff;
-      animation: titleGlitch 2s infinite linear alternate-reverse;
-      margin-bottom: 0.1rem;
-    }
-
-    @keyframes titleGlitch {
-      0% { text-shadow: 2px 0 #ff0055, -2px 0 #00ffff; }
-      15% { text-shadow: -2px 0 #ff0055, 2px 0 #00ffff; }
-      16% { text-shadow: 6px 0 #ff0055, -6px 0 #00ffff; }
-      17% { text-shadow: 0 0 transparent; }
-      18% { text-shadow: 2px 0 #ff0055, -2px 0 #00ffff; }
-      100% { text-shadow: 1px 0 #ff0055, -1px 0 #00ffff; }
-    }
   </style>
 </head>
 <body>
@@ -228,9 +245,8 @@
 
   <main class="wrap">
     <a class="back" href="index.html#hub">&larr; back to the hub</a>
-    <h1 class="glitch-title">about me</h1>
 
-    <div class="hud-ticker">
+    <div class="hud-ticker" style="margin-top: 1rem;">
       <span>SYS: ACTIVE_OVERRIDE</span>
       <span>SYNC: <span class="glitch-num" id="t-sync">400.00%</span></span>
       <span>AT_FIELD: <span class="glitch-num cyan" id="t-at">99.9%</span></span>
@@ -239,7 +255,7 @@
       <span>GEOFRONT: SECURE</span>
     </div>
 
-    <!-- Requested Introduction Text with subtle glitch/flicker effect, keeping it fully readable -->
+    <!-- Introduction Text with backdrop & bigger font -->
     <div class="intro-poem">
 <span class="flicker">I can hear gas flowing through the pipes</span>
 the blood in my veins hum with each pump of my corroded heart
@@ -251,44 +267,44 @@ i see the wind, the particles it blows form such abstract forms
 <span class="flicker">i see your presence, the trace of your being</span>
     </div>
 
-    <div class="hud-box">
-      <div class="hud-col">
+    <div class="content-grid">
+      <!-- Bio identifier on the left with requested text -->
+      <div class="bio-box-left">
         <h2>[01] BIO // IDENTIFIER</h2>
-        <p>IDENT: HECKTYC // MULTIMEDIA ARCHITECT & CREATIVE CODER. SPECIALIZING IN IMMERSIVE DIGITAL ENVIRONMENTS, AUDIO-VISUAL SYNTHESIS, AND CYBERNETIC WEB INTERFACES.</p>
+        <p>identity: ?????</p>
+        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.7); font-weight: normal; letter-spacing: normal;">MULTIMEDIA ARCHITECT & CREATIVE CODER. SPECIALIZING IN IMMERSIVE DIGITAL ENVIRONMENTS, AUDIO-VISUAL SYNTHESIS, AND CYBERNETIC WEB INTERFACES.</p>
         <div class="telemetry-grid">
-          <div class="telemetry-cell">CPU: <span class="glitch-num cyan" id="d-cpu">5.20</span>GHz</div>
-          <div class="telemetry-cell">RAM: 32GB</div>
+          <div class="telemetry-cell">CPU: <span class="glitch-num cyan" id="d-cpu">5.20</span>G</div>
+          <div class="telemetry-cell">RAM: 32G</div>
           <div class="telemetry-cell">GPU: <span class="glitch-num" id="d-gpu">99</span>%</div>
           <div class="telemetry-cell">PING: 0ms</div>
-          <div class="telemetry-cell">TEMP: <span class="glitch-num amber" id="d-tmp">78</span>C</div>
-          <div class="telemetry-cell">VOLT: 1.35V</div>
-          <div class="telemetry-cell">BUS: PCIe4</div>
-          <div class="telemetry-cell">FPS: 120</div>
         </div>
       </div>
 
-      <div class="hud-col">
-        <h2>[02] MAGI-01 TELEMETRY</h2>
-        <p>BALTHASAR-2 // MELCHIOR-1 // CASPAR-3. BATCH NUMBERS LOGGED VIA CMD WINDOW BUFFER BELOW:</p>
-        <!-- CMD Window batch number batches -->
-        <div class="cmd-batch-box" id="cmd-batch-display">
-          C:\MAGI\BATCH> LOAD_BATCH_01<br>
-          > SYNC_VEC: [<span class="glitch-num">0x4F9</span>, <span class="glitch-num amber">0x11B</span>, <span class="glitch-num cyan">0x992</span>]<br>
-          > THRESHOLD: <span class="glitch-num">777.408</span> // STATUS: NOMINAL
+      <!-- Right side HUD columns -->
+      <div class="hud-box-right">
+        <div class="hud-col">
+          <h2>[02] MAGI-01 TELEMETRY</h2>
+          <p>BALTHASAR-2 // MELCHIOR-1 // CASPAR-3. BATCH NUMBERS LOGGED VIA CMD WINDOW BUFFER BELOW:</p>
+          <div class="cmd-batch-box" id="cmd-batch-display">
+            C:\MAGI\BATCH> LOAD_BATCH_01<br>
+            > SYNC_VEC: [<span class="glitch-num">0x4F9</span>, <span class="glitch-num amber">0x11B</span>, <span class="glitch-num cyan">0x992</span>]<br>
+            > THRESHOLD: <span class="glitch-num">777.408</span> // STATUS: NOMINAL
+          </div>
         </div>
-      </div>
 
-      <div class="hud-col">
-        <h2>[03] DIAGNOSTIC LOG</h2>
-        <p>HIGH-DENSITY DATA OVERLOAD ENGAGED. RECURSIVE ENCRYPTION STACKS ACTIVE ACROSS ALL SYSTEM BUSES.</p>
-        <div class="telemetry-grid">
-          <div class="telemetry-cell">CODE: <span class="glitch-num amber">777</span></div>
-          <div class="telemetry-cell">LMT: OFF</div>
-          <div class="telemetry-cell">ERR: 0.00</div>
-          <div class="telemetry-cell">SEC: 1</div>
-        </div>
-        <div class="data-stream" style="height:35px; font-size:0.7rem; color:#00e1ff; margin-top:5px;">
-          GEOFRONT_SECTOR_04 // 127.0.0.1 // 0xFFE0
+        <div class="hud-col">
+          <h2>[03] DIAGNOSTIC LOG</h2>
+          <p>HIGH-DENSITY DATA OVERLOAD ENGAGED. RECURSIVE ENCRYPTION STACKS ACTIVE ACROSS ALL SYSTEM BUSES.</p>
+          <div class="telemetry-grid">
+            <div class="telemetry-cell">CODE: <span class="glitch-num amber">777</span></div>
+            <div class="telemetry-cell">LMT: OFF</div>
+            <div class="telemetry-cell">ERR: 0.00</div>
+            <div class="telemetry-cell">SEC: 1</div>
+          </div>
+          <div class="data-stream" style="height:35px; font-size:0.7rem; color:#00e1ff; margin-top:8px;">
+            GEOFRONT_SECTOR_04 // 127.0.0.1 // 0xFFE0
+          </div>
         </div>
       </div>
     </div>
@@ -342,7 +358,6 @@ i see the wind, the particles it blows form such abstract forms
       }
       requestAnimationFrame(drawGlitchBackground);
 
-      // CMD Window batch number cycle simulation
       var cmdBox = document.getElementById('cmd-batch-display');
       var batchList = [
         "C:\MAGI\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
@@ -356,14 +371,11 @@ i see the wind, the particles it blows form such abstract forms
         cmdBox.innerHTML = batchList[batchIdx];
       }, 1800);
 
-      // Random dynamic number glitches in HUD
       setInterval(function() {
         var tSync = document.getElementById('t-sync');
         var tBus = document.getElementById('t-bus');
-        var dTmp = document.getElementById('d-tmp');
         if (tSync) tSync.innerText = (399 + Math.random() * 2).toFixed(2) + "%";
         if (tBus) tBus.innerText = "0x" + Math.floor(Math.random() * 65535).toString(16).toUpperCase();
-        if (dTmp) dTmp.innerText = Math.floor(75 + Math.random() * 8);
       }, 400);
 
       var NGE_PHRASES = [
@@ -390,7 +402,6 @@ i see the wind, the particles it blows form such abstract forms
       ];
 
       var CIPHER_CHARS = "0123456789ABCDEF9876543210アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン☠☢⚡⚡⚠";
-
       var NUM_SLOTS = 20;
       var slots = [];
 
@@ -398,16 +409,7 @@ i see the wind, the particles it blows form such abstract forms
         var el = document.createElement('div');
         el.className = 'nge-phrase';
         document.body.appendChild(el);
-
-        return {
-          el: el,
-          phrase: '',
-          targetText: '',
-          scrambleIndex: 0,
-          state: 'idle',
-          timer: 0,
-          color: '#ff0033'
-        };
+        return { el: el, phrase: '', targetText: '', scrambleIndex: 0, state: 'idle', timer: 0, color: '#ff0033' };
       }
 
       for (var i = 0; i < NUM_SLOTS; i++) {
@@ -441,7 +443,6 @@ i see the wind, the particles it blows form such abstract forms
         var top = Math.random() * 90 + 2;
         var left = Math.random() * 78 + 1;
         var fontSize = Math.random() * 1.0 + 0.6;
-
         var colors = ['#ff0033', '#ff5500', '#00ff66', '#00e1ff', '#ffffff', '#ff0077', '#ffff00', '#ff00ff'];
         slot.color = colors[Math.floor(Math.random() * colors.length)];
 
@@ -474,7 +475,6 @@ i see the wind, the particles it blows form such abstract forms
             } else {
               slot.el.style.transform = 'none';
             }
-
           } else if (slot.state === 'holding') {
             if (Date.now() > slot.timer) {
               slot.el.style.opacity = '0';
@@ -482,7 +482,6 @@ i see the wind, the particles it blows form such abstract forms
             }
           }
         });
-
         setTimeout(updateSlots, 20);
       }
 
