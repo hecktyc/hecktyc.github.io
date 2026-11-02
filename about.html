@@ -11,19 +11,263 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&text=servicgalyoubtm%20&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="page.css">
+  <style>
+    /* Glitch & Evangelion Emergency Overrides */
+    body {
+      overflow-x: hidden;
+      background: #030005;
+    }
+    
+    #glitch-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Hexagon / NGE HUD Overlay Frame */
+    .hud-box {
+      position: relative;
+      border: 1px solid rgba(255, 0, 50, 0.4);
+      background: rgba(10, 0, 5, 0.65);
+      backdrop-filter: blur(4px);
+      padding: 2.5rem 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: 0 0 25px rgba(255, 0, 40, 0.2);
+    }
+    .hud-box::before {
+      content: "SYSTEM EMERGENCY // MAGI-01";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff0033;
+      color: #000;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0 8px;
+      letter-spacing: 0.2em;
+    }
+
+    /* Flashing Floating NGE Phrase Elements */
+    .nge-phrase {
+      position: fixed;
+      font-family: 'Share Tech Mono', 'Rajdhani', monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 2;
+      white-space: nowrap;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .glitch-title {
+      font-family: 'Rajdhani', sans-serif;
+      text-shadow: 2px 0 #ff0055, -2px 0 #00ffff;
+      animation: titleGlitch 2.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes titleGlitch {
+      0% { text-shadow: 2px 0 #ff0055, -2px 0 #00ffff; }
+      15% { text-shadow: -2px 0 #ff0055, 2px 0 #00ffff; }
+      16% { text-shadow: 5px 0 #ff0055, -5px 0 #00ffff; }
+      17% { text-shadow: 0 0 transparent; }
+      18% { text-shadow: 2px 0 #ff0055, -2px 0 #00ffff; }
+      100% { text-shadow: 1px 0 #ff0055, -1px 0 #00ffff; }
+    }
+  </style>
 </head>
 <body>
+  <canvas id="glitch-canvas"></canvas>
+
   <main class="wrap">
     <a class="back" href="index.html#hub">&larr; back to the hub</a>
-    <h1>about me</h1>
-    <p>Introduce yourself here: who you are, what you do, and where you're from.</p>
-    <p class="note">Placeholder text: edit about.html.</p>
+    <h1 class="glitch-title">about me</h1>
+
+    <div class="hud-box">
+      <p>Introduce yourself here: who you are, what you do, and where you're from.</p>
+      <p class="note">Placeholder text: edit about.html.</p>
+    </div>
   </main>
+
   <footer class="pages">
     <nav aria-label="Pages"><a href="services.html">services</a> <a href="gallery.html">gallery</a> <a href="soul.html">soul</a> <a href="about.html" aria-current="page">about me</a> <a href="games.html">games</a></nav>
     <a class="mail" href="mailto:hecktyc@gmail.com">hecktyc@gmail.com</a>
   </footer>
+
+  <script>
+    (function () {
+      // --- CANVAS BACKGROUND & NOISE GRID EFFECT ---
+      var canvas = document.getElementById('glitch-canvas');
+      var ctx = canvas.getContext('2d');
+      var w, h;
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      function drawGlitchBackground() {
+        ctx.fillStyle = 'rgba(3, 0, 5, 0.25)';
+        ctx.fillRect(0, 0, w, h);
+
+        // Scanlines
+        ctx.fillStyle = 'rgba(255, 0, 60, 0.03)';
+        for (var y = 0; y < h; y += 4) {
+          ctx.fillRect(0, y, w, 1);
+        }
+
+        // Random horizontal glitch slices
+        if (Math.random() < 0.35) {
+          var sliceY = Math.random() * h;
+          var sliceH = Math.random() * 20 + 2;
+          var offsetX = (Math.random() - 0.5) * 40;
+          ctx.fillStyle = Math.random() < 0.5 ? 'rgba(255, 0, 55, 0.15)' : 'rgba(0, 240, 255, 0.12)';
+          ctx.fillRect(offsetX, sliceY, w, sliceH);
+        }
+
+        requestAnimationFrame(drawGlitchBackground);
+      }
+      requestAnimationFrame(drawGlitchBackground);
+
+      // --- NGE EVANGELION PHRASES & ENCRYPTION / DECRYPTION ENGINE ---
+      var NGE_PHRASES = [
+        "EMERGENCY // PATTERN BLUE DETECTED",
+        "GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.",
+        "SYNCHRONIZATION RATE: 400%",
+        "MAN CANNOT CREATE NOTHINGNESS OUT OF NOTHING.",
+        "MAGI SYSTEM // CASPAR - BALTHASAR - MELCHIOR",
+        "AT FIELD MAX POWER",
+        "THE HEDGEHOG'S DILEMMA",
+        "UNAUTHORIZED ACCESS // SYSTEM COMPROMISED",
+        "NEON GENESIS // SYSTEM OVERRIDE",
+        "PILOT CONDITION: CRITICAL",
+        "LIMITER RELEASE // CODE 777",
+        "ABSOLUTE TERROR FIELD EXPANDING",
+        "NEURAL LINK CONNECTED",
+        "BERSERK MODE ACTIVATED",
+        "CENTRAL DOCK // LOCKDOWN LEVEL 1"
+      ];
+
+      var CIPHER_CHARS = "ABCDEF0123456789アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン☠☢⚡⚡⚠";
+
+      var NUM_SLOTS = 7;
+      var slots = [];
+
+      function createPhraseSlot() {
+        var el = document.createElement('div');
+        el.className = 'nge-phrase';
+        document.body.appendChild(el);
+
+        return {
+          el: el,
+          phrase: '',
+          currentText: '',
+          targetText: '',
+          scrambleIndex: 0,
+          state: 'idle', // 'ciphering', 'holding', 'idle'
+          timer: 0,
+          color: '#ff0033'
+        };
+      }
+
+      for (var i = 0; i < NUM_SLOTS; i++) {
+        slots.push(createPhraseSlot());
+      }
+
+      function getRandomCipherChar() {
+        return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
+      }
+
+      function scrambleString(target, progress) {
+        var res = '';
+        for (var k = 0; k < target.length; k++) {
+          if (target[k] === ' ' || target[k] === '/' || target[k] === ':') {
+            res += target[k];
+          } else if (k < progress) {
+            res += target[k];
+          } else {
+            res += getRandomCipherChar();
+          }
+        }
+        return res;
+      }
+
+      function triggerSlot(slot) {
+        slot.phrase = NGE_PHRASES[Math.floor(Math.random() * NGE_PHRASES.length)];
+        slot.targetText = slot.phrase;
+        slot.scrambleIndex = 0;
+        slot.state = 'ciphering';
+
+        // Random positions on screen
+        var top = Math.random() * 85 + 5;
+        var left = Math.random() * 70 + 5;
+        var fontSize = Math.random() * 1.2 + 0.75; // em
+
+        // Colors: Red, Orange/Amber, Bright Green, Cyan, White
+        var colors = ['#ff0033', '#ff6600', '#00ff66', '#00e1ff', '#ffffff', '#ff0055'];
+        slot.color = colors[Math.floor(Math.random() * colors.length)];
+
+        slot.el.style.top = top + 'vh';
+        slot.el.style.left = left + 'vw';
+        slot.el.style.fontSize = fontSize + 'rem';
+        slot.el.style.color = slot.color;
+        slot.el.style.opacity = '1';
+        slot.el.style.textShadow = '0 0 10px ' + slot.color;
+      }
+
+      function updateSlots() {
+        slots.forEach(function (slot) {
+          if (slot.state === 'idle') {
+            if (Math.random() < 0.03) {
+              triggerSlot(slot);
+            }
+          } else if (slot.state === 'ciphering') {
+            slot.scrambleIndex += 0.6;
+            if (slot.scrambleIndex >= slot.targetText.length) {
+              slot.el.innerText = slot.targetText;
+              slot.state = 'holding';
+              slot.timer = Date.now() + 800 + Math.random() * 1800; // Hold phrase readable
+            } else {
+              slot.el.innerText = scrambleString(slot.targetText, Math.floor(slot.scrambleIndex));
+            }
+
+            // Rapid position jump glitch while decrypting
+            if (Math.random() < 0.15) {
+              slot.el.style.transform = 'translate(' + ((Math.random() - 0.5) * 15) + 'px, ' + ((Math.random() - 0.5) * 10) + 'px)';
+            } else {
+              slot.el.style.transform = 'none';
+            }
+
+          } else if (slot.state === 'holding') {
+            if (Date.now() > slot.timer) {
+              // Rapid cipher out / fade out
+              slot.el.style.opacity = '0';
+              slot.state = 'idle';
+            }
+          }
+        });
+
+        setTimeout(updateSlots, 40);
+      }
+
+      updateSlots();
+    })();
+  </script>
 </body>
 </html>
