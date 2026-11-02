@@ -48,6 +48,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&text=hecktyc&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&text=servicgalyoubtm%20&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #000;
@@ -69,7 +70,7 @@
     }
     html { overflow-x: hidden; scrollbar-width: none; }
     html::-webkit-scrollbar { display: none; }
-    .scroll-space { height: 500vh; } /* the script sets the real height */
+    .scroll-space { height: 260vh; } /* the script sets the real height */
 
     /* ---------- film grain: black specks, so they only show on the design and its glow ---------- */
     body::after {
@@ -283,56 +284,116 @@
       50%      { transform: translateY(5px);  opacity: 1; }
     }
 
-    /* ---------- gallery: seen through the pupil, then fills the screen ---------- */
-    .gallery {
+    /* ---------- the hub: five paths orbiting the middle of the pupil ---------- */
+    .hub {
       position: fixed;
       inset: 0;
       z-index: 3;
-      overflow: hidden;
       background: #000;
       visibility: hidden;
       opacity: 0;
       pointer-events: none;
       contain: layout paint;
     }
-    .gal-inner {
-      columns: 3;
-      column-gap: 0.75rem;
-      padding: 10vh 4vw 9rem;
-      will-change: transform;
+    .hub-stage {
+      --R: min(30vmin, 260px);
+      --n: clamp(3.4rem, 8.5vmin, 4.6rem);
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      width: 0;
+      height: 0;
     }
-    .gal-inner figure { margin: 0 0 0.75rem; break-inside: avoid; }
-    .gal-inner img { display: block; width: 100%; height: auto; }
-    .ph {
-      display: flex;
-      align-items: flex-end;
-      padding: 0.6rem;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: linear-gradient(135deg, #20202a, #3a3a46);
-      color: rgba(255, 255, 255, 0.5);
-      font: 0.7rem "Segoe UI", system-ui, sans-serif;
+    .ring {
+      position: absolute;
+      left: calc(var(--R) * -1);
+      top: calc(var(--R) * -1);
+      width: calc(var(--R) * 2);
+      height: calc(var(--R) * 2);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 50%;
     }
-    @media (max-width: 900px) { .gal-inner { columns: 2; } }
-    @media (max-width: 520px) { .gal-inner { columns: 1; } }
-
-    /* fades the gallery out behind the credentials so they stay readable */
-    .scrim {
-      position: fixed;
+    .ring.inner { transform: scale(0.58); border-color: rgba(255, 255, 255, 0.08); }
+    .core {
+      position: absolute;
+      left: -4px;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.5);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .orbit { position: absolute; inset: 0; animation: spin 80s linear infinite; }
+    .node {
+      position: absolute;
       left: 0;
-      right: 0;
-      bottom: 0;
-      height: 9rem;
-      z-index: 9;
-      pointer-events: none;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
-      opacity: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      color: #fff;
+      text-decoration: none;
+      transform: rotate(calc(var(--k) * 72deg)) translateY(calc(var(--R) * -1)) rotate(calc(var(--k) * -72deg));
     }
+    .node-in {
+      position: absolute;
+      left: calc(var(--n) / -2);
+      top: calc(var(--n) / -2);
+      width: var(--n);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.55rem;
+      animation: unspin 80s linear infinite; /* cancels the orbit's turn, so labels stay upright */
+    }
+    .orb {
+      display: grid;
+      place-items: center;
+      width: var(--n);
+      height: var(--n);
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .orb svg {
+      width: 44%;
+      height: 44%;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .lab {
+      font-family: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.85);
+      white-space: nowrap;
+    }
+    .node:hover .orb, .node:focus-visible .orb {
+      transform: scale(1.18);
+      border-color: #fff;
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
+    }
+    .node:focus-visible { outline: none; }
+    .node:focus-visible .orb { outline: 2px solid #fff; outline-offset: 3px; }
+    /* hold still while you aim at one, and while the hub is not on screen */
+    .orbit:hover, .orbit:hover .node-in, .orbit:focus-within, .orbit:focus-within .node-in,
+    .hub:not(.on) .orbit, .hub:not(.on) .node-in, .hub:not(.on) .core { animation-play-state: paused; }
+    @keyframes spin   { to { transform: rotate(360deg); } }
+    @keyframes unspin { to { transform: rotate(-360deg); } }
+    @keyframes pulse  { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
 
     /* lite mode: no moving grain */
     .lite body::after { animation: none; }
 
     @media (prefers-reduced-motion: reduce) {
-      h1 span, .scroll-hint svg { animation: none; }
+      h1 span, .scroll-hint svg, .orbit, .node-in, .core { animation: none; }
       .reveal { transition: none; }
     }
   </style>
@@ -381,9 +442,21 @@
     </div>
   </main>
 
-  <section class="gallery" id="gallery" aria-label="Gallery"><div class="gal-inner" id="galInner"></div></section>
-  <div class="scrim" id="scrim"></div>
-  <button type="button" class="scroll-hint" id="hint" aria-label="Scroll down to the gallery">
+  <section class="hub" id="hub" aria-label="Menu">
+    <div class="hub-stage">
+      <div class="ring"></div>
+      <div class="ring inner"></div>
+      <div class="core"></div>
+      <nav class="orbit" aria-label="Pages">
+        <a class="node" href="services.html" style="--k:0"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="lab">services</span></span></a>
+        <a class="node" href="gallery.html" style="--k:1"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span><span class="lab">gallery</span></span></a>
+        <a class="node" href="soul.html" style="--k:2"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V10a7 7 0 0 1 14 0v11l-3.5-2.5L12 21l-3.5-2.5L5 21z"/><circle cx="9.5" cy="11" r="0.8"/><circle cx="14.5" cy="11" r="0.8"/></svg></span><span class="lab">soul</span></span></a>
+        <a class="node" href="about.html" style="--k:3"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="lab">about me</span></span></a>
+        <a class="node" href="games.html" style="--k:4"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 12h3M8.5 10.5v3"/><circle cx="15.5" cy="11" r="0.6"/><circle cx="17.5" cy="13" r="0.6"/></svg></span><span class="lab">games</span></span></a>
+      </nav>
+    </div>
+  </section>
+  <button type="button" class="scroll-hint" id="hint" aria-label="Scroll down">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
   </button>
   <div class="scroll-space" id="space" aria-hidden="true"></div>
@@ -404,64 +477,39 @@
   </nav>
 
   <script>
-    /* the eye: follows the cursor and blinks; scrolling zooms into the pupil, where the gallery waits */
+    /* the eye: follows the cursor and blinks; scrolling zooms into the pupil, where the hub waits */
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var root = document.documentElement;
       var reveal = document.querySelector('.reveal');
       var clock = document.getElementById('clock');
       var svg = clock.querySelector('.eye-svg');
       var iris = clock.querySelector('.iris');
       var lids = clock.querySelectorAll('.lid-d');
       var lashes = clock.querySelector('.lashes');
-      var gal = document.getElementById('gallery');
-      var inner = document.getElementById('galInner');
-      var scrim = document.getElementById('scrim');
+      var glow = clock.querySelector('.eye-glow');
+      var hub = document.getElementById('hub');
       var hint = document.getElementById('hint');
       var space = document.getElementById('space');
-      var glow = clock.querySelector('.eye-glow');
-
-      /* ---------- your images: add files to an "images" folder and list them here ---------- */
-      var IMAGES = [
-        // 'images/photo-1.jpg',
-        // { src: 'images/photo-2.jpg', alt: 'what the picture shows' },
-      ];
-
-      var ratios = [4 / 5, 1, 3 / 4, 5 / 4, 1, 4 / 5, 3 / 4, 1, 5 / 4, 4 / 5, 1, 3 / 4]; // placeholder shapes
-      var pending = 0;
-      function schedule() { if (!pending) pending = requestAnimationFrame(function () { pending = 0; layout(); }); }
-      if (IMAGES.length) {
-        IMAGES.forEach(function (it) {
-          var f = document.createElement('figure'), im = new Image();
-          im.src = it.src || it; im.alt = it.alt || ''; im.loading = 'lazy'; im.decoding = 'async';
-          im.addEventListener('load', schedule);
-          f.appendChild(im); inner.appendChild(f);
-        });
-      } else {
-        ratios.forEach(function (r, k) {
-          var f = document.createElement('figure'), d = document.createElement('div');
-          d.className = 'ph'; d.style.aspectRatio = String(r); d.setAttribute('aria-hidden', 'true');
-          d.textContent = 'image ' + (k < 9 ? '0' : '') + (k + 1);
-          f.appendChild(d); inner.appendChild(f);
-        });
-      }
 
       /* ---------- geometry ---------- */
       var PF = 1500 / (1500 - 90);          // perspective boost of the eye (it floats 90px in front)
-      var W = 0, H = 0, zoomDist = 1, size = 510, vbEnd = 10;
-      var root = document.documentElement;
-      var lastP = -1, lastGy = -1, lastHint = -1, zoomOn = false, flat = false, zoomed = false, covered = false;
+      var W = 0, H = 0, zoomDist = 1, size = 510, vbEnd = 10, jumped = false;
+      var lastP = -1, lastHint = -1, flat = false, zoomed = false, covered = false, hubOn = false;
       function layout() {
         W = window.innerWidth; H = window.innerHeight;
         zoomDist = 1.6 * H;                  // how far you scroll to fly into the pupil
         size = clock.offsetWidth;
         // final zoom: the pupil (radius 11 of 200 units) is big enough to cover the whole screen
         vbEnd = 11 * size * PF / (Math.hypot(W, H) / 2 * 1.05);
-        var extra = Math.max(0, inner.offsetHeight - H);
-        space.style.height = (zoomDist + extra + H) + 'px'; // then you can keep scrolling through the gallery
-        lastP = -1; lastGy = -1;
+        space.style.height = (zoomDist + H) + 'px'; // the hub is one screen, so the page ends when the zoom does
+        // coming back from one of the pages (index.html#hub): land straight in the hub
+        if (!jumped && location.hash === '#hub') { jumped = true; window.scrollTo(0, zoomDist); }
+        lastP = -1;
       }
       window.addEventListener('resize', layout);
       window.addEventListener('load', layout);
+
       var scrollTimer = 0;
       window.addEventListener('scroll', function () {
         root.classList.add('scrolling');
@@ -507,17 +555,15 @@
         glow.style.opacity = Math.max(0, 1 - p * 4);
         var w = 200 * Math.pow(vbEnd / 200, p); // zoom by shrinking the visible window around the pupil
         svg.setAttribute('viewBox', (100 - w / 2) + ' ' + (100 - w / 2) + ' ' + w + ' ' + w);
-        var on = p > 0.01;
-        if (on !== zoomOn) { zoomOn = on; clock.classList.toggle('zoom', on); }
 
-        // the gallery appears only inside the pupil, and its window grows exactly with the pupil
+        // the hub is visible only inside the pupil, and its window grows exactly with the pupil
         var q = Math.min(1, Math.max(0, (p - 0.3) / 0.2));
-        gal.style.opacity = q;
-        gal.style.visibility = q > 0 ? 'visible' : 'hidden';
+        hub.style.opacity = q;
+        hub.style.visibility = q > 0 ? 'visible' : 'hidden';
+        hub.style.pointerEvents = p > 0.97 ? 'auto' : 'none'; // clickable once it fills the screen
+        if ((q > 0) !== hubOn) { hubOn = q > 0; hub.classList.toggle('on', hubOn); }
         var rp = 11 * size / w * PF;
-        // the shade behind the credentials only appears once the gallery fills the whole screen
-        scrim.style.opacity = Math.min(1, Math.max(0, (rp / (Math.hypot(W, H) / 2) - 0.8) / 0.2));
-        gal.style.clipPath = rp > Math.hypot(W, H) / 2 * 1.02 ? 'none' : 'circle(' + rp + 'px at 50% 50%)';
+        hub.style.clipPath = rp > Math.hypot(W, H) / 2 * 1.02 ? 'none' : 'circle(' + rp + 'px at 50% 50%)';
       }
 
       var BLINK_MS = 160, blinkStart = -1, nextBlink = performance.now() + 2500;
@@ -534,9 +580,6 @@
         var moving = !reduce && (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005);
         if (moving) { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; }
         if (p !== lastP || (moving && p < 0.3)) { apply(p); lastP = p; }
-
-        var gy = Math.max(0, y - zoomDist);   // after the zoom, scrolling moves through the gallery
-        if (gy !== lastGy) { inner.style.transform = 'translate3d(0,' + (-gy) + 'px,0)'; lastGy = gy; }
 
         var o = Math.max(0, 1 - y / (H * 0.2)); // arrow fades away as soon as you scroll
         if (o !== lastHint) { lastHint = o; hint.style.opacity = o; hint.style.visibility = o <= 0 ? 'hidden' : 'visible'; }
