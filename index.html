@@ -11,55 +11,49 @@
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- search & SEO -->
+  <!-- search -->
   <meta name="description" content="hecktyc: find me on Instagram, Behance and SoundCloud.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://hecktyc.github.io/">
+  <link rel="canonical" href="https://YOUR-USERNAME.github.io/">
 
-  <!-- link previews -->
+  <!-- link previews (Instagram, Discord, WhatsApp, iMessage, X, ...) -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="hecktyc">
   <meta property="og:title" content="hecktyc">
   <meta property="og:description" content="Find me on Instagram, Behance and SoundCloud.">
-  <meta property="og:url" content="https://hecktyc.github.io/">
-  <meta property="og:image" content="https://hecktyc.github.io/og-image.png">
+  <meta property="og:url" content="https://YOUR-USERNAME.github.io/">
+  <meta property="og:image" content="https://YOUR-USERNAME.github.io/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="hecktyc, with the Jupiter symbol, glowing white on black">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="hecktyc">
   <meta name="twitter:description" content="Find me on Instagram, Behance and SoundCloud.">
-  <meta name="twitter:image" content="https://hecktyc.github.io/og-image.png">
+  <meta name="twitter:image" content="https://YOUR-USERNAME.github.io/og-image.png">
 
-  <!-- structured data -->
+  <!-- structured data for search engines -->
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "hecktyc",
-  "url": "https://hecktyc.github.io/",
+  "url": "https://YOUR-USERNAME.github.io/",
   "sameAs": [
     "https://www.instagram.com/hecktyc",
     "https://www.behance.net/hecktyc",
     "https://soundcloud.com/hecktyc"
   ]
 }</script>
-  
-  <script>
-    (function(){
-      var d = document.documentElement, m = navigator.deviceMemory, c = navigator.hardwareConcurrency;
-      if ((m && m <= 4) || (c && c <= 4) || /[?&]lite/.test(location.search)) d.className += " lite";
-    })();
-  </script>
-
+  <script>/* weak devices (4 cores/4 GB or less) get a lighter page; add ?lite to the address to test */
+    (function(){var d=document.documentElement,m=navigator.deviceMemory,c=navigator.hardwareConcurrency;if((m&&m<=4)||(c&&c<=4)||/[?&]lite/.test(location.search))d.className+=" lite";})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&text=hecktyc&display=swap" rel="stylesheet">
-  
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
       --font: "Monoton", "Audiowide", "Eurostile", "Bank Gothic", "Segoe UI", sans-serif;
+      /* plain white glow, sized in em so it scales with the small heading */
       --glow:
         1px 1px 0 rgba(255, 255, 255, 0.8),
         2px 2px 0 rgba(255, 255, 255, 0.5),
@@ -68,24 +62,20 @@
         0 0 0.25em rgba(255, 255, 255, 0.9),
         0 0 0.55em rgba(255, 255, 255, 0.6),
         0 0 1.1em rgba(255, 255, 255, 0.35);
-      --grain: 0.6;
+      --grain: 0.6; /* grain strength: 0 = off, 0.3 = subtle, 0.6 = heavy, 1 = maximum */
     }
 
     * { box-sizing: border-box; }
 
-    html {
-      background: var(--bg);
-      color: var(--fg);
-    }
-
-    body {
+    html, body {
       margin: 0;
-      height: 350vh; /* scroll track for eye expansion */
       background: var(--bg);
-      overflow-x: hidden;
     }
+    html { overflow-x: hidden; scrollbar-width: none; }
+    html::-webkit-scrollbar { display: none; }
+    .scroll-space { height: 500vh; } /* the script sets the real height */
 
-    /* ---------- film grain overlay ---------- */
+    /* ---------- film grain: black specks, so they only show on the design and its glow ---------- */
     body::after {
       content: "";
       position: fixed;
@@ -112,31 +102,30 @@
       88%  { transform: translate(2%, 6%); }
     }
 
-    /* ---------- top heading ---------- */
+    /* ---------- small heading, top centre ---------- */
     .top {
       position: fixed;
       top: calc(env(safe-area-inset-top, 0px) + 2rem);
       left: 0;
       right: 0;
-      z-index: 5;
+      z-index: 1; /* behind the eye, so the growing eye swallows it */
       display: flex;
       justify-content: center;
       pointer-events: none;
-      will-change: opacity, transform;
-      transition: opacity 0.2s linear;
     }
 
     h1 {
       display: flex;
       justify-content: center;
-      align-items: center;
       margin: 0;
       line-height: 1;
-      padding-left: 0.08em;
+      padding-left: 0.16em; /* balances the trailing letter-spacing so the word sits centred */
       perspective: 900px;
       color: var(--fg);
-      font-size: clamp(1rem, 3vw, 2rem);
-      letter-spacing: 0.09em;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: clamp(1rem, 3vw, 2rem); /* the script below refines this */
+      letter-spacing: 0.16em;
       text-transform: lowercase;
       text-shadow: var(--glow);
     }
@@ -144,12 +133,12 @@
     h1 span {
       position: relative;
       display: inline-block;
-      margin: 0 0.03em;
       transform-origin: 50% 60%;
       animation: bubble calc(6s + var(--i) * 0.4s) ease-in-out infinite;
       animation-delay: calc(var(--i) * 0.35s);
     }
 
+    /* plain white haze: a blurred copy of each letter behind it */
     h1 span::before {
       content: attr(data-l);
       position: absolute;
@@ -162,13 +151,24 @@
     }
 
     @keyframes bubble {
-      0%, 100% { transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
-      30% { transform: translate3d(var(--sx), -0.2em, 40px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(1.04); }
-      55% { transform: translate3d(0, -0.34em, 70px) rotateX(calc(var(--rx) * -0.6)) rotateY(calc(var(--ry) * -1)) rotateZ(calc(var(--rz) * -1)) scale(1.07); }
-      80% { transform: translate3d(calc(var(--sx) * -1), -0.12em, 25px) rotateX(calc(var(--rx) * 0.4)) rotateY(calc(var(--ry) * 0.5)) rotateZ(calc(var(--rz) * 0.5)) scale(1.02); }
+      0%, 100% {
+        transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+      }
+      30% {
+        transform: translate3d(var(--sx), -0.2em, 40px)
+                   rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) scale(1.04);
+      }
+      55% {
+        transform: translate3d(0, -0.34em, 70px)
+                   rotateX(calc(var(--rx) * -0.6)) rotateY(calc(var(--ry) * -1)) rotateZ(calc(var(--rz) * -1)) scale(1.07);
+      }
+      80% {
+        transform: translate3d(calc(var(--sx) * -1), -0.12em, 25px)
+                   rotateX(calc(var(--rx) * 0.4)) rotateY(calc(var(--ry) * 0.5)) rotateZ(calc(var(--rz) * 0.5)) scale(1.02);
+      }
     }
 
-    /* ---------- stage & eye element ---------- */
+    /* ---------- the eye, centred on the front page ---------- */
     .stage {
       position: fixed;
       inset: 0;
@@ -177,9 +177,6 @@
       place-items: center;
       perspective: 1500px;
       pointer-events: none;
-      contain: layout paint;
-      will-change: opacity, filter;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
     .reveal {
@@ -195,8 +192,25 @@
       aspect-ratio: 1;
       transform-style: preserve-3d;
       will-change: transform;
-      transform-origin: center center;
     }
+
+    /* soft white glow: one static gradient (no blur filter), so it costs almost nothing to draw */
+    .eye-glow {
+      position: absolute;
+      inset: -25%;
+      pointer-events: none;
+      transform: translateZ(60px);
+      background: radial-gradient(ellipse 46% 31% at 50% 50%,
+        rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.28) 38%,
+        rgba(255, 255, 255, 0.10) 62%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    /* once the cursor tilt has faded out (zoom 30%), flatten the 3D scene: same picture, much cheaper to draw */
+    .clock.flat { transform-style: flat; }
+    .clock.flat .eye-svg { transform: scale(1.0638); } /* the size the 90px of depth gave it, so nothing jumps */
+    .clock.flat .eye-glow { transform: scale(1.0417); }
+    .covered .top { visibility: hidden; } /* the eye has swallowed the heading, so stop drawing it */
+    .scrolling body::after { animation-play-state: paused; } /* the grain holds still while you scroll */
 
     .eye-svg {
       position: absolute;
@@ -204,136 +218,38 @@
       width: 100%;
       height: 100%;
       overflow: visible;
-      transform: translateZ(90px);
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
-      transition: filter 0.3s ease;
+      transform: translateZ(90px); /* floats in front, so tilting shows depth */
     }
-
-    body.is-scrolling .eye-svg {
-      filter: none;
-    }
-
     .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
     .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
 
-    /* ---------- scroll indicator ---------- */
-    .scroll-indicator {
+    /* ---------- tiny social icons + e-mail, bottom centre ---------- */
+    .links {
       position: fixed;
       left: 0;
       right: 0;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
       z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .scroll-indicator span {
-      font-family: "Segoe UI", system-ui, sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-    }
-    .scroll-indicator svg {
-      width: 1rem;
-      height: 1rem;
-      fill: none;
-      stroke: rgba(255, 255, 255, 0.7);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(6px); }
-      60% { transform: translateY(3px); }
-    }
-
-    /* ---------- gallery inside pupil ---------- */
-    .gallery-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-      padding: 5rem 2rem;
-    }
-    .gallery-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      width: min(1000px, 90vw);
-      max-height: 70vh;
-      overflow-y: auto;
-      padding: 1rem;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.3) transparent;
-    }
-    .gallery-item {
-      aspect-ratio: 4/3;
-      background: #111;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      color: rgba(255,255,255,0.4);
-      font-family: sans-serif;
-      font-size: 0.8rem;
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    /* ---------- social links & email ---------- */
-    .links {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 1.2rem);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    .icons { display: flex; gap: 0.5rem; }
+    .icons { display: flex; gap: 0.35rem; }
     .icons a {
       display: grid;
       place-items: center;
-      width: 2.2rem;
-      height: 2.2rem;
+      width: 2rem;
+      height: 2rem;
       border-radius: 50%;
       color: rgba(255, 255, 255, 0.75);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.2s ease;
     }
-    .icons a:hover, .icons a:focus-visible {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.3);
-      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
-    }
+    .icons a:hover, .icons a:focus-visible { color: #fff; filter: drop-shadow(0 0 4px #fff); }
     .icons a:focus-visible, .mail:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
     .icons svg {
-      width: 1.1rem;
-      height: 1.1rem;
+      width: 1.05rem;
+      height: 1.05rem;
       fill: none;
       stroke: currentColor;
       stroke-width: 1.8;
@@ -342,33 +258,111 @@
     }
     .mail {
       color: rgba(255, 255, 255, 0.55);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
       text-decoration: none;
-      transition: color 0.2s ease;
     }
     .mail:hover, .mail:focus-visible { color: #fff; }
 
-    /* lite mode & motion accessibility */
+    /* ---------- scroll arrow ---------- */
+    .scroll-hint {
+      position: fixed;
+      left: 50%;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 5.4rem);
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 0 0 0 -1.25rem;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .scroll-hint svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+      animation: nudge 2.2s ease-in-out infinite;
+    }
+    .scroll-hint:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    @keyframes nudge {
+      0%, 100% { transform: translateY(-3px); opacity: 0.6; }
+      50%      { transform: translateY(5px);  opacity: 1; }
+    }
+
+    /* ---------- gallery: seen through the pupil, then fills the screen ---------- */
+    .gallery {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      overflow: hidden;
+      background: #000;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      contain: layout paint;
+    }
+    .gal-inner {
+      columns: 3;
+      column-gap: 0.75rem;
+      padding: 10vh 4vw 9rem;
+      will-change: transform;
+    }
+    .gal-inner figure { margin: 0 0 0.75rem; break-inside: avoid; }
+    .gal-inner img { display: block; width: 100%; height: auto; }
+    .ph {
+      display: flex;
+      align-items: flex-end;
+      padding: 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #20202a, #3a3a46);
+      color: rgba(255, 255, 255, 0.5);
+      font: 0.7rem "Segoe UI", system-ui, sans-serif;
+    }
+    @media (max-width: 900px) { .gal-inner { columns: 2; } }
+    @media (max-width: 520px) { .gal-inner { columns: 1; } }
+
+    /* fades the gallery out behind the credentials so they stay readable */
+    .scrim {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 9rem;
+      z-index: 9;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+      opacity: 0;
+    }
+
+    /* lite mode: no moving grain, no haze behind the letters */
     .lite body::after { animation: none; }
     .lite h1 span::before { display: none; }
 
     @media (prefers-reduced-motion: reduce) {
-      h1 span { animation: none; }
+      h1 span, .scroll-hint svg { animation: none; }
       .reveal { transition: none; }
     }
   </style>
 </head>
 <body>
-  <header class="top" id="headerTop">
-    <h1 aria-label="hecktyc">
-      <span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span>
-    </h1>
+  <header class="top">
+    <h1 aria-label="hecktyc"><span aria-hidden="true" data-l="h" style="--i:0;--rx:10deg;--ry:-16deg;--rz:-3deg;--sx:4px">h</span><span aria-hidden="true" data-l="e" style="--i:1;--rx:-8deg;--ry:14deg;--rz:2.5deg;--sx:-5px">e</span><span aria-hidden="true" data-l="c" style="--i:2;--rx:12deg;--ry:18deg;--rz:-2deg;--sx:5px">c</span><span aria-hidden="true" data-l="k" style="--i:3;--rx:-10deg;--ry:-14deg;--rz:3deg;--sx:-4px">k</span><span aria-hidden="true" data-l="t" style="--i:4;--rx:9deg;--ry:16deg;--rz:-2.5deg;--sx:5px">t</span><span aria-hidden="true" data-l="y" style="--i:5;--rx:-12deg;--ry:-18deg;--rz:3deg;--sx:-5px">y</span><span aria-hidden="true" data-l="c" style="--i:6;--rx:8deg;--ry:12deg;--rz:-2deg;--sx:4px">c</span></h1>
   </header>
 
-  <main class="stage" id="eyeStage">
+  <main class="stage">
     <div class="reveal">
       <div class="clock" id="clock" role="img" aria-label="An eye that follows your cursor">
+        <div class="eye-glow" aria-hidden="true"></div>
         <svg class="eye-svg" viewBox="0 0 200 200" aria-hidden="true">
           <defs>
             <clipPath id="lid"><path class="lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z"/></clipPath>
@@ -389,14 +383,14 @@
             </g>
             <path class="lid-line lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z"/>
             <g class="lashes">
-              <polygon class="lash" points="51.9,86.9 58.5,82.5 44.2,68"/>
-              <polygon class="lash" points="96,70 104,70 100,44"/>
-              <polygon class="lash" points="141.5,82.5 148.1,86.9 155.8,68"/>
-              <polygon class="lash" points="51.9,113.1 58.5,117.5 44.2,132"/>
-              <polygon class="lash" points="96,130 104,130 100,156"/>
-              <polygon class="lash" points="141.5,117.5 148.1,113.1 155.8,132"/>
-              <polygon class="lash" points="40,95.5 40,104.5 18,100"/>
-              <polygon class="lash" points="160,95.5 160,104.5 182,100"/>
+              <polygon class="lash" points="48.18,89.31 62.22,80.09 37.6,57.9"/>
+              <polygon class="lash" points="91.6,70 108.4,70 100,28"/>
+              <polygon class="lash" points="137.78,80.09 151.82,89.31 162.4,57.9"/>
+              <polygon class="lash" points="48.18,110.69 62.22,119.91 37.6,142.1"/>
+              <polygon class="lash" points="91.6,130 108.4,130 100,172"/>
+              <polygon class="lash" points="137.78,119.91 151.82,110.69 162.4,142.1"/>
+              <polygon class="lash" points="40,95.5 40,104.5 4,100"/>
+              <polygon class="lash" points="160,95.5 160,104.5 196,100"/>
             </g>
           </g>
         </svg>
@@ -404,33 +398,21 @@
     </div>
   </main>
 
-  <div class="scroll-indicator" id="scrollIndicator">
-    <span>explore</span>
-    <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"/></svg>
-  </div>
-
-  <section class="gallery-overlay" id="galleryOverlay" aria-label="Work Gallery">
-    <div class="gallery-grid">
-      <div class="gallery-item">Artwork 01</div>
-      <div class="gallery-item">Artwork 02</div>
-      <div class="gallery-item">Artwork 03</div>
-      <div class="gallery-item">Artwork 04</div>
-      <div class="gallery-item">Artwork 05</div>
-      <div class="gallery-item">Artwork 06</div>
-    </div>
-  </section>
+  <section class="gallery" id="gallery" aria-label="Gallery"><div class="gal-inner" id="galInner"></div></section>
+  <div class="scrim" id="scrim"></div>
+  <button type="button" class="scroll-hint" id="hint" aria-label="Scroll down to the gallery">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
+  </button>
+  <div class="scroll-space" id="space" aria-hidden="true"></div>
 
   <nav class="links" aria-label="Links">
     <div class="icons">
-      <!-- Instagram -->
       <a href="https://www.instagram.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.4A4 4 0 1 1 12.6 8 4 4 0 0 1 16 11.4z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
       </a>
-      <!-- Behance -->
       <a href="https://www.behance.net/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="Behance" title="Behance">
         <svg viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="16.5" text-anchor="middle" font-size="12" font-weight="700" font-family="Segoe UI, Arial, sans-serif" fill="currentColor" stroke="none">B&#275;</text></svg>
       </a>
-      <!-- SoundCloud -->
       <a href="https://soundcloud.com/hecktyc" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud" title="SoundCloud">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10h-1.3A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
       </a>
@@ -439,97 +421,145 @@
   </nav>
 
   <script>
-    /* Eye behavior, progressive blur, and scroll-driven fade-out logic */
+    /* the eye: follows the cursor and blinks; scrolling zooms into the pupil, where the gallery waits */
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var reveal = document.querySelector('.reveal');
-      var eyeStage = document.getElementById('eyeStage');
       var clock = document.getElementById('clock');
+      var svg = clock.querySelector('.eye-svg');
       var iris = clock.querySelector('.iris');
       var lids = clock.querySelectorAll('.lid-d');
       var lashes = clock.querySelector('.lashes');
-      var headerTop = document.getElementById('headerTop');
-      var scrollIndicator = document.getElementById('scrollIndicator');
-      var galleryOverlay = document.getElementById('galleryOverlay');
+      var gal = document.getElementById('gallery');
+      var inner = document.getElementById('galInner');
+      var scrim = document.getElementById('scrim');
+      var hint = document.getElementById('hint');
+      var space = document.getElementById('space');
+      var glow = clock.querySelector('.eye-glow');
 
-      var tx = 0, ty = 0, cx = 0, cy = 0;
-      var scrollProgress = 0;
-      var scrollTimer = null;
+      /* ---------- your images: add files to an "images" folder and list them here ---------- */
+      var IMAGES = [
+        // 'images/photo-1.jpg',
+        // { src: 'images/photo-2.jpg', alt: 'what the picture shows' },
+      ];
 
+      var ratios = [4 / 5, 1, 3 / 4, 5 / 4, 1, 4 / 5, 3 / 4, 1, 5 / 4, 4 / 5, 1, 3 / 4]; // placeholder shapes
+      var pending = 0;
+      function schedule() { if (!pending) pending = requestAnimationFrame(function () { pending = 0; layout(); }); }
+      if (IMAGES.length) {
+        IMAGES.forEach(function (it) {
+          var f = document.createElement('figure'), im = new Image();
+          im.src = it.src || it; im.alt = it.alt || ''; im.loading = 'lazy'; im.decoding = 'async';
+          im.addEventListener('load', schedule);
+          f.appendChild(im); inner.appendChild(f);
+        });
+      } else {
+        ratios.forEach(function (r, k) {
+          var f = document.createElement('figure'), d = document.createElement('div');
+          d.className = 'ph'; d.style.aspectRatio = String(r); d.setAttribute('aria-hidden', 'true');
+          d.textContent = 'image ' + (k < 9 ? '0' : '') + (k + 1);
+          f.appendChild(d); inner.appendChild(f);
+        });
+      }
+
+      /* ---------- geometry ---------- */
+      var PF = 1500 / (1500 - 90);          // perspective boost of the eye (it floats 90px in front)
+      var W = 0, H = 0, zoomDist = 1, size = 510, vbEnd = 10;
+      var root = document.documentElement;
+      var lastP = -1, lastGy = -1, lastHint = -1, zoomOn = false, flat = false, zoomed = false, covered = false;
+      function layout() {
+        W = window.innerWidth; H = window.innerHeight;
+        zoomDist = 1.6 * H;                  // how far you scroll to fly into the pupil
+        size = clock.offsetWidth;
+        // final zoom: the pupil (radius 11 of 200 units) is big enough to cover the whole screen
+        vbEnd = 11 * size * PF / (Math.hypot(W, H) / 2 * 1.05);
+        var extra = Math.max(0, inner.offsetHeight - H);
+        space.style.height = (zoomDist + extra + H) + 'px'; // then you can keep scrolling through the gallery
+        lastP = -1; lastGy = -1;
+      }
+      window.addEventListener('resize', layout);
+      window.addEventListener('load', layout);
+      var scrollTimer = 0;
+      window.addEventListener('scroll', function () {
+        root.classList.add('scrolling');
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function () { root.classList.remove('scrolling'); }, 140);
+      }, { passive: true });
+      hint.addEventListener('click', function () {
+        window.scrollTo({ top: zoomDist, behavior: reduce ? 'auto' : 'smooth' });
+      });
+
+      /* ---------- cursor ---------- */
+      var tx = 0, ty = 0, cx = 0, cy = 0; // from -1 to 1
+      var lastMove = performance.now(), nextLook = 0;
       window.addEventListener('pointermove', function (e) {
-        if (scrollProgress > 0.05) return;
         tx = (e.clientX / window.innerWidth - 0.5) * 2;
         ty = (e.clientY / window.innerHeight - 0.5) * 2;
+        lastMove = performance.now();
       }, { passive: true });
 
-      window.addEventListener('scroll', function () {
-        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        scrollProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-        
-        document.body.classList.add('is-scrolling');
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(function() {
-          document.body.classList.remove('is-scrolling');
-        }, 150);
-      }, { passive: true });
-
-      function setLid(o) {
+      function setLid(o) { // o = how open the lids are (1 = open); iris and pupil never change size
         var h = 60 * o;
         var d = 'M36 100Q100 ' + (100 - h) + ' 164 100Q100 ' + (100 + h) + ' 36 100Z';
         for (var k = 0; k < lids.length; k++) lids[k].setAttribute('d', d);
         lashes.setAttribute('transform', 'translate(0 100) scale(1 ' + o + ') translate(0 -100)');
       }
 
-      var BLINK_MS = 240, blinkStart = -1, nextBlink = performance.now() + 2500;
+      // p = 0 (eye at rest) to 1 (inside the pupil)
+      function apply(p) {
+        var near = 1 - Math.min(1, p / 0.3);  // cursor influence fades out so the pupil ends up dead centre
+        if (p >= 0.3) { // cursor tilt is gone, so drop the 3D transforms entirely
+          if (!flat) { flat = true; clock.classList.add('flat'); clock.style.transform = 'none'; }
+        } else {
+          if (flat) { flat = false; clock.classList.remove('flat'); }
+          clock.style.transform =
+            'translate3d(' + (cx * 60 * near) + 'px,' + (cy * 42 * near) + 'px,0) ' +
+            'rotateX(' + (-cy * 24 * near) + 'deg) rotateY(' + (cx * 24 * near) + 'deg)';
+        }
+        var zd = p > 0.05, cv = p > 0.55; // pause the heading while zooming, hide it once it is covered
+        if (zd !== zoomed) { zoomed = zd; root.classList.toggle('zoomed', zd); }
+        if (cv !== covered) { covered = cv; root.classList.toggle('covered', cv); }
+        iris.setAttribute('transform', 'translate(' + (cx * 16 * near) + ' ' + (cy * 7 * near) + ')');
+
+        glow.style.opacity = Math.max(0, 1 - p * 4);
+        var w = 200 * Math.pow(vbEnd / 200, p); // zoom by shrinking the visible window around the pupil
+        svg.setAttribute('viewBox', (100 - w / 2) + ' ' + (100 - w / 2) + ' ' + w + ' ' + w);
+        var on = p > 0.01;
+        if (on !== zoomOn) { zoomOn = on; clock.classList.toggle('zoom', on); }
+
+        // the gallery appears only inside the pupil, and its window grows exactly with the pupil
+        var q = Math.min(1, Math.max(0, (p - 0.3) / 0.2));
+        gal.style.opacity = q;
+        gal.style.visibility = q > 0 ? 'visible' : 'hidden';
+        var rp = 11 * size / w * PF;
+        // the shade behind the credentials only appears once the gallery fills the whole screen
+        scrim.style.opacity = Math.min(1, Math.max(0, (rp / (Math.hypot(W, H) / 2) - 0.8) / 0.2));
+        gal.style.clipPath = rp > Math.hypot(W, H) / 2 * 1.02 ? 'none' : 'circle(' + rp + 'px at 50% 50%)';
+      }
+
+      var BLINK_MS = 160, blinkStart = -1, nextBlink = performance.now() + 2500;
       function loop(now) {
         requestAnimationFrame(loop);
+        var y = window.pageYOffset || 0;
+        var p = Math.min(1, Math.max(0, y / zoomDist));
+        // no cursor movement for 5 seconds: the eye starts looking around by itself
+        if (!reduce && p < 0.3 && now - lastMove > 5000 && now >= nextLook) {
+          tx = (Math.random() * 2 - 1) * 0.9;
+          ty = (Math.random() * 2 - 1) * 0.7;
+          nextLook = now + 1100 + Math.random() * 1800;
+        }
+        var moving = !reduce && (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005);
+        if (moving) { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; }
+        if (p !== lastP || (moving && p < 0.3)) { apply(p); lastP = p; }
+
+        var gy = Math.max(0, y - zoomDist);   // after the zoom, scrolling moves through the gallery
+        if (gy !== lastGy) { inner.style.transform = 'translate3d(0,' + (-gy) + 'px,0)'; lastGy = gy; }
+
+        var o = Math.max(0, 1 - y / (H * 0.2)); // arrow fades away as soon as you scroll
+        if (o !== lastHint) { lastHint = o; hint.style.opacity = o; hint.style.visibility = o <= 0 ? 'hidden' : 'visible'; }
+
         if (reduce) return;
-
-        var targetX = scrollProgress > 0.05 ? 0 : tx;
-        var targetY = scrollProgress > 0.05 ? 0 : ty;
-
-        cx += (targetX - cx) * 0.08;
-        cy += (targetY - cy) * 0.08;
-
-        var eyeScale = 1 + scrollProgress * 15;
-        clock.style.transform =
-          'scale(' + eyeScale + ') ' +
-          'translate3d(' + (cx * 60) + 'px,' + (cy * 42) + 'px,0) ' +
-          'rotateX(' + (-cy * 24) + 'deg) rotateY(' + (cx * 24) + 'deg)';
-        
-        iris.setAttribute('transform', 'translate(' + (cx * 16) + ' ' + (cy * 7) + ')');
-
-        // Eye Blur and Complete Disappearance Logic
-        if (eyeStage) {
-          // Blur gradually builds up from 0px to 14px as you scroll
-          var blurPx = scrollProgress * 14;
-          eyeStage.style.filter = 'blur(' + blurPx.toFixed(1) + 'px)';
-
-          // Fade out the eye stage as scroll progress nears the pupil center (0.65 to 0.82)
-          if (scrollProgress >= 0.82) {
-            eyeStage.style.opacity = '0';
-            eyeStage.style.visibility = 'hidden';
-          } else if (scrollProgress >= 0.65) {
-            var fadeOpacity = 1 - ((scrollProgress - 0.65) / 0.17);
-            eyeStage.style.opacity = Math.max(0, fadeOpacity).toString();
-            eyeStage.style.visibility = 'visible';
-          } else {
-            eyeStage.style.opacity = '1';
-            eyeStage.style.visibility = 'visible';
-          }
-        }
-
-        if (headerTop) headerTop.style.opacity = Math.max(0, 1 - scrollProgress * 3.5);
-        if (scrollIndicator) scrollIndicator.style.opacity = Math.max(0, 1 - scrollProgress * 4);
-        
-        if (galleryOverlay) {
-          if (scrollProgress > 0.75) {
-            galleryOverlay.classList.add('active');
-          } else {
-            galleryOverlay.classList.remove('active');
-          }
-        }
-
+        if (p > 0.02) { if (blinkStart >= 0) { setLid(1); blinkStart = -1; } return; } // no blinking while zooming
         if (blinkStart < 0 && now >= nextBlink) blinkStart = now;
         if (blinkStart >= 0) {
           var t = (now - blinkStart) / BLINK_MS;
@@ -537,19 +567,22 @@
           else setLid(1 - 0.93 * Math.sin(Math.PI * t));
         }
       }
+
+      layout();
       reveal.classList.add('on');
       requestAnimationFrame(loop);
     })();
   </script>
 
   <script>
-    /* Independent letter font-cycling ticker logic - EXACT ORIGINAL IMPLEMENTATION */
+    /* keeps the heading small (about 140 px wide); every letter swaps to a random font on its own */
     (function () {
       var root = document.documentElement;
       var lite = root.className.indexOf('lite') > -1;
-      var INTERVAL = lite ? 160 : 100;
+      var INTERVAL = lite ? 160 : 100; // how often the letters are checked, in milliseconds
       var h1 = document.querySelector('h1');
       var letters = h1.querySelectorAll('span');
+      var n = letters.length;
 
       var fonts = [
         ['Michroma', 400], ['Syncopate', 700], ['Orbitron', 800], ['Audiowide', 400],
@@ -557,81 +590,80 @@
         ['Abril Fatface', 400], ['Playfair Display', 900], ['Cinzel', 800], ['UnifrakturCook', 700],
         ['Pacifico', 400], ['Permanent Marker', 400], ['Rubik Glitch', 400], ['Wallpoet', 400],
         ['Bruno Ace', 400], ['Chakra Petch', 700], ['Tektur', 800], ['Oxanium', 800],
-        ['Monoton', 400]
+        ['Monoton', 400] // the CSS default
       ];
+      var cur = [], due = [], k;
+      for (k = 0; k < n; k++) { cur.push(fonts.length - 1); due.push(0); }
+      var size = parseFloat(getComputedStyle(h1).fontSize) || 60;
+      var ratios = null; // ratios[font][letter] = that letter's width per 1px of font size (measured once)
 
-      var timers = [];
-      var baseFontSize = parseFloat(getComputedStyle(h1).fontSize) || 60;
-
-      function share() { return Math.min(0.27, Math.max(0.07, 145 / root.clientWidth)); }
-
-      function fitTotal() {
-        var totalW = 0;
-        for (var k = 0; k < letters.length; k++) {
-          totalW += letters[k].offsetWidth;
+      function share() { return Math.min(0.275, Math.max(0.07, 140 / root.clientWidth)); } // 140 px, but 7% to 27.5% of the width
+      function setFont(i, f) {
+        letters[i].style.fontFamily = '"' + fonts[f][0] + '", "Segoe UI", sans-serif';
+        letters[i].style.fontWeight = fonts[f][1];
+        cur[i] = f;
+      }
+      function sumWidths() {
+        var w = 0;
+        for (var i = 0; i < n; i++) w += letters[i].offsetWidth;
+        return w;
+      }
+      function fit() {
+        if (ratios) {
+          var t = 0;
+          for (var i = 0; i < n; i++) t += ratios[cur[i]][i];
+          size = share() * root.clientWidth / t;
+        } else {
+          var w = sumWidths();
+          if (!w) return;
+          size = size * (share() * root.clientWidth) / w;
         }
-        if (!totalW) return;
-        var targetW = share() * root.clientWidth;
-        baseFontSize = baseFontSize * (targetW / totalW);
-        h1.style.fontSize = baseFontSize + 'px';
+        h1.style.fontSize = size + 'px';
       }
-
-      function setLetterFont(span, fontIndex) {
-        span.style.fontFamily = '"' + fonts[fontIndex][0] + '", "Segoe UI", sans-serif';
-        span.style.fontWeight = fonts[fontIndex][1];
-      }
-
-      function initFonts() {
-        for (var k = 0; k < letters.length; k++) {
-          var randIdx = Math.floor(Math.random() * fonts.length);
-          setLetterFont(letters[k], randIdx);
+      function measureAll() {
+        var keep = cur.slice(), r = [], f, i;
+        h1.style.fontSize = '100px';
+        for (f = 0; f < fonts.length; f++) {
+          for (i = 0; i < n; i++) setFont(i, f);
+          var row = [];
+          for (i = 0; i < n; i++) row.push(letters[i].offsetWidth / 100);
+          r.push(row);
         }
-        fitTotal();
+        ratios = r;
+        for (i = 0; i < n; i++) setFont(i, keep[i]);
+        fit();
       }
 
-      window.addEventListener('resize', fitTotal);
-      initFonts();
-
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(fitTotal);
-      }
-
+      window.addEventListener('resize', fit);
+      fit();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!ratios) fit(); });
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-      function startTickers() {
-        if (timers.length > 0 || document.hidden) return;
-        for (var k = 0; k < letters.length; k++) {
-          (function(index) {
-            var jitter = Math.random() * 40;
-            var t = setInterval(function() {
-              var currentFamily = letters[index].style.fontFamily.replace(/["']/g, '').split(',')[0].trim();
-              var curIdx = fonts.findIndex(function(f) { return f[0] === currentFamily; });
-              if (curIdx === -1) curIdx = 0;
-              var nextIdx = (curIdx + 1) % fonts.length;
-              setLetterFont(letters[index], nextIdx);
-              fitTotal();
-            }, INTERVAL + jitter);
-            timers.push(t);
-          })(k);
+      var timer = null;
+      function tick() {
+        if (root.classList.contains('zoomed')) return;
+        var now = performance.now(), changed = false;
+        for (var i = 0; i < n; i++) {
+          if (now < due[i]) continue;
+          var f;
+          do { f = Math.floor(Math.random() * fonts.length); } while (f === cur[i]);
+          setFont(i, f);
+          due[i] = now + 120 + Math.random() * 380; // each letter has its own rhythm
+          changed = true;
         }
+        if (changed) fit();
       }
+      function run() { if (!timer && !document.hidden) timer = setInterval(tick, INTERVAL); }
+      function halt() { clearInterval(timer); timer = null; }
+      function go() { measureAll(); run(); }
 
-      function haltTickers() {
-        for (var k = 0; k < timers.length; k++) {
-          clearInterval(timers[k]);
-        }
-        timers = [];
-      }
-
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) haltTickers();
-        else startTickers();
-      });
-
+      document.addEventListener('visibilitychange', function () { if (document.hidden) halt(); else run(); });
+      // start only once every font has loaded, so you never see fallback fonts flash by
       Promise.all(fonts.map(function (f) {
         return document.fonts.load(f[1] + ' 1em "' + f[0] + '"', 'hecktyc');
-      })).then(startTickers, startTickers);
+      })).then(go, go);
     })();
   </script>
+
 </body>
 </html>
