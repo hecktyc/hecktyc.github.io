@@ -20,9 +20,8 @@
    that key as the "type" of your items. A button appears by itself.
 
    The entries below are EXAMPLES. Delete them and add your own.
-   
-  items: [
-    { type: 'anime', title: 'Example anime (replace me)', by: 'Example Studio', year: 2019, rating: 9.5,
+
+       { type: 'anime', title: 'Example anime (replace me)', by: 'Example Studio', year: 2019, rating: 9.5,
       note: 'Write what you felt about it here. One or two sentences is plenty.',
       link: '', cover: '', added: '2026-11-03' },
 
@@ -42,7 +41,8 @@
 
     { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
       note: '', link: '', cover: '', added: '2026-10-01' }
-   
+
+      
    ===================================================================== */
 
 window.SOUL = {
@@ -50,23 +50,20 @@ window.SOUL = {
   types: {
     song:  { label: 'songs' },
     movie: { label: 'movies' },
-    anime: { label: 'anime' }
+    series: { label: 'series' }
     // book: { label: 'books' },
   },
 
   items: [
 
-   { type: 'song', title: 'Better', by: 'What So Not', rating: 8.8,
-      note: '', link: 'https://tidal.com/track/77926178/u', cover: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdance-charts.b-cdn.net%2Fimages%2FSeptember_2017%2FWhat-So-Not--LPX---Better.jpg&f=1&nofb=1&ipt=94d6d5e5c963223bcb6ae6749368101f92ef2f69e5998045ec08eb3f366d0ab2&ipo=images'}
-
-   { type: 'song', title: 'Another example song', by: 'Example Artist', rating: 6.5,
-      note: '', link: '', cover: '' }
-
-   { type: 'song', title: 'Another example song', by: 'Example Artist', rating: 6.5,
-      note: '', link: '', cover: '' }
-
-   { type: 'song', title: 'Another example song', by: 'Example Artist', rating: 6.5,
-      note: '', link: '', cover: '' }
-
+    { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
+      note: '', link: '', cover: '', added: '2026-10-01' }
   ]
 };
+
+
+
+
+
+
+
