@@ -55,25 +55,18 @@ window.SOUL = {
   },
 
   items: [
-    { type: 'anime', title: 'Naruto', rating: 5,
-      note: 'Vagyunk vegig!',
-      link: '', cover: '', added: '2026-11-03' },
 
-    { type: 'movie', title: 'Faszkapitany', by: 'Example Director', year: 2016, rating: 9,
-      note: 'sfskjfsjkesfkfssddcajdsjkfsjkehfskjhfskjhfsjkhfsjkfhsjkhfsejkfhsjkehfsjkehfskejfhesjkhfksjehfkshefkhsekjfhskhefkhskenfs,mndf,mnsdm,fnsm,dnf,mnsdm,fnsdm,nfsdm,fnsfhsuidhfsudhfudhfuhdufhsdufh',
-      link: '', cover: '', added: '2026-11-02' },
+   { type: 'song', title: 'Better', by: 'What So Not', rating: 8.8,
+      note: '', link: 'https://tidal.com/track/77926178/u', cover: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdance-charts.b-cdn.net%2Fimages%2FSeptember_2017%2FWhat-So-Not--LPX---Better.jpg&f=1&nofb=1&ipt=94d6d5e5c963223bcb6ae6749368101f92ef2f69e5998045ec08eb3f366d0ab2&ipo=images'}
 
-    { type: 'song', title: 'IdiotaXD', by: 'radiohed', year: 2021, rating: 9,
-      note: 'olvad a nunim',
-      link: 'https://tidal.com/track/58990531/u', cover: '', added: '2026-11-03' },
-
-    { type: 'anime', title: 'Another example anime', by: 'Example Studio', year: 2008, rating: 7.5,
-      note: '', link: '', cover: '', added: '2026-10-20' },
-
-    { type: 'movie', title: 'Another example movie', by: 'Example Director', year: 1999, rating: 10,
-      note: 'A 10 gets a little extra glow.', link: '', cover: '', added: '2026-10-15' },
-
-    { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
+   { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
       note: '', link: '', cover: '', added: '2026-10-01' }
+
+   { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
+      note: '', link: '', cover: '', added: '2026-10-01' }
+
+   { type: 'song', title: 'Another example song', by: 'Example Artist', year: 2014, rating: 6.5,
+      note: '', link: '', cover: '', added: '2026-10-01' }
+
   ]
 };
