@@ -25,16 +25,71 @@
       font-family: 'Share Tech Mono', monospace;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Wrap container for mobile responsiveness */
+    /* Subtle background drifting fog effect */
+    .fog-layer {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .fog-cloud {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, rgba(180, 200, 240, 0.05) 45%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(65px);
+    }
+    .fog-cloud.c1 {
+      animation: driftOne 48s ease-in-out infinite alternate;
+    }
+    .fog-cloud.c2 {
+      background: radial-gradient(circle at 60% 40%, rgba(220, 235, 255, 0.09) 0%, rgba(160, 180, 220, 0.03) 50%, rgba(0, 0, 0, 0) 75%);
+      animation: driftTwo 64s ease-in-out infinite alternate;
+    }
+    @keyframes driftOne {
+      0% { transform: translate(-8%, -6%) rotate(0deg) scale(1); }
+      50% { transform: translate(10%, 8%) rotate(180deg) scale(1.12); }
+      100% { transform: translate(-6%, 12%) rotate(360deg) scale(1); }
+    }
+    @keyframes driftTwo {
+      0% { transform: translate(8%, 10%) rotate(0deg) scale(1.08); }
+      50% { transform: translate(-12%, -8%) rotate(-180deg) scale(0.96); }
+      100% { transform: translate(5%, -10%) rotate(-360deg) scale(1.08); }
+    }
+
+    /* Wrap container with safe bottom clearance for the fixed footer */
     .wrap {
       position: relative;
       z-index: 5;
       width: 100%;
       max-width: 78rem;
       margin: 0 auto;
-      padding: 1.5rem 1rem;
+      padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) 1.25rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
+    }
+
+    .back {
+      display: inline-block;
+      padding: 0.4rem 0;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.35), 0 0 16px rgba(255, 0, 68, 0.2);
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+    .back:hover, .back:focus-visible {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 0, 68, 0.55);
     }
 
     .hud-ticker {
@@ -53,18 +108,20 @@
       gap: 6px;
     }
 
-    /* Introduction text: wider and smaller */
+    /* Introduction poem box: fits text cleanly with generous breathing room */
     .intro-poem {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.88rem; /* Smaller font size */
+      font-size: 0.88rem;
       line-height: 1.6;
       color: rgba(255, 255, 255, 0.92);
-      background: #050505; /* Solid backdrop so background text can never obscure it */
+      background: #050505;
       border: 1px solid rgba(255, 0, 60, 0.5);
       border-left: 4px solid #ff0033;
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 1.5rem;
-      width: 100%; /* Wider footprint */
+      padding: 1.35rem 2.2rem;
+      margin: 0 auto 1.5rem auto;
+      width: fit-content;
+      max-width: 100%;
+      text-align: center;
       white-space: pre-line;
       box-shadow: 0 0 25px rgba(255, 0, 50, 0.15);
       position: relative;
@@ -83,7 +140,7 @@
       56% { opacity: 1; transform: none; }
     }
 
-    /* Content Layout Grid - Responsive for mobile */
+    /* Content Layout Grid */
     .content-grid {
       display: grid;
       grid-template-columns: 300px 1fr;
@@ -95,14 +152,14 @@
 
     @media (max-width: 768px) {
       .wrap {
-        padding: 1rem 0.75rem;
+        padding: 1rem 0.75rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
       }
       .hud-ticker {
         font-size: 0.55rem;
       }
       .intro-poem {
         font-size: 0.8rem;
-        padding: 5rem;
+        padding: 1.1rem 1.4rem;
       }
       .content-grid {
         grid-template-columns: 1fr;
@@ -139,6 +196,7 @@
       margin-top: 0;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      text-align: center;
     }
     .bio-box-left p.ident-key {
       font-size: 0.95rem;
@@ -147,7 +205,16 @@
       color: #ff0055;
       margin: 0.8rem 0;
       word-break: break-all;
+      text-align: center;
       text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+    }
+    .bio-box-left p.redacted-status {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: normal;
+      letter-spacing: normal;
+      text-align: center;
+      margin: 0 0 0.8rem 0;
     }
 
     .hud-box-right {
@@ -172,6 +239,7 @@
       margin-top: 0;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      text-align: center;
     }
     .hud-col p {
       font-size: 0.7rem;
@@ -245,7 +313,7 @@
       text-align: center;
     }
 
-    /* Glitch phrase floating layer - set z-index lower than windows or spawned in clear margin areas */
+    /* Ambient glitch phrase layer */
     .nge-phrase {
       color: #ffffff;
       text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
@@ -254,15 +322,55 @@
       font-weight: 700;
       text-transform: uppercase;
       pointer-events: none;
-      z-index: 1; /* Below UI windows (z-index: 10) so it never obscures any window */
+      z-index: 1;
       white-space: nowrap;
       user-select: none;
       line-height: 1;
       opacity: 0.7;
     }
+
+    /* ========================================================
+       PRESERVED EXACT FOOTER STYLES FROM page.css
+       ======================================================== */
+    .pages {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 1rem;
+      background: none;
+    }
+    .pages nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 1.25rem; }
+    .pages a {
+      font-family: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+    }
+    .pages a:hover, .pages a:focus-visible, .pages a[aria-current] { color: #fff; }
+    .pages a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .pages .mail { font-family: "Segoe UI", system-ui, sans-serif; font-weight: 400; font-size: 0.68rem; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.45); text-decoration: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fog-cloud { animation: none; }
+      .intro-poem span.flicker { animation: none; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Subtle moving ambient fog -->
+  <div class="fog-layer" aria-hidden="true">
+    <div class="fog-cloud c1"></div>
+    <div class="fog-cloud c2"></div>
+  </div>
 
   <main class="wrap">
     <a class="back" href="index.html#hub">&larr; back to the hub</a>
@@ -276,7 +384,7 @@
       <span>GEOFRONT: SECURE</span>
     </div>
 
-    <!-- Introduction Text: wider & smaller with clear backdrop -->
+    <!-- Introduction Text Box -->
     <div class="intro-poem">
 <span class="flicker">I can hear gas flowing through the pipes</span>
 the blood in my veins hum with each pump of my corroded heart
@@ -293,7 +401,7 @@ i see the wind, the particles it blows form such abstract forms
       <div class="bio-box-left">
         <h2>[01] BIO // IDENTIFIER</h2>
         <p class="ident-key">kX19dad52GONEc1Fsxc</p>
-        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.7); font-weight: normal; letter-spacing: normal;">[redacted]</p>
+        <p class="redacted-status">[redacted]</p>
         <div class="telemetry-grid">
           <div class="telemetry-cell">CPU: <span class="glitch-num cyan" id="d-cpu">5.20</span>G</div>
           <div class="telemetry-cell">RAM: 128Gb</div>
@@ -331,6 +439,7 @@ i see the wind, the particles it blows form such abstract forms
     </div>
   </main>
 
+  <!-- Exact original footer -->
   <footer class="pages">
     <nav aria-label="Pages"><a href="services.html">services</a> <a href="gallery.html">gallery</a> <a href="soul.html">soul</a> <a href="about.html" aria-current="page">about me</a> <a href="games.html">games</a></nav>
     <a class="mail" href="mailto:hecktyc@gmail.com">hecktyc@gmail.com</a>
@@ -341,10 +450,10 @@ i see the wind, the particles it blows form such abstract forms
       // CMD Window batch number cycle simulation
       var cmdBox = document.getElementById('cmd-batch-display');
       var batchList = [
-        "C:\MAGI\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
-        "C:\MAGI\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num amber'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num cyan'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
-        "C:\MAGI\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num cyan'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
-        "C:\MAGI\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num amber'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
+        "C:\\MAGI\\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
+        "C:\\MAGI\\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num amber'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num cyan'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
+        "C:\\MAGI\\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num cyan'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
+        "C:\\MAGI\\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num amber'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
       ];
       var batchIdx = 0;
       setInterval(function() {
@@ -355,8 +464,13 @@ i see the wind, the particles it blows form such abstract forms
       setInterval(function() {
         var tSync = document.getElementById('t-sync');
         var tBus = document.getElementById('t-bus');
+        var dCpu = document.getElementById('d-cpu');
+        var dGpu = document.getElementById('d-gpu');
+
         if (tSync) tSync.innerText = (399 + Math.random() * 2).toFixed(2) + "%";
         if (tBus) tBus.innerText = "0x" + Math.floor(Math.random() * 65535).toString(16).toUpperCase();
+        if (dCpu) dCpu.innerText = (5.18 + Math.random() * 0.05).toFixed(2);
+        if (dGpu) dGpu.innerText = Math.floor(97 + Math.random() * 3);
       }, 400);
 
       var NGE_PHRASES = [
@@ -423,7 +537,6 @@ i see the wind, the particles it blows form such abstract forms
 
         for (var i = 0; i < elements.length; i++) {
           var rect = elements[i].getBoundingClientRect();
-          // Add margin around UI windows to prevent overlapping or clipping
           if (x >= rect.left - 20 && x <= rect.right + 20 && y >= rect.top - 20 && y <= rect.bottom + 20) {
             return true;
           }
@@ -437,7 +550,6 @@ i see the wind, the particles it blows form such abstract forms
         slot.scrambleIndex = 0;
         slot.state = 'ciphering';
 
-        // Try to find a non-overlapping spawn location
         var top = Math.random() * 90 + 2;
         var left = Math.random() * 75 + 1;
         var attempts = 0;
@@ -447,7 +559,7 @@ i see the wind, the particles it blows form such abstract forms
           attempts++;
         }
 
-        var fontSize = Math.random() * 0.45 + 0.55; // Slightly smaller font so it fits cleanly
+        var fontSize = Math.random() * 0.45 + 0.55;
         var colors = ['rgba(255,255,255,0.85)', 'rgba(220,220,220,0.75)', 'rgba(180,180,180,0.65)', 'rgba(255,255,255,0.5)'];
         slot.color = colors[Math.floor(Math.random() * colors.length)];
 
