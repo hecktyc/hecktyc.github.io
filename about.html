@@ -31,39 +31,68 @@
       justify-content: space-between;
     }
 
-    /* Subtle background drifting fog effect */
+    /* Monochrome procedural smoke & fog (darker, softened detail, zero center glare, seamless infinite loop) */
     .fog-layer {
       position: fixed;
-      inset: -50%;
-      width: 200%;
-      height: 200%;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
+      background: #000000;
     }
-    .fog-cloud {
+    .fog-smoke-churn {
       position: absolute;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(ellipse 60% 50% at 25% 30%, rgba(145, 145, 145, 0.05) 0%, rgba(50, 50, 50, 0.04) 30%, rgba(8, 8, 8, 0.60) 60%, #000000 85%),
+        radial-gradient(ellipse 55% 60% at 75% 70%, rgba(115, 115, 115, 0.045) 0%, rgba(40, 40, 40, 0.06) 35%, rgba(6, 6, 6, 0.70) 65%, #000000 85%);
+      filter: blur(68px);
+      animation: churnSmoke 65s linear infinite;
+    }
+    .fog-wisps {
+      position: absolute;
+      inset: -40%;
+      width: 180%;
+      height: 180%;
+      background:
+        radial-gradient(ellipse 45% 35% at 20% 80%, rgba(125, 125, 125, 0.05) 0%, rgba(35, 35, 35, 0.05) 40%, transparent 75%),
+        radial-gradient(ellipse 40% 45% at 85% 25%, rgba(135, 135, 135, 0.045) 0%, rgba(30, 30, 30, 0.06) 45%, transparent 80%);
+      filter: blur(48px);
+      animation: driftWisps 75s ease-in-out infinite;
+    }
+    .fog-turbulence-svg {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, rgba(180, 200, 240, 0.05) 45%, rgba(0, 0, 0, 0) 70%);
-      filter: blur(65px);
+      opacity: 0.22;
+      mix-blend-mode: screen;
+      filter: contrast(120%) brightness(58%);
     }
-    .fog-cloud.c1 {
-      animation: driftOne 48s ease-in-out infinite alternate;
+    .fog-vignette {
+      position: absolute;
+      inset: 0;
+      /* Completely clears the center region behind the poem and UI into dark obsidian */
+      background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.78) 32%, rgba(0, 0, 0, 0.28) 70%, #000000 98%);
     }
-    .fog-cloud.c2 {
-      background: radial-gradient(circle at 60% 40%, rgba(220, 235, 255, 0.09) 0%, rgba(160, 180, 220, 0.03) 50%, rgba(0, 0, 0, 0) 75%);
-      animation: driftTwo 64s ease-in-out infinite alternate;
+
+    /* Seamless continuous infinite loop keyframes (0% and 100% states match exactly) */
+    @keyframes churnSmoke {
+      0%   { transform: translate(-3%, -3%) rotate(0deg) scale(1); }
+      33%  { transform: translate(3%, 2%) rotate(120deg) scale(1.04); }
+      66%  { transform: translate(-1%, 4%) rotate(240deg) scale(0.98); }
+      100% { transform: translate(-3%, -3%) rotate(360deg) scale(1); }
     }
-    @keyframes driftOne {
-      0% { transform: translate(-8%, -6%) rotate(0deg) scale(1); }
-      50% { transform: translate(10%, 8%) rotate(180deg) scale(1.12); }
-      100% { transform: translate(-6%, 12%) rotate(360deg) scale(1); }
-    }
-    @keyframes driftTwo {
-      0% { transform: translate(8%, 10%) rotate(0deg) scale(1.08); }
-      50% { transform: translate(-12%, -8%) rotate(-180deg) scale(0.96); }
-      100% { transform: translate(5%, -10%) rotate(-360deg) scale(1.08); }
+    @keyframes driftWisps {
+      0%   { transform: translate(0, 0) scale(1); }
+      25%  { transform: translate(3%, 3%) scale(1.02); }
+      50%  { transform: translate(-3%, 2%) scale(0.98); }
+      75%  { transform: translate(-2%, -3%) scale(1.02); }
+      100% { transform: translate(0, 0) scale(1); }
     }
 
     /* Wrap container with safe bottom clearance for the fixed footer */
@@ -76,6 +105,29 @@
       padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) 1.25rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
     }
 
+    /* Landscape mode layout (screens > 768px): exactly 60% viewport fit */
+    @media (orientation: landscape) and (min-width: 769px) {
+      .wrap {
+        width: 60vw;
+        max-width: 60vw;
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .hud-ticker {
+        width: 100%;
+      }
+      .intro-poem {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+      }
+      .content-grid {
+        width: 100%;
+        grid-template-columns: minmax(260px, 32%) 1fr;
+      }
+    }
+
     .back {
       display: inline-block;
       padding: 0.4rem 0;
@@ -84,12 +136,12 @@
       letter-spacing: 0.06em;
       text-decoration: none;
       margin-bottom: 0.5rem;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.35), 0 0 16px rgba(255, 0, 68, 0.2);
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 0, 0, 0.9);
       transition: color 0.2s ease, text-shadow 0.2s ease;
     }
     .back:hover, .back:focus-visible {
       color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.75), 0 0 20px rgba(255, 0, 68, 0.55);
+      text-shadow: 0 2px 8px #000, 0 0 16px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.95);
     }
 
     .hud-ticker {
@@ -150,6 +202,7 @@
       z-index: 10;
     }
 
+    /* Unchanged mobile phone styling */
     @media (max-width: 768px) {
       .wrap {
         padding: 1rem 0.75rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
@@ -329,9 +382,7 @@
       opacity: 0.7;
     }
 
-    /* ========================================================
-       PRESERVED EXACT FOOTER STYLES FROM page.css
-       ======================================================== */
+    /* PRESERVED EXACT FOOTER STYLES FROM page.css */
     .pages {
       position: fixed;
       left: 0;
@@ -359,17 +410,44 @@
     .pages .mail { font-family: "Segoe UI", system-ui, sans-serif; font-weight: 400; font-size: 0.68rem; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.45); text-decoration: none; }
 
     @media (prefers-reduced-motion: reduce) {
-      .fog-cloud { animation: none; }
+      .fog-smoke-churn, .fog-wisps { animation: none; }
       .intro-poem span.flicker { animation: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Subtle moving ambient fog -->
+  <!-- Deep dark monochrome smoke & fog background (softened, zero center glare) -->
   <div class="fog-layer" aria-hidden="true">
-    <div class="fog-cloud c1"></div>
-    <div class="fog-cloud c2"></div>
+    <div class="fog-smoke-churn"></div>
+    <div class="fog-wisps"></div>
+    <svg class="fog-turbulence-svg" viewBox="0 0 1000 750" preserveAspectRatio="none">
+      <filter id="smokeTendrils">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.006" numOctaves="3" result="noise1">
+          <animate attributeName="baseFrequency" dur="40s" values="0.008 0.006;0.006 0.009;0.010 0.007;0.008 0.006" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feTurbulence type="turbulence" baseFrequency="0.016 0.014" numOctaves="2" result="noise2">
+          <animate attributeName="baseFrequency" dur="50s" values="0.016 0.014;0.013 0.018;0.018 0.015;0.016 0.014" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="noise1" in2="noise2" scale="45" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feColorMatrix in="displaced" type="matrix" values="
+          0.33 0.33 0.33 0 0
+          0.33 0.33 0.33 0 0
+          0.33 0.33 0.33 0 0
+          0    0    0    1 0" result="desaturated"/>
+      </filter>
+      <rect width="100%" height="100%" fill="url(#smokeGradMono)" filter="url(#smokeTendrils)"/>
+      <defs>
+        <!-- Center stop is set to complete black opacity 0 to eliminate any center highlight -->
+        <radialGradient id="smokeGradMono" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
+          <stop offset="35%" stop-color="#141414" stop-opacity="0.15"/>
+          <stop offset="65%" stop-color="#303030" stop-opacity="0.20"/>
+          <stop offset="100%" stop-color="#000000" stop-opacity="0.95"/>
+        </radialGradient>
+      </defs>
+    </svg>
+    <div class="fog-vignette"></div>
   </div>
 
   <main class="wrap">
