@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Syncopate:wght@700&family=Orbitron:wght@800&family=Audiowide&family=Righteous&family=Zen+Dots&family=Bungee&family=Alfa+Slab+One&family=Abril+Fatface&family=Playfair+Display:wght@900&family=Cinzel:wght@800&family=UnifrakturCook:wght@700&family=Pacifico&family=Permanent+Marker&family=Rubik+Glitch&family=Wallpoet&family=Bruno+Ace&family=Chakra+Petch:wght@700&family=Tektur:wght@800&family=Oxanium:wght@800&family=Monoton&text=hecktyc&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&text=servicgalyoubtm%20&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&text=servicgalyoubtm%20&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #000;
@@ -276,6 +276,7 @@
       50%      { transform: translateY(5px);  opacity: 1; }
     }
 
+    /* 3D Star System Hub (Pupil-Centered) */
     .hub {
       position: fixed;
       inset: 0;
@@ -285,49 +286,190 @@
       opacity: 0;
       pointer-events: none;
       contain: layout paint;
+      perspective: 1400px;
+      overflow: hidden;
     }
+
+    .starfield {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      contain: strict;
+    }
+    .star {
+      position: absolute;
+      width: var(--sz, 1.5px);
+      height: var(--sz, 1.5px);
+      background: #fff;
+      border-radius: 50%;
+      opacity: var(--op, 0.4);
+      animation: twinkle var(--d, 3s) ease-in-out infinite alternate;
+      animation-delay: var(--del, 0s);
+    }
+    @keyframes twinkle {
+      0% { opacity: calc(var(--op, 0.4) * 0.25); transform: scale(0.8); }
+      100% { opacity: var(--op, 0.4); transform: scale(1.35); }
+    }
+
     .hub-stage {
-      --R: min(30vmin, 260px);
-      --n: clamp(3.4rem, 8.5vmin, 4.6rem);
+      --R: min(34vmin, 260px);
+      --n: clamp(3.2rem, 8.2vmin, 4.4rem);
+      --tilt-x: 64deg;
+      --tilt-y: 0deg;
       position: absolute;
       left: 50%;
-      top: 46%;
+      top: 50%;
       width: 0;
       height: 0;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .ring {
+
+    .system-plane {
       position: absolute;
-      left: calc(var(--R) * -1);
-      top: calc(var(--R) * -1);
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+      will-change: transform;
+    }
+
+    /* Orbital Track Rings */
+    .orbit-track {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .orbit-track.main {
       width: calc(var(--R) * 2);
       height: calc(var(--R) * 2);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.08), inset 0 0 16px rgba(255, 255, 255, 0.04);
     }
-    .ring.inner { transform: scale(0.58); border-color: rgba(255, 255, 255, 0.08); }
-    .core {
+    .orbit-track.inner {
+      width: calc(var(--R) * 1.3);
+      height: calc(var(--R) * 1.3);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+    .orbit-track.outer {
+      width: calc(var(--R) * 2.7);
+      height: calc(var(--R) * 2.7);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .orbit-track.dust {
+      width: calc(var(--R) * 2.16);
+      height: calc(var(--R) * 2.16);
+      border: 1px dotted rgba(255, 255, 255, 0.14);
+    }
+
+    /* Stellar Core (The Central Star at the pupil center) */
+    .star-core-wrap {
       position: absolute;
-      left: -4px;
-      top: -4px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.5);
-      animation: pulse 3s ease-in-out infinite;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
     }
-    .orbit { position: absolute; inset: 0; animation: spin 80s linear infinite; }
+    .star-core {
+      position: absolute;
+      left: -8px;
+      top: -8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow:
+        0 0 14px #ffffff,
+        0 0 28px rgba(255, 90, 77, 0.9),
+        0 0 65px rgba(224, 0, 25, 0.55),
+        0 0 110px rgba(224, 0, 25, 0.3);
+      animation: starPulse 3.6s ease-in-out infinite;
+    }
+    .solar-corona {
+      position: absolute;
+      left: -52px;
+      top: -52px;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(255, 255, 255, 0.38) 0%,
+        rgba(255, 90, 77, 0.22) 42%,
+        rgba(224, 0, 25, 0.08) 68%,
+        transparent 100%);
+      pointer-events: none;
+      animation: coronaPulse 4.2s ease-in-out infinite alternate;
+    }
+    .diffraction-spikes {
+      position: absolute;
+      left: -70px;
+      top: -70px;
+      width: 140px;
+      height: 140px;
+      pointer-events: none;
+      animation: spikeSpin 70s linear infinite;
+    }
+    .diffraction-spikes::before,
+    .diffraction-spikes::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7) 50%, transparent);
+    }
+    .diffraction-spikes::after {
+      transform: rotate(90deg);
+    }
+
+    @keyframes starPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #fff); }
+      50%      { transform: scale(1.28); filter: drop-shadow(0 0 24px rgba(255, 90, 77, 0.9)); }
+    }
+    @keyframes coronaPulse {
+      0%   { transform: scale(0.92); opacity: 0.65; }
+      100% { transform: scale(1.22); opacity: 0.95; }
+    }
+    @keyframes spikeSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 3D Orbiting Categories */
+    .orbit {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      animation: starOrbit 75s linear infinite;
+    }
     .node {
       position: absolute;
       left: 0;
       top: 0;
       width: 0;
       height: 0;
+      transform-style: preserve-3d;
       color: #fff;
       text-decoration: none;
-      transform: rotate(calc(var(--k) * 72deg)) translateY(calc(var(--R) * -1)) rotate(calc(var(--k) * -72deg));
+      transform: rotateZ(calc(var(--k) * 72deg)) translateY(calc(var(--R) * -1));
     }
     .node-in {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      animation: starUnorbit 75s linear infinite;
+    }
+    .billboard {
       position: absolute;
       left: calc(var(--n) / -2);
       top: calc(var(--n) / -2);
@@ -336,18 +478,45 @@
       flex-direction: column;
       align-items: center;
       gap: 0.55rem;
-      animation: unspin 80s linear infinite;
+      transform-style: preserve-3d;
+      transform: rotateZ(calc(var(--k) * -72deg)) rotateX(calc(var(--tilt-x) * -1)) rotateY(calc(var(--tilt-y) * -1));
+      will-change: transform;
     }
-    .orb {
-      display: grid;
-      place-items: center;
+
+    .orb-wrap {
+      position: relative;
       width: var(--n);
       height: var(--n);
-      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+    }
+
+    .planetary-ring {
+      position: absolute;
+      inset: -18%;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.9);
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      transform: rotateX(72deg) rotateY(-18deg);
+      pointer-events: none;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.12);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .orb {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      border: 1.5px solid rgba(255, 255, 255, 0.72);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(40, 40, 52, 0.95), rgba(8, 8, 14, 0.98) 72%, #000 100%);
+      box-shadow:
+        inset -3px -3px 8px rgba(0, 0, 0, 0.85),
+        inset 2px 2px 7px rgba(255, 255, 255, 0.38),
+        0 0 16px rgba(255, 255, 255, 0.18);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .orb svg {
       width: 44%;
@@ -357,32 +526,58 @@
       stroke-width: 1.7;
       stroke-linecap: round;
       stroke-linejoin: round;
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.45));
     }
     .lab {
       font-family: "Rajdhani", "Segoe UI", system-ui, sans-serif;
       font-weight: 600;
       font-size: 0.95rem;
-      letter-spacing: 0.14em;
-      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.88);
       white-space: nowrap;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.9), 0 0 14px rgba(255, 255, 255, 0.3);
+      transition: color 0.25s ease, text-shadow 0.25s ease;
     }
+
     .node:hover .orb, .node:focus-visible .orb {
       transform: scale(1.18);
       border-color: #fff;
-      box-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
+      box-shadow:
+        inset -2px -2px 6px rgba(0, 0, 0, 0.6),
+        inset 2px 2px 8px rgba(255, 255, 255, 0.65),
+        0 0 30px rgba(255, 255, 255, 0.65),
+        0 0 60px rgba(255, 90, 77, 0.4);
+    }
+    .node:hover .planetary-ring, .node:focus-visible .planetary-ring {
+      border-color: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
+    }
+    .node:hover .lab, .node:focus-visible .lab {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.75);
     }
     .node:focus-visible { outline: none; }
     .node:focus-visible .orb { outline: 2px solid #fff; outline-offset: 3px; }
+
     .orbit:hover, .orbit:hover .node-in, .orbit:focus-within, .orbit:focus-within .node-in,
-    .hub:not(.on) .orbit, .hub:not(.on) .node-in, .hub:not(.on) .core { animation-play-state: paused; }
-    @keyframes spin   { to { transform: rotate(360deg); } }
-    @keyframes unspin { to { transform: rotate(-360deg); } }
-    @keyframes pulse  { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+    .hub:not(.on) .orbit, .hub:not(.on) .node-in, .hub:not(.on) .star-core,
+    .hub:not(.on) .solar-corona, .hub:not(.on) .diffraction-spikes {
+      animation-play-state: paused;
+    }
+
+    @keyframes starOrbit {
+      to { transform: rotateZ(360deg); }
+    }
+    @keyframes starUnorbit {
+      to { transform: rotateZ(-360deg); }
+    }
 
     .lite body::after { animation: none; }
 
     @media (prefers-reduced-motion: reduce) {
-      h1 span, .scroll-hint svg, .orbit, .node-in, .core { animation: none; }
+      h1 span, .scroll-hint svg, .orbit, .node-in, .star-core, .solar-corona, .diffraction-spikes, .star {
+        animation: none;
+      }
       .reveal { transition: none; }
     }
   </style>
@@ -432,19 +627,84 @@
   </main>
 
   <section class="hub" id="hub" aria-label="Menu">
-    <div class="hub-stage">
-      <div class="ring"></div>
-      <div class="ring inner"></div>
-      <div class="core"></div>
-      <nav class="orbit" aria-label="Pages">
-        <a class="node" href="services.html" style="--k:0"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span class="lab">services</span></span></a>
-        <a class="node" href="gallery.html" style="--k:1"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span><span class="lab">gallery</span></span></a>
-        <a class="node" href="soul.html" style="--k:2"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V10a7 7 0 0 1 14 0v11l-3.5-2.5L12 21l-3.5-2.5L5 21z"/><circle cx="9.5" cy="11" r="0.8"/><circle cx="14.5" cy="11" r="0.8"/></svg></span><span class="lab">soul</span></span></a>
-        <a class="node" href="about.html" style="--k:3"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span class="lab">about me</span></span></a>
-        <a class="node" href="games.html" style="--k:4"><span class="node-in"><span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 12h3M8.5 10.5v3"/><circle cx="15.5" cy="11" r="0.6"/><circle cx="17.5" cy="13" r="0.6"/></svg></span><span class="lab">games</span></span></a>
-      </nav>
+    <div class="starfield" id="starfield" aria-hidden="true"></div>
+    <div class="hub-stage" id="hubStage">
+      <div class="system-plane" id="systemPlane">
+        <!-- orbital tracks -->
+        <div class="orbit-track inner" aria-hidden="true"></div>
+        <div class="orbit-track main" aria-hidden="true"></div>
+        <div class="orbit-track dust" aria-hidden="true"></div>
+        <div class="orbit-track outer" aria-hidden="true"></div>
+
+        <!-- Central star centered right at the pupil focal point -->
+        <div class="star-core-wrap" aria-hidden="true">
+          <div class="solar-corona"></div>
+          <div class="diffraction-spikes"></div>
+          <div class="star-core"></div>
+        </div>
+
+        <!-- 3D orbiting category planets -->
+        <nav class="orbit" aria-label="Pages">
+          <a class="node" href="services.html" style="--k:0">
+            <span class="node-in">
+              <span class="billboard">
+                <span class="orb-wrap">
+                  <span class="planetary-ring" aria-hidden="true"></span>
+                  <span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+                </span>
+                <span class="lab">services</span>
+              </span>
+            </span>
+          </a>
+          <a class="node" href="gallery.html" style="--k:1">
+            <span class="node-in">
+              <span class="billboard">
+                <span class="orb-wrap">
+                  <span class="planetary-ring" aria-hidden="true"></span>
+                  <span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                </span>
+                <span class="lab">gallery</span>
+              </span>
+            </span>
+          </a>
+          <a class="node" href="soul.html" style="--k:2">
+            <span class="node-in">
+              <span class="billboard">
+                <span class="orb-wrap">
+                  <span class="planetary-ring" aria-hidden="true"></span>
+                  <span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V10a7 7 0 0 1 14 0v11l-3.5-2.5L12 21l-3.5-2.5L5 21z"/><circle cx="9.5" cy="11" r="0.8"/><circle cx="14.5" cy="11" r="0.8"/></svg></span>
+                </span>
+                <span class="lab">soul</span>
+              </span>
+            </span>
+          </a>
+          <a class="node" href="about.html" style="--k:3">
+            <span class="node-in">
+              <span class="billboard">
+                <span class="orb-wrap">
+                  <span class="planetary-ring" aria-hidden="true"></span>
+                  <span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                </span>
+                <span class="lab">about me</span>
+              </span>
+            </span>
+          </a>
+          <a class="node" href="games.html" style="--k:4">
+            <span class="node-in">
+              <span class="billboard">
+                <span class="orb-wrap">
+                  <span class="planetary-ring" aria-hidden="true"></span>
+                  <span class="orb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 12h3M8.5 10.5v3"/><circle cx="15.5" cy="11" r="0.6"/><circle cx="17.5" cy="13" r="0.6"/></svg></span>
+                </span>
+                <span class="lab">games</span>
+              </span>
+            </span>
+          </a>
+        </nav>
+      </div>
     </div>
   </section>
+
   <button type="button" class="scroll-hint" id="hint" aria-label="Scroll down">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>
   </button>
@@ -477,12 +737,32 @@
       var lashes = clock.querySelector('.lashes');
       var glow = clock.querySelector('.eye-glow');
       var hub = document.getElementById('hub');
+      var hubStage = document.getElementById('hubStage');
       var hint = document.getElementById('hint');
       var space = document.getElementById('space');
+      var starfield = document.getElementById('starfield');
+
+      // Populate subtle background stars
+      if (starfield) {
+        var frag = document.createDocumentFragment();
+        for (var s = 0; s < 46; s++) {
+          var star = document.createElement('span');
+          star.className = 'star';
+          star.style.left = (Math.random() * 100).toFixed(1) + '%';
+          star.style.top = (Math.random() * 100).toFixed(1) + '%';
+          star.style.setProperty('--d', (2.2 + Math.random() * 3.8).toFixed(1) + 's');
+          star.style.setProperty('--del', (Math.random() * 3.2).toFixed(1) + 's');
+          star.style.setProperty('--sz', (Math.random() > 0.8 ? 2 : 1.2) + 'px');
+          star.style.setProperty('--op', (0.25 + Math.random() * 0.55).toFixed(2));
+          frag.appendChild(star);
+        }
+        starfield.appendChild(frag);
+      }
 
       var PF = 1500 / (1500 - 90);
       var W = 0, H = 0, zoomDist = 1, size = 510, vbEnd = 10, jumped = false;
       var lastP = -1, lastHint = -1, flat = false, zoomed = false, covered = false, hubOn = false;
+
       function layout() {
         W = window.innerWidth; H = window.innerHeight;
         zoomDist = 1.6 * H;
@@ -561,6 +841,14 @@
         var moving = !reduce && (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005);
         if (moving) { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; }
         if (p !== lastP || (moving && p < 0.3)) { apply(p); lastP = p; }
+
+        // Subtle 3D star system tilt reacting smoothly to cursor movement
+        if (hubOn && !reduce && hubStage) {
+          var tiltX = 64 + cy * 8;
+          var tiltY = cx * 12;
+          hubStage.style.setProperty('--tilt-x', tiltX.toFixed(2) + 'deg');
+          hubStage.style.setProperty('--tilt-y', tiltY.toFixed(2) + 'deg');
+        }
 
         var o = Math.max(0, 1 - y / (H * 0.2));
         if (o !== lastHint) { lastHint = o; hint.style.opacity = o; hint.style.visibility = o <= 0 ? 'hidden' : 'visible'; }
@@ -669,6 +957,5 @@
       })).then(go, go);
     })();
   </script>
-
 </body>
 </html>
