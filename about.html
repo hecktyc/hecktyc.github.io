@@ -247,6 +247,8 @@
 
     /* Glitch phrase floating layer - set z-index lower than windows or spawned in clear margin areas */
     .nge-phrase {
+      color: #ffffff;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
       position: fixed;
       font-family: 'Share Tech Mono', 'Rajdhani', monospace;
       font-weight: 700;
@@ -446,7 +448,7 @@ i see the wind, the particles it blows form such abstract forms
         }
 
         var fontSize = Math.random() * 0.45 + 0.55; // Slightly smaller font so it fits cleanly
-        var colors = ['rgba(255,0,51,0.6)', 'rgba(255,85,0,0.6)', 'rgba(0,255,102,0.6)', 'rgba(0,225,255,0.6)', 'rgba(255,0,119,0.6)'];
+        var colors = ['rgba(255,255,255,0.85)', 'rgba(220,220,220,0.75)', 'rgba(180,180,180,0.65)', 'rgba(255,255,255,0.5)'];
         slot.color = colors[Math.floor(Math.random() * colors.length)];
 
         slot.el.style.top = top + 'vh';
