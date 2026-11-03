@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>soul | hecktyc</title>
-  <meta name="description" content="The personal side.">
+  <meta name="description" content="Songs, movies and anime I love, with my ratings.">
   <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
@@ -13,17 +13,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&text=servicgalyoubtm%20&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="page.css">
+  <link rel="stylesheet" href="soul.css">
 </head>
 <body>
-  <main class="wrap">
+  <main class="wrap wide">
     <a class="back" href="index.html#hub">&larr; back to the hub</a>
     <h1>soul</h1>
-    <p>This page is for the part of you that doesn't fit a brochure: music, moods, influences, what keeps you going.</p>
-    <p class="note">Placeholder text: edit soul.html.</p>
+    <p class="intro">Songs, movies and anime that stayed with me, with my ratings. New titles get added over time.</p>
+
+    <div class="controls">
+      <div id="filters" role="group" aria-label="Filter by category"></div>
+      <div class="tools">
+        <input id="q" type="search" placeholder="search" aria-label="Search titles" autocomplete="off">
+        <select id="sort" aria-label="Sort">
+          <option value="new">newest added</option>
+          <option value="top">highest rated</option>
+          <option value="az">title A to Z</option>
+          <option value="year">year, newest first</option>
+        </select>
+      </div>
+    </div>
+    <p class="stats" id="stats" aria-live="polite"></p>
+    <section class="grid-soul" id="grid" aria-label="Titles"></section>
+    <noscript><p>This page needs JavaScript to show the list.</p></noscript>
   </main>
   <footer class="pages">
     <nav aria-label="Pages"><a href="services.html">services</a> <a href="gallery.html">gallery</a> <a href="soul.html" aria-current="page">soul</a> <a href="about.html">about me</a> <a href="games.html">games</a></nav>
     <a class="mail" href="mailto:hecktyc@gmail.com">hecktyc@gmail.com</a>
   </footer>
+  <script src="soul-data.js"></script>
+  <script src="soul.js"></script>
 </body>
 </html>

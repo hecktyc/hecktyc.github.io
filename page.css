@@ -6,9 +6,6 @@ body {
   min-height: 100vh;
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   line-height: 1.65;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 body::after {
@@ -38,14 +35,9 @@ body::after {
 }
 
 .wrap {
-  width: 100%;
   max-width: 46rem;
   margin: 0 auto;
-  padding: calc(env(safe-area-inset-top, 0px) + 2rem) 1.25rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) 1.25rem calc(env(safe-area-inset-bottom, 0px) + 8rem);
 }
 
 .back {
@@ -55,60 +47,35 @@ body::after {
   font-size: 0.85rem;
   letter-spacing: 0.06em;
   text-decoration: none;
-  margin-bottom: 0.5rem;
 }
 .back:hover, .back:focus-visible { color: #fff; }
 
 h1 {
-  margin: 1rem 0;
+  margin: 2rem 0 1rem;
   font-family: "Rajdhani", "Segoe UI", system-ui, sans-serif;
   font-weight: 600;
   font-size: clamp(2.4rem, 9vw, 4.5rem);
   letter-spacing: 0.14em;
   line-height: 1.1;
-  text-align: center;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
 }
+p, li { color: rgba(255, 255, 255, 0.78); }
+.note { margin-top: 2rem; color: rgba(255, 255, 255, 0.4); font-size: 0.8rem; } /* delete these notes once you add your own text */
 
-p, li {
-  color: rgba(255, 255, 255, 0.78);
-  text-align: center;
-  max-width: 38rem;
-}
-
-.note {
-  margin-top: 2rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 0.8rem;
-  text-align: center;
-}
-
-ul.list {
-  margin: 1.5rem 0 0;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-  max-width: 32rem;
-}
-ul.list li {
-  padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-}
+ul.list { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+ul.list li { padding: 1rem 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
 ul.list li:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 ul.list strong { display: block; color: #fff; font-weight: 600; letter-spacing: 0.04em; }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
   gap: 0.75rem;
   margin-top: 1.5rem;
-  width: 100%;
 }
 .tile {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
   aspect-ratio: 4 / 5;
   padding: 0.6rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -123,14 +90,14 @@ ul.list strong { display: block; color: #fff; font-weight: 600; letter-spacing: 
   position: fixed;
   left: 0;
   right: 0;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+  bottom: 0;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  padding: 0 1rem;
-  background: none;
+  padding: 1.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 1rem);
+  background: linear-gradient(to top, #000 55%, rgba(0, 0, 0, 0)); /* content scrolls out of sight behind the menu */
 }
 .pages nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 1.25rem; }
 .pages a {
