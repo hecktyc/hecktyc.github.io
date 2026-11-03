@@ -8,79 +8,118 @@
   <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
   <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="page.css">
   <style>
-    :root { color-scheme: dark; --grain: 0.4; }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; background: #000000; color: #fff; font-family: 'Share Tech Mono', monospace; }
-    
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
       overflow-x: hidden;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Film grain effect matching site styling */
-    body::after {
-      content: "";
-      position: fixed;
-      top: -5%;
-      left: -5%;
-      width: 110%;
-      height: 110%;
-      z-index: 100;
-      pointer-events: none;
-      opacity: var(--grain);
-      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAMFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABaPxwLAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAIFdJREFUeNoFwQcgFGwAANDv9nZnzz8XWSEnMykX2ZWzV+WS7HKSVcYVEipktxxZKZFRopBN2Q1R2VKUO+7s8b8HLg0ZZbJ4heY1LqQbEAqyRrHgoXV8017UvfmSpqdoV+3rGWldLmO4DAJmnBrN1ltTvKAYRztC+71CWRRIPR7hBzGrrZq1GTnDhzC4FyLyiGmYTfp5V0Ywqu8FTD1fVJ0SNUPGbMRv4aV7pQTsuUc3D4OKiYayT4f6zK9YXbvGwM5Dfcv6HZ+ZnfXoEWGIG7vYohpzX2IwErXoIWJWUr/K4wsDe/9tJQ7JNqKX9zlrD9KdSYd29j5S+fm+OOXgyO/D8Bho23Il2A4h8pg4Vtvt88OnYbq67l/xBkxJzO+7Auoi3tcuWi0bFNupt0jaGtz2lay6/cua9UZ0xe8z8Y+TvdbiPYizwBMUd+jTeYyLJDMe7nXxY0qOW3e1woH1+HWOldpP2X6aucxsXwU5bL41ragkdALpIx5XdQb7D7vi9NRWb2IvbMP0T91tDhJ8UaOGXLBxVOj8MyJ1JqiONjDKVXOcFb3i1YAarSosPdKzvsdBgcy3N5FTlNKf0Kxkg5J+lcNXLwn2QDPzAUCTOYR+8Emkn7pbw2JCzUskzpAMMt6keZEjnubeXrm9Fo+n0ZBS6MevQwYzg5duPX2IREEuZU/ATwL2bu2qDsaJOV5x3R34AuG9b/OCcUF/3rFOyN+dd834reqCJBEd21KuZAFsNtinSxP15DHMM26CTTof/HUhGy72EyfKUS9LV6DvaJEEMdrYurqmzyItk2H63umSeWG3vymanw5mM2P0ZREP/cP1nWmUjoGMWxLO+xu+BQ+8k6KBQxcCcLDAq0iq9cTy+oMGLrCINzTDIvYBGlcWmCGRCTeqEqkppBrsrvYD+lN4yIMMzKLnv0QlYVvITbNnIscAQtreCiHsj1y2Rgyh/KuZHR+NSY5YH9JTW2MK6zhjpIx0d8gJqqZGZ5dT2sEJi+2/hDiAhOw3nk6JD4LrV4AnafgUGPzFqSFc+Tz7yjqfpE7xnptPVm+Rwn5j3jIHUyr7+vlLwu6vMKCoVo2g7ESvlVcaIpqfhyuj316DJBkbQwCtEnGgJ5NlEJle69W4SWT/WbfOfZ1JYjP+7J8T3VbTmnGkej9PkFb+1Jo3R70/VeGX8Dqz6Q0XTJV5CKodWAc4RwqfIEzTRj549XITSPkM52BGTSN4n1LEcPJ2/uxglHB/GCa2Px1hATfAo53IhMCXpD5UIzIlPv9GJmWrEqppoX2w/QjnHOsBZkaOOO2Xjqv2xgznHaTtrOntu/9Z6Ljfh/1x60hS04KdtdTdAr3RjIbd21SxppoXR2M93ylbAxaI3AERMBPnjkaQG3laL+evPn4jq7rQlL5GCKtE3pHLcJIWtS3bOIEqBVwQGZXQGqunIH8klA18SqTjMJowhckqtPr81x+herRBy/6rLYtBw8uvmyN7v1w2ap0I2hYxHaTKBJy+jHRHVN+7IlAOF7Ovsht/cUf/yAIbhlb2UgNnMGx2LgdUe+cw2EO2JrSqGaWXZyEMkFiCHWwNI4ocypyj2vM/31bExlw4utlhZe7rixw/8BAFHgEtYoHBMpSysURLklZr5P8q3MSuX8JL1P90EtgtfBFu66l1DXDw0rPSBjDUl0PepRE/3uak2yTncw4qfvPN73eHQM6xe1ygqOFTG1peNmPxGh+SKuaEyzTjA4MTC7jv8Dia0ntwsnWr+eII2+HUvmeffU6JeKikfp+XOLAKeXBVzyvkvRHb+CNU+OT3A8EnBY/IFj7pSPEb8vnwd/nW1iBM6iEslNP+Q0kS9SRGb3WO+EzzoqZxPhre+/xVJubmldlfwaRW/xPvrv+Ai9qLenlvdaLMdbswf+oNhY7ZIVMvVMJ2ks9cyiAd1GVJi2RdMT4g5G1WNHZtnq9BZEmwIGwcpr3yY3qhWDU56QkE2I7v0UrY+i/IAa0w5h/hFmi3OptrdXBt21y7UOSkSuVzQ/Jh4fLFe5vTnYSF8zV96z0tO2sZkqcJ2scIEULADKBVUaxQuU7jx3VsUOEHdUEXR4ZYWESK3BpurMCane2PxTrvtBJMTLmmTJg1xBgWB/fF6uQJP4He1rSHhdAPwroF1jNWvZzUlVnyeQfD17e/7KuzyDAp3fe9I0jCOtSbfUJHouh7O3USL6ryfFqCUdmwQx7a5NJnNX8fgormSZ2GXtUz3Bh8ERn+o6n+XekJpszqDv/T3apx+pSJnsvkm2n/8sDfL24GvOl+caCRxhl+3ho6A0eooae/dTzG/ITAVVzg+x8ZybzrWxOf+iBhdVIbz+fRU4t8UpxaSco2thS51li0It7h8PSql+rhU9sTpQJCO6jdYuHTj3AoOqj9Nnv0ZjmUpPTl2hmnHDndzGj247376jBzuKPnnm7xt852zRWOb8+0Dnck5xs0PuCZ3Olnqfg8lpB2fPZveuxTQYfdZ5I7QgdC2DA1MlRxFXXkUnzVRqjxfPwb57Od9iS3N50eOw+VbN3uqmHPbM1kv11J7XYIFbYcUcxue81ZDrCnP8gJuFIlDSrMmvRSxNGvCD8r5trs12iZEUWhpYH1aKq/TJNQqeYVUuGG/K0cF67F6BeXcnYl2g7QHJ3oqA4dYHIcxoBvgB1twtOnYQPIr64MYJurTZW5jjm3r4Hg3VShvvvUYN7ukujm+uMSCleZpJ3QfvNQcn4hWyMERHNTCQUnYm8atkL5n7ic+S6Re0YVbdM972vcxOWZPwmL2s61vrsePtGRraKp2anBUCx5iNXEdj2arPW8hOvc3VtUJ9q36usxutEgBIMNjH1OY56gQ7odi2AjstCx/mm64B3iwNXW0dCpn2tYUuzhuTFv4osk+PvEVjVHxrYGV1AR+lELOoTt6xQaVoAqKz0Skhrc3I6CvzMpcZCXgok/evRPbyigxIq30uqXkeUnlnCdn4Jb2Gw2My4Jw4x8vcg+Yu0kaFAY/J8F57P2ZYhYRqMo/eHBwR6ymM4x2MuIZVVx0cNtNzfql6EKnaDt/cTJMpbh48Krewtbu0eP/d6dOnr4BX5d4rpmhXzSO4j+OFzmVe7OlQfDuQ3TUvXcrAwlUcAquOcEP/qrS+GI400N9rZ61VlYIfW9+sYjxuDnvHlZ16z8muYkRKPjSJMIrHET2nWQqVi+stNcULSu/zKBWCy3atR+yH1NQ0lpCK9sz74YrBdQGeBS5LgyMHMJt7LdL2m8ElPZaE+sCSF02W7l5QD2vdlXYBXexDvJeDOApeqpakGcI5A099jUYZ4OxXMfiuiHPl3RP4ulK0GWEj7ABlYxS6k62dEgi0hOZMO1oZSSj5OaYRfTRhtEfpXvfvK8oVBelhhzakH4g82PUV3nT4dK/5jhWTkiD5/8+NCqr3/GzUSOedWn5ikEwyH3wXmy0LEIxPhbzonUBxeX3sRuC1PDc2cNU4tD6vzUztMb5yQVzeQp8BxSgRqlkvSsARgXdZSgmqm8SW0IBTkjE8v7BcHL/yf3/EvUCaPbg5zPrnaPRMQhw+GCPVKET1Jr4fLpS56qU/VdA54NKJpUTpSIdmV0yaJnW9Sv70s4PyB8XI0OPwk3HKvBqBdGTt+HszaPTZ788aeLf97Of7DBI8cG7eX5GPWm8qO6HRSF45JiHLth70+VLLszyFr8CPgEQnujBkDkwLLLPat5djC6BBGXsLaW5DFOrLslTCjJJBa+GKlZaCqtQIv7UTIAl4ZIUhqikwpX3zBWYIS+JUjKYRFpwBZ9+nwxNuDDzlJSG0J7FHrXG65ojT4S3NRcSQon0rnsVW98NiUpWI8njb5EQ7lToHJEXO54UtfR81cU1q4wIdkTE7TmJZJY7B0Qnu1Y/zch8Z39G3kTVsPqCvzwQp3BhISA0nUuj+Q+XB8/66LhJnOAzu99cdvAUwGIW6SdcoDBVb4KbK/tC9us3SmIjH8oViEfb29czvOQ+Z0dlSa49Nj9nzdkJpGYOeb2/e1UkuqNd4CUZe7BxX+Zwwj3vm5Tgeyt4185YL8pOQO3Xvz1Tn382SvT+J3Z9PcTF4/xBMrihst4F9Z3Mh7++exrnue29u6QdG0479urpXeR/h7GBI1rCJDOHjrrOrntqPg2iGx+EEP96HGutyOc445u6n6sZo4/j/p9DA5vtymdhCLV/fO9C9BwSx3bqiyACtKUP7dgsA0/Stvk9XGqYd2nyBJ7Dr5QmrScWvaSPVuvfbWT1xN33uBRQ8BgUaKs8N21R+OYWOuFjaDo0wWuMgOX5Rx6ZNOX+SELVZc2LquH8ZSYl1dXwXybGsao0cDrlQ4cAqssQ7Xp7G8hJXEaOwbDFWGQnU9JqtsXMRFY1whLLRqtUP5oIgRM7tYwz3lwYrdATBY8M+ws5lDds4zntUzhHsbDSgg+eWt/CvQTirXULedRhEIEtxsUejC2gTsWmytN7CJWQIFEmD4FQxZiWTzg6K9RS2ASZ+e+c8sLko1aQdAylKBW7g9X9SNfCrC319q7ZYs1wExtN/+ITsk9rANscalYS/DZlVZy6HgFAkemzj5lVJNnqG3t4sD3i6Nt2pmgwjzyz+HgDPwbj1AYHohKs8IQ7k7aWNVdXXPSuZG4056rxvCdiXw98vsYVNj4Zckt9JzLqrNB/flptcM2quS/pkoSRQ2WSWtqqY3sIefXih93qhgBlUq6hsf+DLxg2rRmLhINYBt5zhoiX5rRhEtFb2sLTJdcJ36svK/e/VhTrRvLd4wcKz0IlbA7qdJSf/ytBVWJdfPkX6uy9JAsaN/L9b1n0kfgEDE2tzNhu8H7t8FR+y4IXsoBNy0tObyVfK5p5uQVwy0hZZPl2/9ETlFOfrvw3Xl2dPsWaFKAFS2sXb9WZXVWhOwLbLk3sZQ7drLtCagsSAkz6lK9jEo/6uvTjPtucKnm85AE+YbrSCPZq9LTyQLkQk83a2hobAI6tl2Z7fewn0VKAYxl+hGGFu/2BliDaZaOx+HAWgNfeJ1JBJ90rtutFBBcOxgDrClEugNeXH0Jhmdy8SyEEgM+eO8GU7ri8ziwJa9QP9IyiSyJb+ncMEv2maniyz1rkbwA0Lsw2IQA+xha4a/ve4k2T/VdSZfCqRhQVhzM1PbPVEE+SomyCrDgliEClnTLcohitIOlXk5QCySKJAG61X6imU0rzOScwSldsvJ3WVSxmLcpCUX/yzNtQMDrNtSjgUeVZxSA+8B3mqKqEGFm1sSyNAd+Ffe+1K1ZUWjzJVUbd9PySLUO3Z3aT+v7wOTRo/sf1ZjLSFD9jQp3fqscWCArE+Q1Dk4EwN53od5n93ye1PMxE6OccZAKD8cvdPNUn385n1KnHbo9/1zd+/nY0HpLi8tp5dk2vZ0jj05WuKxxA3+ZHlzbPJlnB2s01el9q8zJebQulrAR9XToSzoWcR8T9OFbQBGF/5XH7JepS1i0K+Readf7LzN2VS5BD8uKt3+aq28Gz2k+XeZ/Dnu4cnWTeXvJ3EZ9qZvTz3go/vFKVNqh6ffam2yI5OPj7altSOniJ/l9v5kmO83tzx5eO0bpHz62J++jyEYvibPSAvn1KR/3WP/AOLQwp+J50q7G0zx9k6TphV8JxXFVD363zwTSNP7TO777IgL4j2LzBqZf/HZz/95CxxwW++t1eWKzGiiYtqGl2lPgd/cKMFg8BrMyvKGbXKJdT4FR+/Y7h9SZa+dgUCwcswotn1wbdu+e9geC5yTAkZh7b2jBgfYJmMNIsPHBmUs5P5Ff1Lj5t+uRybjFIxODZeDIcNKSo1Yp2eSVm68fxwyOb3uTu1gTk7E8jZcm9CsTVvcdMuBQcuGPdSkxhWNwwbWfnFOlE7qxmlMCXx9U4CZ7+aY3Hkto3DbBNtJs0YQw+tAaE153t3mMNxZ6Z9ZrvU60VYm1MnEIDIYqBe0/S4EkH3Bj5QJbDlssa5dXPS5nAEFKVeCY9AolfyZjcazxQy0byuPP/PQy175Jg/krmD5Q47xyCAKH5SNVWtK6geT7JbtO/eXyDF5TpSmmbd4oLUD6gen8WYP7sTrI71mtO+7YzcNHJNG6aiNKdQpxJjGp11/JlLXDo+Fxh1A1xmcR0+X/uommgr19RehUvUwtZ6sFFp/FSN7Sib0z1kpvR5pM7OB0iOS4DDxNMnjyj8V/3lYxer98ZrIbwVG0NmkjMy5KnRtXGijK9tH14yWEoOA5x2m7bhV1DIoHGC/uj6RB+/y6JVBvz2x5e5X5xYt5f3gC95qbxgFd0P4KIIBkejAbwGuMAzPD74sBs1sVmmJZAZ5jpO/VLCIiG5rGWxmmZ8YAVyoJJrs5GwjMeDCmrrfnaLh9PCz9TX/Xyr5TL86XPF/dL/sPKzpbOaHmcbHsRLZGqbWtemIwsv7W1p2GsajVqocT2njFZe6c+lBXk2900WWwzuF2w++zed/yx+JkoicRP7u07E5Dt2+k8Z1+fxuxwTMvMKp5yIeu9kKnNzFD5QT1ybuWnyypik56bclZD0p39s3Fe7NhtfwDcJM4lwDaE8m+kOvrtTfj+z/CsEXms/OVn/vIGfdaHTp25ghBYvbcP3kcIaq3dOacRn6atLDISPvgr28fbWEmtTeqj2n0uLwMaP6zBCJ+LXh+mfb7Wvye8EyZ4sJbfykl9/Hb3z8Se0y+COBRSr8GDsx3J7xdo4Uen66XTqIVoyA07PDXLcV8G7c69Vrdy4Wf6lE+Jk/kWXEElwIBHX1Juy2kT35Yv8Oi193Dy0mp0KkZlXdEgQE15h3i36zcQb4cmD3+rUc1qaxKFBknKJvQiPkNO57jWj74tOL1KYHag1a57G8LwyJbiX8te24nfUqaJvbXSu5wxkNuDlN98weadbcg0n/3fTtSKjqOzNgUZ6sZhWVYDCY3pTjMy6MNA05fU1rULPcsWcM5rEq19g9HR+qujcb/wx7j1f/9odzrDyOOZUArOvqO9rIHHnb2/tr7I7Ika4rk/nHUdH82eaxucRNDbx5CeO9Hk9hGSpS0OZ/nOyjJJ9AdJ6u8znstkc2xqEl3CI/viALmK8P2j2h9vE8eQz+4eakvKgNK3oeWb2Akr1rM7zyk9EQT5iRSFpF7+Cmkpuc+CnFtCZy3bvwZUOwqA2Q0PTmY1cR4jOcLJ9pWHpfibFksUbbkCr8MByVhRjMgx66cScSqQRsRamstEpZnvTqnVAoELwg8WsK6VNOwbBhgXQTPJStsTQFwPajnIH/CPx4heesMlioXIfMWeiVVre9Gr10GlsWG2CNvAAldnuUPOoQKO7iJO6ZGM/eAIGC6U64+KmObXy/kj0hop5ocj+te95v+NG9q2St33bNxetrfXNHhmkgeOg8x3St+O1bGgv+q1Pi1/W+GFDtiNnO+q4LdqkhtQYJCOgylYk6y7Dl+5cHLcSOP9yzvCiL8bNm3s53QmEbvRtgsBteKOa6BG8B+G/WQ40PHnbNg0R34CFgAQwszFNDEJqH7H1HONIOLdh5VuDQX5iK9lwSDUSLh6vQnqIvnVyL3EQHxpbSwNMlLHbD7vv7AgJeMN1QRMsiqQwKPmPRry2DsheFIDr1DthJdX0uzWU4EP5ATnkbAdPcXoi0S+vs1n3kOBm2lRXMQDnvYelMDVUUBjA13UM273pVLgh5/qEp5xpoTCTHQ9SLOttfADiKypZ2sA0G4h6t2XKKVfAgScf88jxNNaqzVrcYDfeSaNR+q6nQk6EVfQIzKuchg1+5jFmxUda6I7esGec/7IBpvhODEateL0SwYtyJFmwjbRDe5qzVjY5kyXwQ6NWtssK7cAhlTyNrxnz4SME8LZzUJJ+1SsyEhcwcvyBNV/mwjzT0IIFdVNhWR18k2qy+rVRUPjNWNtlJhPSuaPGqFgxO0dX5xtYGm4TEAxBlQMS/LgGJDVG5SXI49jcm7RTyyAKgB07ga6Z1qJlvOrfIWmxLhJko2lXHvjoBMdAUDjDdyUHMbsutcrqYnGF2hE/rWUkhxQOpddcCqQQ9ckPyx5X5z/fqxzDgs/5V3rq92bvaNn5h0Gcum7vWL5kAf/brkiEiS23oC3DrtFZhkSOZ5HMsMcrP6KYdeynu94uqO+dVaT3Wo2KApZcMuKPT3k940E1OQu1g7qlAKt4KQkvLAw0GcnNwGZOdFV4NwpbPmwFA0Hwj7sNuujO4iP+ZzWk8rB3q/g5K5dlKXzZOmhIKY3pJsuYqoGN1sulD4/vVqzG0qiqANrLB3KoBZUMrPETbSI30FRqqArWxspADLp8CMjoM7kah0CluWDP+7HJV1TVeyCLHMRNargR4OQGukR8lLQADL2fV4AN52bLFboDyH1LtHyutBmnK570vBlX9ChwsDxT4Zi/9m2t8nbA17HZH4dcjW37I9KlQCm3qJIGiBzX4JuQAJ8eHSosWOa/X/l8k6fo3zaA2jErmjpjj8tyoBNi1BxiicMH8fHJ48qpr7DBITfAsZTfpmfF/4wJQUJ/7QSh+4N4E/KCYLqPoRGD3U6ysQSUYtX3LTV7MCLHN61xUFfN+12ND3XC72QIas3KmgSa3BjNaLapBkqJWMK3yMZAc+nLuO2B1PfZCPHRDW/7DXtNa8BtONCbZV9EKxQxIPF5TxXqmNOlnptHd64Z9eD6ScSP3PdQuwYRZ7X7Ij6f5k2KbeVMFsrdEpI8gMBePCe2xrFjp9SrVA+wDbpmijXmKdcnbrckf3qP0F/l0/7sIfjENTm+zyIqNOUo57aCz+MAq6NTBxj1ZkWploFOe/JPr6NtuL09EiE2C87Vhf0q4tbTI+43ZkN9ZhQGqJ6/zHdeyi+39IqXfCpdbWEUF4zkmFTgD1aIvAtDWROCkVJByRB2MoMB06uqSLrXyCoat7Bc8mIwCD3oP1OVIDXgP2nbWUOPCdS8yV5Ti8lbSPcCYBdCjUN518xDaZAm4ppiYh6FvsiwZIqgPsw/0ZhcthTTOELBzw95KyWAXgrkee6yejZHrPKDU9CkCd/rPYNoFlhR6WiWCcZwukiRucxRd+C73idkddNGfwQ4lhg4M+LUjytqanWNdDxXBRCuJnCyokRYhvx/v3aCny6wifFl6SCGEnKD1mxznbaAT9sbAeQu9p7FsNfTV4YCAsLAC7scLa+KNPf/S15dsqhFO+KAmJ/hok5FP1af8dQ0+ZXftDwav/QGuAYYScwXC/4nisKVEXSlxNVlR+1KRb9MyU2ue2bNRLjcrEOl4RLadty0UH3GDqyaHgVV35dNlyIti+xSjAgIa2omgalXjvdLRYYGL/1W+XV1ZvoM+C90C8gqnklJOkLiLqRihX0kziKow8993QdGLtA3ii1y4+/9gu1LqTBisumlYVHnIZnmrpnWPbCN571v3j57uBlhin18vHTi7FRNtCsQ3LFWN172YrBcnR0b8Zs1Iyjn8hTgTRchEtMj4RtEGa9UMUrxLWTw56CTdiYawYFoc8Fw25bmyGd9d1nkWH0hzd2GyDLVQqc3ZPI4we4oAZR0KoOJwEJUONbQe3e2baERhWg0Fhs7qW4GLXWom/2WPwUj7nMf7DtydS6pMIZLan9t8fLUWOEoNWJy4Topij/VSKwQ0aws5gr3csPErIrexjAISt8RlbMnz5WMMLN9JbPYHB+yuU4i509nfB7+/7CQIR6cuG0/CY6JdFxVItTufxEnxsvxGPEsed/dqwN7ViD8pse6wnpJLjV8777o6I3rzxc9gFilPeQJ8662u7LfilS9LkyJD6ag1089eZDqMLnH3hHxZVUmin9kO3dt7A2puP1uf8+fZ66bn45y6FH+PUxsDS64eNT+e1kGpWfbcpX6BdkBScg8CbFetbC9bDuWuMifq31h/8b1ZrwQ/E1kcCJWpunjNKXvsGO3cmlTm8X0ewceuagyvzTprnG1fAWotcTQXTbNH3B9fuWfMAwFOXuT4rnLXgcMYSKc/qFQKSkiNXIyz44c7R7Jen5rx6yPPduwIjLTv80dc4pcK0tJBH7gT3Xms/v/ZTArNCbXusjTc/LpvJfa82CpQ+ZhE5cgAwlO6JxnuS4Xk8ibE3pjdSZH1uEY/EO8A3NLW+Uba8DdlmmU7gXtlfpP+pqFD4LnHpGSIYkU2Epmm4GaFSddVhwZ9Fy34bCbQtCb4q+oCKG5lGX59Tj1o7+rFGT7FzMO+7AC4g8L9nZariXJH6v3tMpMYT+M+XVxidvfZMcMhshWQAanF3cUhLLExJR1aMXMLL7x0HPcf27i133XH+O+nnxpG/s+R3CO0MoYCM4GVX7xRoIxoRD19VEDQxB1W2FE9YaS3u93XRKoMvlAKHW3KjWo+7F2QrecomXj82V3UndwU/c8jHJSebxB06hxvuexCYq5YKqyT9o9eq9NjKUJhtDPxfBFetum1EG+HUQ8vQKGm0SjFaIx+8qLARPjjAu2yB+4AWRc2JfQ+MPWhc1+n1hQMf7Qy1izB327i4lPbp56Fr0GL/5dXC5x9eSdLLVtbYL3Y+xiBrJRBQLNd19i5R1WZp4dZ42os60w07aMqnw9V7p4opJbdk5fHfaV1CdiJWK2awxdYf0BK8yQ+l/5ouk735DJMJlSeMUrcF/tn8vV3HftEbrhJcuDVLSHpCl6nFef1YlEnLKyiwN5eed1+3WxqF1IMQJDm7JuteJRKPQk9/RkjkCqubPzemeuo03bB3sydmCnH4sGzCYjzCW7jvGXsF/WR05Tx6WVTJVnt8bT5PMhfAiORSqJtIh8lsk2ETpg+M6HYhI7+miwLMhbWTdNngzON2kJQ5mt2j7sZSnRQei0EDg8DN2ubYIjW0xcEpB4LxWvrnS+w/MoI4TtYU2xRGJS7apKwLdcYY39wSgF2YqBBZWfjPcqFXaxO9rWw3MF7pwerOvUsp7UqZ21DrpyQDdA3QuJDKNib1NXl8tY4N8zQGFup02IVPYB8mtQ2mrBqXTmlE7q7MonPVE9e02QGBh9G+9YnnnPuoKBCG9QVtPhj8vfN3nL40u/ZfuhEzifKUoK0f/u9Pzy4uIPFM7W6RgZKMGpVkxEFz1ZAWGaZGoetiajESpHPeu5OpGuD1/9RD98kkng/nAAAAAElFTkSuQmCC");
-      background-size: 64px 64px;
-    }
-
+    /* Wrap container for mobile responsiveness */
     .wrap {
       position: relative;
-      z-index: 10;
-      max-width: 76rem;
-      margin: 0 auto;
-      padding: 2rem 1rem;
+      z-index: 5;
       width: 100%;
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
     }
-
-    .back {
-      display: inline-block;
-      padding: 0.4rem 0;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-    }
-    .back:hover, .back:focus-visible { color: #fff; }
 
     .hud-ticker {
-    /* Introduction text: styled to fit matching window aesthetic */
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: #ff0044;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 0, 68, 0.4);
+      padding-bottom: 4px;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* Introduction text: wider and smaller */
     .intro-poem {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.88rem;
+      font-size: 0.88rem; /* Smaller font size */
       line-height: 1.6;
       color: rgba(255, 255, 255, 0.92);
-      background: #050505;
-      border: 1px dashed rgba(255, 0, 50, 0.5);
-      padding: 1.4rem 1.5rem 1.2rem 1.5rem;
+      background: #050505; /* Solid backdrop so background text can never obscure it */
+      border: 1px solid rgba(255, 0, 60, 0.5);
+      border-left: 4px solid #ff0033;
+      padding: 1.2rem 1.5rem;
       margin-bottom: 1.5rem;
-      width: 100%;
+      width: 100%; /* Wider footprint */
       white-space: pre-line;
-      box-shadow: 0 0 20px rgba(255, 0, 40, 0.15);
+      box-shadow: 0 0 25px rgba(255, 0, 50, 0.15);
       position: relative;
       z-index: 10;
       text-shadow: 0 0 6px rgba(255, 0, 60, 0.3);
       word-break: break-word;
-      text-align: left;
     }
-    .intro-poem::before {
-      content: "TRANSMISSION // INTRO";
+    .intro-poem span.flicker {
+      animation: textFlicker 3s infinite steps(1);
+    }
+    @keyframes textFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.82; text-shadow: 1px 0 #00ffff, -1px 0 #ff0055; }
+      52% { opacity: 0.95; }
+      54% { opacity: 0.4; transform: skewX(-3deg); }
+      56% { opacity: 1; transform: none; }
+    }
+
+    /* Content Layout Grid - Responsive for mobile */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 1.2rem;
+      align-items: start;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 1rem 0.75rem;
+      }
+      .hud-ticker {
+        font-size: 0.55rem;
+      }
+      .intro-poem {
+        font-size: 0.8rem;
+        padding: 1rem;
+      }
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .bio-box-left {
+      border: 1px solid rgba(255, 0, 50, 0.6);
+      background: #050505;
+      padding: 1.2rem;
+      box-shadow: 0 0 20px rgba(255, 0, 40, 0.15);
+      position: relative;
+      z-index: 10;
+    }
+    .bio-box-left::before {
+      content: "PRIMARY NODE // BIO IDENT";
       position: absolute;
       top: -10px;
       left: 12px;
@@ -92,53 +131,8 @@
       padding: 1px 7px;
       letter-spacing: 0.18em;
     }
-    .intro-poem span.flicker {
-      animation: textFlicker 3s infinite steps(1);
-    }
-    @keyframes textFlicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.82; text-shadow: 1px 0 #00ffff, -1px 0 #ff0055; }
-      52% { opacity: 0.95; }
-      54% { opacity: 0.4; transform: skewX(-5deg); }
-      56% { opacity: 1; transform: none; }
-    }
-
-    /* Two-column layout with bio identifier on the left */
-    .content-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    @media (max-width: 900px) {
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .bio-box-left {
-      border: 1px solid rgba(255, 0, 50, 0.6);
-      background: #050505;
-      padding: 1.2rem;
-      box-shadow: 0 0 30px rgba(255, 0, 40, 0.15);
-      position: relative;
-    }
-    .bio-box-left::before {
-      content: "PRIMARY NODE // BIO IDENT";
-      position: absolute;
-      top: -10px;
-      left: 15px;
-      background: #ff0033;
-      color: #000;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.62rem;
-      font-weight: bold;
-      padding: 1px 8px;
-      letter-spacing: 0.2em;
-    }
     .bio-box-left h2 {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: #ff3300;
       border-bottom: 1px solid #ff3300;
       padding-bottom: 4px;
@@ -146,29 +140,32 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .bio-box-left p {
-      font-size: 1.1rem;
+    .bio-box-left p.ident-key {
+      font-size: 0.95rem;
       font-weight: bold;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       color: #ff0055;
-      margin: 1rem 0;
-      text-shadow: 0 0 10px rgba(255, 0, 85, 0.6);
+      margin: 0.8rem 0;
       word-break: break-all;
+      text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
     }
 
     .hud-box-right {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1.2rem;
+      position: relative;
+      z-index: 10;
     }
 
     .hud-col {
       border: 1px dashed rgba(255, 0, 50, 0.4);
       background: #050505;
       padding: 1rem;
+      z-index: 10;
     }
     .hud-col h2 {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #ff3300;
       border-bottom: 1px solid #ff3300;
       padding-bottom: 3px;
@@ -177,7 +174,7 @@
       text-transform: uppercase;
     }
     .hud-col p {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       line-height: 1.4;
       color: rgba(255, 255, 255, 0.85);
       text-align: left;
@@ -187,9 +184,9 @@
     /* CMD Window batch number styling */
     .cmd-batch-box {
       font-family: 'VT323', monospace;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #00ff66;
-      background: rgba(0,0,0,0.6);
+      background: #020b04;
       border: 1px solid rgba(0, 255, 102, 0.4);
       padding: 8px;
       margin-top: 8px;
@@ -197,9 +194,9 @@
       overflow: hidden;
     }
     .cmd-batch-box::before {
-      content: "C:\\MAGI\\TELEMETRY\\BATCH_LOG.EXE";
+      content: "C:\MAGI\TELEMETRY\BATCH_LOG.EXE";
       display: block;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       color: rgba(0, 255, 102, 0.6);
       border-bottom: 1px dashed rgba(0, 255, 102, 0.2);
       margin-bottom: 4px;
@@ -224,10 +221,10 @@
       font-family: 'VT323', monospace;
       font-size: 0.8rem;
       color: #00ff66;
-      background: rgba(0,0,0,0.5);
+      background: #020b04;
       padding: 5px;
       border: 1px solid rgba(0, 255, 102, 0.35);
-      height: 65px;
+      height: 60px;
       overflow: hidden;
       margin-top: 5px;
       word-break: break-all;
@@ -237,65 +234,40 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 3px;
-      font-size: 0.58rem;
+      font-size: 0.55rem;
       color: #00e1ff;
       margin-top: 8px;
     }
     .telemetry-cell {
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 225, 255, 0.05);
       border: 1px solid rgba(0, 225, 255, 0.25);
-      padding: 3px;
+      padding: 3px 1px;
       text-align: center;
     }
 
-    /* Colorless glitch phrases strictly behind UI elements (z-index 1) */
+    /* Glitch phrase floating layer - set z-index lower than windows or spawned in clear margin areas */
     .nge-phrase {
+      color: #ffffff;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
       position: fixed;
       font-family: 'Share Tech Mono', 'Rajdhani', monospace;
       font-weight: 700;
       text-transform: uppercase;
       pointer-events: none;
-      z-index: 1;
+      z-index: 1; /* Below UI windows (z-index: 10) so it never obscures any window */
       white-space: nowrap;
       user-select: none;
       line-height: 1;
-      color: rgba(255, 255, 255, 0.75);
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      opacity: 0.7;
     }
-
-    /* Footer styling matching site */
-    .pages {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0 1rem;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(6px);
-    }
-    .pages nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 1.25rem; }
-    .pages a {
-      font-family: "Rajdhani", "Segoe UI", system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.14em;
-      color: rgba(255, 255, 255, 0.6);
-      text-decoration: none;
-    }
-    .pages a:hover, .pages a:focus-visible, .pages a[aria-current] { color: #fff; }
-    .pages .mail { font-family: "Segoe UI", system-ui, sans-serif; font-weight: 400; font-size: 0.68rem; letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.45); text-decoration: none; }
   </style>
 </head>
 <body>
+
   <main class="wrap">
     <a class="back" href="index.html#hub">&larr; back to the hub</a>
 
-    <div class="hud-ticker">
+    <div class="hud-ticker" style="margin-top: 1rem;">
       <span>SYS: ACTIVE_OVERRIDE</span>
       <span>SYNC: <span class="glitch-num" id="t-sync">400.00%</span></span>
       <span>AT_FIELD: <span class="glitch-num cyan" id="t-at">99.9%</span></span>
@@ -304,7 +276,7 @@
       <span>GEOFRONT: SECURE</span>
     </div>
 
-    <!-- Introduction Text with backdrop & smaller font -->
+    <!-- Introduction Text: wider & smaller with clear backdrop -->
     <div class="intro-poem">
 <span class="flicker">I can hear gas flowing through the pipes</span>
 the blood in my veins hum with each pump of my corroded heart
@@ -317,10 +289,10 @@ i see the wind, the particles it blows form such abstract forms
     </div>
 
     <div class="content-grid">
-      <!-- Bio identifier on the left with requested text -->
+      <!-- Bio identifier on the left -->
       <div class="bio-box-left">
         <h2>[01] BIO // IDENTIFIER</h2>
-        <p>identity: ?????</p>
+        <p class="ident-key">kX19dad52GONEc1Fsxc</p>
         <p style="font-size: 0.72rem; color: rgba(255,255,255,0.7); font-weight: normal; letter-spacing: normal;">[redacted]</p>
         <div class="telemetry-grid">
           <div class="telemetry-cell">CPU: <span class="glitch-num cyan" id="d-cpu">5.20</span>G</div>
@@ -351,7 +323,7 @@ i see the wind, the particles it blows form such abstract forms
             <div class="telemetry-cell">ERR: 0.00</div>
             <div class="telemetry-cell">SEC: 1</div>
           </div>
-          <div class="data-stream">
+          <div class="data-stream" style="height:35px; font-size:0.7rem; color:#00e1ff; margin-top:8px;">
             GEOFRONT_SECTOR_04 // 127.0.0.1 // 0xFFE0
           </div>
         </div>
@@ -366,21 +338,20 @@ i see the wind, the particles it blows form such abstract forms
 
   <script>
     (function () {
-      // CMD batch log box rotator
+      // CMD Window batch number cycle simulation
       var cmdBox = document.getElementById('cmd-batch-display');
       var batchList = [
-        "C:\\MAGI\\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
-        "C:\\MAGI\\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num amber'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num cyan'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
-        "C:\\MAGI\\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num cyan'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
-        "C:\\MAGI\\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num amber'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
+        "C:\MAGI\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
+        "C:\MAGI\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num amber'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num cyan'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
+        "C:\MAGI\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num cyan'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
+        "C:\MAGI\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num amber'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
       ];
       var batchIdx = 0;
       setInterval(function() {
         batchIdx = (batchIdx + 1) % batchList.length;
-        if(cmdBox) cmdBox.innerHTML = batchList[batchIdx];
+        if (cmdBox) cmdBox.innerHTML = batchList[batchIdx];
       }, 1800);
 
-      // Live tick updates
       setInterval(function() {
         var tSync = document.getElementById('t-sync');
         var tBus = document.getElementById('t-bus');
@@ -388,37 +359,38 @@ i see the wind, the particles it blows form such abstract forms
         if (tBus) tBus.innerText = "0x" + Math.floor(Math.random() * 65535).toString(16).toUpperCase();
       }, 400);
 
-      // Colorless floating background phrases (z-index 1, strictly outside UI bounding rects)
       var NGE_PHRASES = [
         "EMERGENCY // PATTERN BLUE DETECTED",
         "GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.",
-        "SYNCHRONIZATION RATE: 400.00%",
-        "MAN CANNOT CREATE NOTHINGNESS",
-        "MAGI SYSTEM // CASPAR - BALTHASAR",
-        "A.T. FIELD EXPANDING // MAX POWER",
-        "THE HEDGEHOG'S DILEMMA",
-        "UNAUTHORIZED ACCESS // SYSTEM 0xFF99",
-        "PILOT CONDITION: CRITICAL",
-        "LIMITER RELEASE // CODE 777",
-        "ABSOLUTE TERROR FIELD BOUNDARY",
-        "NEURAL LINK CONNECTED",
-        "BERSERK MODE ACTIVATED",
-        "CENTRAL DOCK // LOCKDOWN LEVEL 1",
-        "TELEMETRY: [X: 44.921, Y: -12.004]",
-        "HEX: 0x4F92A 0x11B8C 0x992FE",
-        "WARNING: ORBITAL DECAY IN 00:02:44",
-        "ERROR 404: SOUL NOT FOUND"
+        "SYNCHRONIZATION RATE: 400.00% // MAXIMUM OVERDRIVE",
+        "MAN CANNOT CREATE NOTHINGNESS OUT OF NOTHING.",
+        "MAGI SYSTEM // CASPAR-3 - BALTHASAR-2 - MELCHIOR-1",
+        "A.T. FIELD EXPANDING // MAX POWER 100%",
+        "THE HEDGEHOG'S DILEMMA // ANOMALY DETECTED",
+        "UNAUTHORIZED ACCESS // SYSTEM COMPROMISED // 0xFF99",
+        "NEON GENESIS // SYSTEM OVERRIDE 0x99",
+        "PILOT CONDITION: CRITICAL // PULSE: 195BPM",
+        "LIMITER RELEASE // CODE 777 // BERSERK ACTIVE",
+        "ABSOLUTE TERROR FIELD BOUNDARY: 0.0004mm",
+        "NEURAL LINK CONNECTED // HARMONIC RATIO: 99.8%",
+        "BERSERK MODE ACTIVATED // CORROSION LEVEL 5",
+        "CENTRAL DOCK // LOCKDOWN LEVEL 1 // 127.0.0.1",
+        "TELEMETRY: [X: 44.921, Y: -12.004, Z: 98.114, V: 9.9]",
+        "HEX: 0x4F92A 0x11B8C 0x992FE 0x00A1F 0x8841B",
+        "VOLTAGE OVERLOAD: +1200000kW // SECTOR 07",
+        "WARNING: ORBITAL DECAY IN 00:02:44 // IMPACT RISK",
+        "ERROR 404: SOUL NOT FOUND // DUMMY PLUG ENGAGED"
       ];
 
-      var CIPHER_CHARS = "0123456789ABCDEF9876543210アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロ";
-      var NUM_SLOTS = 12;
+      var CIPHER_CHARS = "0123456789ABCDEF9876543210アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン☠☢⚡⚡⚠";
+      var NUM_SLOTS = 14;
       var slots = [];
 
       function createPhraseSlot() {
         var el = document.createElement('div');
         el.className = 'nge-phrase';
         document.body.appendChild(el);
-        return { el: el, phrase: '', targetText: '', scrambleIndex: 0, state: 'idle', timer: 0 };
+        return { el: el, phrase: '', targetText: '', scrambleIndex: 0, state: 'idle', timer: 0, color: '#ff0033' };
       }
 
       for (var i = 0; i < NUM_SLOTS; i++) {
@@ -443,36 +415,70 @@ i see the wind, the particles it blows form such abstract forms
         return res;
       }
 
+      // Check if candidate point overlaps any UI window
+      function isOverlappingUI(topVh, leftVw) {
+        var elements = document.querySelectorAll('.intro-poem, .bio-box-left, .hud-col, .hud-ticker');
+        var x = (leftVw / 100) * window.innerWidth;
+        var y = (topVh / 100) * window.innerHeight;
+
+        for (var i = 0; i < elements.length; i++) {
+          var rect = elements[i].getBoundingClientRect();
+          // Add margin around UI windows to prevent overlapping or clipping
+          if (x >= rect.left - 20 && x <= rect.right + 20 && y >= rect.top - 20 && y <= rect.bottom + 20) {
+            return true;
+          }
+        }
+        return false;
+      }
+
       function triggerSlot(slot) {
         slot.phrase = NGE_PHRASES[Math.floor(Math.random() * NGE_PHRASES.length)];
         slot.targetText = slot.phrase;
         slot.scrambleIndex = 0;
         slot.state = 'ciphering';
 
-        var top = Math.random() * 85 + 5;
-        var left = Math.random() * 75 + 2;
-        var fontSize = Math.random() * 0.4 + 0.65;
+        // Try to find a non-overlapping spawn location
+        var top = Math.random() * 90 + 2;
+        var left = Math.random() * 75 + 1;
+        var attempts = 0;
+        while (isOverlappingUI(top, left) && attempts < 15) {
+          top = Math.random() * 90 + 2;
+          left = Math.random() * 75 + 1;
+          attempts++;
+        }
+
+        var fontSize = Math.random() * 0.45 + 0.55; // Slightly smaller font so it fits cleanly
+        var colors = ['rgba(255,255,255,0.85)', 'rgba(220,220,220,0.75)', 'rgba(180,180,180,0.65)', 'rgba(255,255,255,0.5)'];
+        slot.color = colors[Math.floor(Math.random() * colors.length)];
 
         slot.el.style.top = top + 'vh';
         slot.el.style.left = left + 'vw';
         slot.el.style.fontSize = fontSize + 'rem';
-        slot.el.style.opacity = '0.75';
+        slot.el.style.color = slot.color;
+        slot.el.style.opacity = '0.7';
+        slot.el.style.textShadow = '0 0 8px ' + slot.color;
       }
 
       function updateSlots() {
         slots.forEach(function (slot) {
           if (slot.state === 'idle') {
-            if (Math.random() < 0.08) {
+            if (Math.random() < 0.1) {
               triggerSlot(slot);
             }
           } else if (slot.state === 'ciphering') {
-            slot.scrambleIndex += 0.8;
+            slot.scrambleIndex += 1.0;
             if (slot.scrambleIndex >= slot.targetText.length) {
               slot.el.innerText = slot.targetText;
               slot.state = 'holding';
-              slot.timer = Date.now() + 500 + Math.random() * 1200;
+              slot.timer = Date.now() + 400 + Math.random() * 1000;
             } else {
               slot.el.innerText = scrambleString(slot.targetText, Math.floor(slot.scrambleIndex));
+            }
+
+            if (Math.random() < 0.25) {
+              slot.el.style.transform = 'translate(' + ((Math.random() - 0.5) * 10) + 'px, ' + ((Math.random() - 0.5) * 10) + 'px)';
+            } else {
+              slot.el.style.transform = 'none';
             }
           } else if (slot.state === 'holding') {
             if (Date.now() > slot.timer) {
@@ -481,7 +487,7 @@ i see the wind, the particles it blows form such abstract forms
             }
           }
         });
-        setTimeout(updateSlots, 30);
+        setTimeout(updateSlots, 25);
       }
 
       updateSlots();
