@@ -31,7 +31,7 @@
       justify-content: space-between;
     }
 
-    /* Monochrome procedural smoke & fog (darker, softened detail, zero center glare, seamless infinite loop) */
+    /* Monochrome procedural smoke & fog */
     .fog-layer {
       position: fixed;
       inset: 0;
@@ -76,11 +76,9 @@
     .fog-vignette {
       position: absolute;
       inset: 0;
-      /* Completely clears the center region behind the poem and UI into dark obsidian */
       background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.78) 32%, rgba(0, 0, 0, 0.28) 70%, #000000 98%);
     }
 
-    /* Seamless continuous infinite loop keyframes (0% and 100% states match exactly) */
     @keyframes churnSmoke {
       0%   { transform: translate(-3%, -3%) rotate(0deg) scale(1); }
       33%  { transform: translate(3%, 2%) rotate(120deg) scale(1.04); }
@@ -95,7 +93,7 @@
       100% { transform: translate(0, 0) scale(1); }
     }
 
-    /* Wrap container with safe bottom clearance for the fixed footer */
+    /* Wrap container with safe bottom clearance */
     .wrap {
       position: relative;
       z-index: 5;
@@ -105,7 +103,7 @@
       padding: calc(env(safe-area-inset-top, 0px) + 1.5rem) 1.25rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
     }
 
-    /* Landscape mode layout (screens > 768px): exactly 60% viewport fit */
+    /* Landscape mode layout (screens > 768px): 60% viewport fit */
     @media (orientation: landscape) and (min-width: 769px) {
       .wrap {
         width: 60vw;
@@ -136,38 +134,38 @@
       letter-spacing: 0.06em;
       text-decoration: none;
       margin-bottom: 0.5rem;
-      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 0, 0, 0.9);
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0, 0, 0, 0.95);
       transition: color 0.2s ease, text-shadow 0.2s ease;
     }
     .back:hover, .back:focus-visible {
       color: #fff;
-      text-shadow: 0 2px 8px #000, 0 0 16px rgba(0, 0, 0, 1), 0 0 30px rgba(0, 0, 0, 0.95);
+      text-shadow: 0 2px 8px #000, 0 0 16px rgba(255, 255, 255, 0.4);
     }
 
     .hud-ticker {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.12em;
-      color: #ff0044;
+      color: #ff0033;
       text-transform: uppercase;
       display: flex;
       justify-content: space-between;
       width: 100%;
-      border-bottom: 1px solid rgba(255, 0, 68, 0.4);
+      border-bottom: 1px solid rgba(255, 0, 50, 0.4);
       padding-bottom: 4px;
       margin-bottom: 1.2rem;
       flex-wrap: wrap;
       gap: 6px;
     }
 
-    /* Introduction poem box: fits text cleanly with generous breathing room */
+    /* Introduction poem box */
     .intro-poem {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.88rem;
       line-height: 1.6;
       color: rgba(255, 255, 255, 0.92);
       background: #050505;
-      border: 1px solid rgba(255, 0, 60, 0.5);
+      border: 1px solid rgba(255, 0, 50, 0.5);
       border-left: 4px solid #ff0033;
       padding: 1.35rem 2.2rem;
       margin: 0 auto 1.5rem auto;
@@ -178,7 +176,7 @@
       box-shadow: 0 0 25px rgba(255, 0, 50, 0.15);
       position: relative;
       z-index: 10;
-      text-shadow: 0 0 6px rgba(255, 0, 60, 0.3);
+      text-shadow: 0 0 6px rgba(255, 0, 50, 0.3);
       word-break: break-word;
     }
     .intro-poem span.flicker {
@@ -186,7 +184,7 @@
     }
     @keyframes textFlicker {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.82; text-shadow: 1px 0 #00ffff, -1px 0 #ff0055; }
+      50% { opacity: 0.82; text-shadow: 1px 0 #ffffff, -1px 0 #ff0033; }
       52% { opacity: 0.95; }
       54% { opacity: 0.4; transform: skewX(-3deg); }
       56% { opacity: 1; transform: none; }
@@ -202,7 +200,6 @@
       z-index: 10;
     }
 
-    /* Unchanged mobile phone styling */
     @media (max-width: 768px) {
       .wrap {
         padding: 1rem 0.75rem calc(env(safe-area-inset-bottom, 0px) + 7rem);
@@ -224,7 +221,7 @@
       border: 1px solid rgba(255, 0, 50, 0.6);
       background: #050505;
       padding: 1.2rem;
-      box-shadow: 0 0 20px rgba(255, 0, 40, 0.15);
+      box-shadow: 0 0 20px rgba(255, 0, 50, 0.15);
       position: relative;
       z-index: 10;
     }
@@ -243,8 +240,8 @@
     }
     .bio-box-left h2 {
       font-size: 0.8rem;
-      color: #ff3300;
-      border-bottom: 1px solid #ff3300;
+      color: #ff0033;
+      border-bottom: 1px solid rgba(255, 0, 50, 0.4);
       padding-bottom: 4px;
       margin-top: 0;
       letter-spacing: 0.1em;
@@ -255,11 +252,11 @@
       font-size: 0.95rem;
       font-weight: bold;
       letter-spacing: 0.1em;
-      color: #ff0055;
+      color: #ff0033;
       margin: 0.8rem 0;
       word-break: break-all;
       text-align: center;
-      text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
+      text-shadow: 0 0 8px rgba(255, 0, 50, 0.6);
     }
     .bio-box-left p.redacted-status {
       font-size: 0.72rem;
@@ -286,8 +283,8 @@
     }
     .hud-col h2 {
       font-size: 0.78rem;
-      color: #ff3300;
-      border-bottom: 1px solid #ff3300;
+      color: #ff0033;
+      border-bottom: 1px solid rgba(255, 0, 50, 0.4);
       padding-bottom: 3px;
       margin-top: 0;
       letter-spacing: 0.1em;
@@ -306,45 +303,41 @@
     .cmd-batch-box {
       font-family: 'VT323', monospace;
       font-size: 0.88rem;
-      color: #00ff66;
-      background: #020b04;
-      border: 1px solid rgba(0, 255, 102, 0.4);
+      color: rgba(255, 255, 255, 0.92);
+      background: #080808;
+      border: 1px solid rgba(255, 0, 50, 0.4);
       padding: 8px;
       margin-top: 8px;
       position: relative;
       overflow: hidden;
     }
     .cmd-batch-box::before {
-      content: "C:\MAGI\TELEMETRY\BATCH_LOG.EXE";
+      content: "C:\\MAGI\\TELEMETRY\\BATCH_LOG.EXE";
       display: block;
       font-size: 0.62rem;
-      color: rgba(0, 255, 102, 0.6);
-      border-bottom: 1px dashed rgba(0, 255, 102, 0.2);
+      color: #ff0033;
+      border-bottom: 1px dashed rgba(255, 0, 50, 0.3);
       margin-bottom: 4px;
       padding-bottom: 2px;
     }
     .glitch-num {
-      color: #ff0055;
-      text-shadow: 0 0 6px rgba(255, 0, 85, 0.6);
+      color: #ff0033;
+      text-shadow: 0 0 6px rgba(255, 0, 50, 0.6);
       display: inline-block;
       padding: 0 2px;
     }
-    .glitch-num.amber {
-      color: #ffaa00;
-      text-shadow: 0 0 6px rgba(255, 170, 0, 0.6);
-    }
-    .glitch-num.cyan {
-      color: #00e1ff;
-      text-shadow: 0 0 6px rgba(0, 225, 255, 0.6);
+    .glitch-num.white {
+      color: #ffffff;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
     }
 
     .data-stream {
       font-family: 'VT323', monospace;
       font-size: 0.8rem;
-      color: #00ff66;
-      background: #020b04;
+      color: rgba(255, 255, 255, 0.85);
+      background: #080808;
       padding: 5px;
-      border: 1px solid rgba(0, 255, 102, 0.35);
+      border: 1px solid rgba(255, 0, 50, 0.35);
       height: 60px;
       overflow: hidden;
       margin-top: 5px;
@@ -356,33 +349,17 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 3px;
       font-size: 0.55rem;
-      color: #00e1ff;
+      color: rgba(255, 255, 255, 0.9);
       margin-top: 8px;
     }
     .telemetry-cell {
-      background: rgba(0, 225, 255, 0.05);
-      border: 1px solid rgba(0, 225, 255, 0.25);
+      background: rgba(255, 0, 50, 0.08);
+      border: 1px solid rgba(255, 0, 50, 0.35);
       padding: 3px 1px;
       text-align: center;
     }
 
-    /* Ambient glitch phrase layer */
-    .nge-phrase {
-      color: #ffffff;
-      text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-      position: fixed;
-      font-family: 'Share Tech Mono', 'Rajdhani', monospace;
-      font-weight: 700;
-      text-transform: uppercase;
-      pointer-events: none;
-      z-index: 1;
-      white-space: nowrap;
-      user-select: none;
-      line-height: 1;
-      opacity: 0.7;
-    }
-
-    /* PRESERVED EXACT FOOTER STYLES FROM page.css */
+    /* PRESERVED FOOTER STYLES */
     .pages {
       position: fixed;
       left: 0;
@@ -417,7 +394,7 @@
 </head>
 <body>
 
-  <!-- Deep dark monochrome smoke & fog background (softened, zero center glare) -->
+  <!-- Deep dark monochrome smoke & fog background -->
   <div class="fog-layer" aria-hidden="true">
     <div class="fog-smoke-churn"></div>
     <div class="fog-wisps"></div>
@@ -438,7 +415,6 @@
       </filter>
       <rect width="100%" height="100%" fill="url(#smokeGradMono)" filter="url(#smokeTendrils)"/>
       <defs>
-        <!-- Center stop is set to complete black opacity 0 to eliminate any center highlight -->
         <radialGradient id="smokeGradMono" cx="50%" cy="50%" r="70%">
           <stop offset="0%" stop-color="#000000" stop-opacity="0"/>
           <stop offset="35%" stop-color="#141414" stop-opacity="0.15"/>
@@ -456,8 +432,8 @@
     <div class="hud-ticker" style="margin-top: 1rem;">
       <span>SYS: ACTIVE_OVERRIDE</span>
       <span>SYNC: <span class="glitch-num" id="t-sync">400.00%</span></span>
-      <span>AT_FIELD: <span class="glitch-num cyan" id="t-at">99.9%</span></span>
-      <span>MEM_BUS: <span class="glitch-num amber" id="t-bus">0xFF4A</span></span>
+      <span>AT_FIELD: <span class="glitch-num white" id="t-at">99.9%</span></span>
+      <span>MEM_BUS: <span class="glitch-num" id="t-bus">0xFF4A</span></span>
       <span>CORE_LOAD: 98.4%</span>
       <span>GEOFRONT: SECURE</span>
     </div>
@@ -481,7 +457,7 @@ i see the wind, the particles it blows form such abstract forms
         <p class="ident-key">kX19dad52GONEc1Fsxc</p>
         <p class="redacted-status">[redacted]</p>
         <div class="telemetry-grid">
-          <div class="telemetry-cell">CPU: <span class="glitch-num cyan" id="d-cpu">5.20</span>G</div>
+          <div class="telemetry-cell">CPU: <span class="glitch-num white" id="d-cpu">5.20</span>G</div>
           <div class="telemetry-cell">RAM: 128Gb</div>
           <div class="telemetry-cell">GPU: <span class="glitch-num" id="d-gpu">99</span>%</div>
           <div class="telemetry-cell">PING: 3ms</div>
@@ -494,9 +470,9 @@ i see the wind, the particles it blows form such abstract forms
           <h2>[02] MAGI-01 TELEMETRY</h2>
           <p>BALTHASAR-2 // MELCHIOR-1 // CASPAR-3. BATCH NUMBERS LOGGED VIA CMD WINDOW BUFFER BELOW:</p>
           <div class="cmd-batch-box" id="cmd-batch-display">
-            C:\MAGI\BATCH> LOAD_BATCH_01<br>
-            > SYNC_VEC: [<span class="glitch-num">0x4F9</span>, <span class="glitch-num amber">0x11B</span>, <span class="glitch-num cyan">0x992</span>]<br>
-            > THRESHOLD: <span class="glitch-num">777.408</span> // STATUS: NOMINAL
+            C:\MAGI\BATCH&gt; LOAD_BATCH_01<br>
+            &gt; SYNC_VEC: [<span class="glitch-num">0x4F9</span>, <span class="glitch-num white">0x11B</span>, <span class="glitch-num">0x992</span>]<br>
+            &gt; THRESHOLD: <span class="glitch-num white">777.408</span> // STATUS: NOMINAL
           </div>
         </div>
 
@@ -504,12 +480,12 @@ i see the wind, the particles it blows form such abstract forms
           <h2>[03] DIAGNOSTIC LOG</h2>
           <p>HIGH-DENSITY DATA OVERLOAD ENGAGED. RECURSIVE ENCRYPTION STACKS ACTIVE ACROSS ALL SYSTEM BUSES.</p>
           <div class="telemetry-grid">
-            <div class="telemetry-cell">CODE: <span class="glitch-num amber">777</span></div>
+            <div class="telemetry-cell">CODE: <span class="glitch-num white">777</span></div>
             <div class="telemetry-cell">LMT: OFF</div>
             <div class="telemetry-cell">ERR: 0.00</div>
             <div class="telemetry-cell">SEC: 1</div>
           </div>
-          <div class="data-stream" style="height:35px; font-size:0.7rem; color:#00e1ff; margin-top:8px;">
+          <div class="data-stream" style="height:35px; font-size:0.7rem; color:rgba(255,255,255,0.85); margin-top:8px;">
             GEOFRONT_SECTOR_04 // 127.0.0.1 // 0xFFE0
           </div>
         </div>
@@ -525,13 +501,13 @@ i see the wind, the particles it blows form such abstract forms
 
   <script>
     (function () {
-      // CMD Window batch number cycle simulation
+      // CMD Window batch number cycle simulation (Strict Black/White/Red)
       var cmdBox = document.getElementById('cmd-batch-display');
       var batchList = [
-        "C:\\MAGI\\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num amber'>0x11B</span>, <span class='glitch-num cyan'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num'>777.408</span> // STATUS: NOMINAL",
-        "C:\\MAGI\\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num amber'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num cyan'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
-        "C:\\MAGI\\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num cyan'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
-        "C:\\MAGI\\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num amber'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
+        "C:\\MAGI\\BATCH> LOAD_BATCH_01<br>> SYNC_VEC: [<span class='glitch-num'>0x4F9</span>, <span class='glitch-num white'>0x11B</span>, <span class='glitch-num'>0x992</span>]<br>> THRESHOLD: <span class='glitch-num white'>777.408</span> // STATUS: NOMINAL",
+        "C:\\MAGI\\BATCH> EXECUTE_FLUSH_02<br>> BUFF_VALS: (<span class='glitch-num white'>99482</span>, <span class='glitch-num'>1024.5</span>, <span class='glitch-num white'>0xFF3A</span>)<br>> A.T. FIELD: <span class='glitch-num'>STABLE</span> // ERR_CODE: 0x00",
+        "C:\\MAGI\\BATCH> THREAD_DUMP_03<br>> PULSE: <span class='glitch-num'>180.5</span> BPM // CORE: <span class='glitch-num white'>99.2%</span><br>> WARNING: GAS PRESSURE NOMINAL",
+        "C:\\MAGI\\BATCH> PATTERN_BLUE_SCAN<br>> TRACE_ID: <span class='glitch-num'>0x8841B</span> // MATCH: 99.9%<br>> STATUS: PRESENCE DETECTED"
       ];
       var batchIdx = 0;
       setInterval(function() {
@@ -550,137 +526,6 @@ i see the wind, the particles it blows form such abstract forms
         if (dCpu) dCpu.innerText = (5.18 + Math.random() * 0.05).toFixed(2);
         if (dGpu) dGpu.innerText = Math.floor(97 + Math.random() * 3);
       }, 400);
-
-      var NGE_PHRASES = [
-        "EMERGENCY // PATTERN BLUE DETECTED",
-        "GOD'S IN HIS HEAVEN, ALL'S RIGHT WITH THE WORLD.",
-        "SYNCHRONIZATION RATE: 400.00% // MAXIMUM OVERDRIVE",
-        "MAN CANNOT CREATE NOTHINGNESS OUT OF NOTHING.",
-        "MAGI SYSTEM // CASPAR-3 - BALTHASAR-2 - MELCHIOR-1",
-        "A.T. FIELD EXPANDING // MAX POWER 100%",
-        "THE HEDGEHOG'S DILEMMA // ANOMALY DETECTED",
-        "UNAUTHORIZED ACCESS // SYSTEM COMPROMISED // 0xFF99",
-        "NEON GENESIS // SYSTEM OVERRIDE 0x99",
-        "PILOT CONDITION: CRITICAL // PULSE: 195BPM",
-        "LIMITER RELEASE // CODE 777 // BERSERK ACTIVE",
-        "ABSOLUTE TERROR FIELD BOUNDARY: 0.0004mm",
-        "NEURAL LINK CONNECTED // HARMONIC RATIO: 99.8%",
-        "BERSERK MODE ACTIVATED // CORROSION LEVEL 5",
-        "CENTRAL DOCK // LOCKDOWN LEVEL 1 // 127.0.0.1",
-        "TELEMETRY: [X: 44.921, Y: -12.004, Z: 98.114, V: 9.9]",
-        "HEX: 0x4F92A 0x11B8C 0x992FE 0x00A1F 0x8841B",
-        "VOLTAGE OVERLOAD: +1200000kW // SECTOR 07",
-        "WARNING: ORBITAL DECAY IN 00:02:44 // IMPACT RISK",
-        "ERROR 404: SOUL NOT FOUND // DUMMY PLUG ENGAGED"
-      ];
-
-      var CIPHER_CHARS = "0123456789ABCDEF9876543210アアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン☠☢⚡⚡⚠";
-      var NUM_SLOTS = 14;
-      var slots = [];
-
-      function createPhraseSlot() {
-        var el = document.createElement('div');
-        el.className = 'nge-phrase';
-        document.body.appendChild(el);
-        return { el: el, phrase: '', targetText: '', scrambleIndex: 0, state: 'idle', timer: 0, color: '#ff0033' };
-      }
-
-      for (var i = 0; i < NUM_SLOTS; i++) {
-        slots.push(createPhraseSlot());
-      }
-
-      function getRandomCipherChar() {
-        return CIPHER_CHARS[Math.floor(Math.random() * CIPHER_CHARS.length)];
-      }
-
-      function scrambleString(target, progress) {
-        var res = '';
-        for (var k = 0; k < target.length; k++) {
-          if (target[k] === ' ' || target[k] === '/' || target[k] === ':') {
-            res += target[k];
-          } else if (k < progress) {
-            res += target[k];
-          } else {
-            res += getRandomCipherChar();
-          }
-        }
-        return res;
-      }
-
-      // Check if candidate point overlaps any UI window
-      function isOverlappingUI(topVh, leftVw) {
-        var elements = document.querySelectorAll('.intro-poem, .bio-box-left, .hud-col, .hud-ticker');
-        var x = (leftVw / 100) * window.innerWidth;
-        var y = (topVh / 100) * window.innerHeight;
-
-        for (var i = 0; i < elements.length; i++) {
-          var rect = elements[i].getBoundingClientRect();
-          if (x >= rect.left - 20 && x <= rect.right + 20 && y >= rect.top - 20 && y <= rect.bottom + 20) {
-            return true;
-          }
-        }
-        return false;
-      }
-
-      function triggerSlot(slot) {
-        slot.phrase = NGE_PHRASES[Math.floor(Math.random() * NGE_PHRASES.length)];
-        slot.targetText = slot.phrase;
-        slot.scrambleIndex = 0;
-        slot.state = 'ciphering';
-
-        var top = Math.random() * 90 + 2;
-        var left = Math.random() * 75 + 1;
-        var attempts = 0;
-        while (isOverlappingUI(top, left) && attempts < 15) {
-          top = Math.random() * 90 + 2;
-          left = Math.random() * 75 + 1;
-          attempts++;
-        }
-
-        var fontSize = Math.random() * 0.45 + 0.55;
-        var colors = ['rgba(255,255,255,0.85)', 'rgba(220,220,220,0.75)', 'rgba(180,180,180,0.65)', 'rgba(255,255,255,0.5)'];
-        slot.color = colors[Math.floor(Math.random() * colors.length)];
-
-        slot.el.style.top = top + 'vh';
-        slot.el.style.left = left + 'vw';
-        slot.el.style.fontSize = fontSize + 'rem';
-        slot.el.style.color = slot.color;
-        slot.el.style.opacity = '0.7';
-        slot.el.style.textShadow = '0 0 8px ' + slot.color;
-      }
-
-      function updateSlots() {
-        slots.forEach(function (slot) {
-          if (slot.state === 'idle') {
-            if (Math.random() < 0.1) {
-              triggerSlot(slot);
-            }
-          } else if (slot.state === 'ciphering') {
-            slot.scrambleIndex += 1.0;
-            if (slot.scrambleIndex >= slot.targetText.length) {
-              slot.el.innerText = slot.targetText;
-              slot.state = 'holding';
-              slot.timer = Date.now() + 400 + Math.random() * 1000;
-            } else {
-              slot.el.innerText = scrambleString(slot.targetText, Math.floor(slot.scrambleIndex));
-            }
-
-            if (Math.random() < 0.25) {
-              slot.el.style.transform = 'translate(' + ((Math.random() - 0.5) * 10) + 'px, ' + ((Math.random() - 0.5) * 10) + 'px)';
-            } else {
-              slot.el.style.transform = 'none';
-            }
-          } else if (slot.state === 'holding') {
-            if (Date.now() > slot.timer) {
-              slot.el.style.opacity = '0';
-              slot.state = 'idle';
-            }
-          }
-        });
-        setTimeout(updateSlots, 25);
-      }
-
-      updateSlots();
     })();
   </script>
 </body>
