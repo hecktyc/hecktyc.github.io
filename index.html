@@ -107,6 +107,7 @@
       display: flex;
       justify-content: center;
       pointer-events: none;
+      will-change: opacity;
     }
 
     h1 {
@@ -168,6 +169,7 @@
     }
     .reveal.on { opacity: 1; transform: none; }
 
+    /* Ultra-smooth continuous 3D Eye (Preserve-3D retained throughout) */
     .clock {
       position: relative;
       width: min(90vw, 510px, 78vh);
@@ -184,12 +186,9 @@
       background: radial-gradient(ellipse 46% 31% at 50% 50%,
         rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.28) 38%,
         rgba(255, 255, 255, 0.10) 62%, rgba(255, 255, 255, 0) 100%);
+      will-change: opacity;
     }
 
-    .clock.flat { transform-style: flat; }
-    .clock.flat .eye-svg { transform: scale(1.0638); }
-    .clock.flat .eye-glow { transform: scale(1.0417); }
-    .covered .top { visibility: hidden; }
     .scrolling body::after { animation-play-state: paused; }
 
     .eye-svg {
@@ -199,9 +198,11 @@
       height: 100%;
       overflow: visible;
       transform: translateZ(90px);
+      will-change: viewBox;
     }
     .lid-line { fill: none; stroke: #fff; stroke-width: 3.5; stroke-linejoin: round; }
     .lash { fill: #fff; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
+    .glint { will-change: opacity; }
 
     .links {
       position: fixed;
@@ -259,6 +260,7 @@
       background: none;
       color: #fff;
       cursor: pointer;
+      will-change: opacity;
     }
     .scroll-hint svg {
       width: 1.25rem;
@@ -277,7 +279,7 @@
       50%      { transform: translateY(5px);  opacity: 1; }
     }
 
-    /* 3D Star System Hub (Pupil-Centered) */
+    /* 3D Star System Hub (Pupil-Centered & Non-blocking) */
     .hub {
       position: fixed;
       inset: 0;
@@ -289,6 +291,7 @@
       contain: layout paint;
       perspective: 1400px;
       overflow: hidden;
+      will-change: opacity, clip-path;
     }
 
     .starfield {
@@ -337,10 +340,7 @@
       will-change: transform;
     }
 
-    /* ========================================================
-       Off-Center 3D Celestial Orbital Systems
-       (Guarantees every planet rides 100% coincident with track)
-       ======================================================== */
+    /* Off-Center 3D Celestial Orbital Systems */
     .cel-system {
       position: absolute;
       left: 0;
@@ -352,7 +352,6 @@
       pointer-events: none;
     }
 
-    /* Off-center anchor displaced by --off-x and --off-y from the stellar core */
     .cel-orbit-anchor {
       position: absolute;
       left: var(--off-x, 0px);
@@ -362,7 +361,6 @@
       transform-style: preserve-3d;
     }
 
-    /* The circular track line centered on the eccentric anchor */
     .cel-circle-track {
       position: absolute;
       left: calc(var(--dia) / -2);
@@ -378,7 +376,6 @@
     .cel-circle-track.dotted { border-style: dotted; }
     .cel-circle-track.fine { border-width: 0.75px; }
 
-    /* Rotates around the exact center of the eccentric track */
     .cel-planet-rotator {
       position: absolute;
       left: 0;
@@ -393,7 +390,6 @@
       to { transform: rotateZ(360deg); }
     }
 
-    /* Arm extending outward by the exact radius (dia / -2) */
     .planet-arm {
       position: absolute;
       left: 0;
@@ -405,7 +401,6 @@
       transform: rotateZ(var(--init-deg, 0deg)) translateY(calc(var(--dia) / -2));
     }
 
-    /* Planetary body centered exactly on the orbital track */
     .planet-body {
       position: absolute;
       left: calc(var(--psz, 6px) / -2);
@@ -434,7 +429,6 @@
       box-shadow: 0 0 10px #ffffff, 0 0 20px rgba(255, 255, 255, 0.85);
     }
 
-    /* Planetary Rings for Gas Giants */
     .planet-ring-wrap {
       position: absolute;
       left: 0;
@@ -465,7 +459,6 @@
       border: 1px dashed rgba(255, 255, 255, 0.45);
     }
 
-    /* Orbiting Moons */
     .moon-orbit {
       position: absolute;
       left: 0;
@@ -490,9 +483,7 @@
       box-shadow: 0 0 5px #ffffff;
     }
 
-    /* ========================================================
-       Stellar Core: Pure Brilliant White with 3D Z-Axis Elements
-       ======================================================== */
+    /* Stellar Core: Pure Brilliant White with 3D Z-Axis Elements */
     .star-core-wrap {
       position: absolute;
       left: 0;
@@ -554,7 +545,6 @@
       transform: rotate(90deg);
     }
 
-    /* Gyroscopic Rings across X, Y, Z axes */
     .gyro-ring {
       position: absolute;
       border-radius: 50%;
@@ -631,9 +621,7 @@
       100% { transform: translateZ(42px) scale(1.08); opacity: 0.85; }
     }
 
-    /* ========================================================
-       5 Main Category Planets & Synchronized Pentagram
-       ======================================================== */
+    /* 5 Main Category Planets & Synchronized Pentagram */
     .orbit-track.main {
       position: absolute;
       left: calc(var(--R) * -1);
@@ -851,7 +839,7 @@
               <g class="iris">
                 <circle cx="100" cy="100" r="25" fill="url(#irisGrad)"/>
                 <circle cx="100" cy="100" r="11" fill="#000"/>
-                <circle cx="108" cy="92" r="4" fill="#fff"/>
+                <circle class="glint" cx="108" cy="92" r="4" fill="#fff"/>
               </g>
             </g>
             <path class="lid-line lid-d" d="M36 100Q100 40 164 100Q100 160 36 100Z"/>
@@ -878,9 +866,7 @@
         <!-- Main Circular Orbital Track for the 5 Category Planets -->
         <div class="orbit-track main" aria-hidden="true"></div>
 
-        <!-- ========================================================
-             Off-Center 3D Orbital Systems with Exactly Aligned Planets
-             ======================================================== -->
+        <!-- Off-Center 3D Orbital Systems with Exactly Aligned Planets -->
 
         <!-- System 1: Inner Eccentric Molten Dwarf Planet -->
         <div class="cel-system" style="--ox:18deg;--oy:22deg;--oz:10deg" aria-hidden="true">
@@ -935,11 +921,9 @@
           <div class="cel-orbit-anchor" style="--off-x:-36px;--off-y:-28px;--dia:calc(var(--R)*1.82)">
             <div class="cel-circle-track dashed" style="--b-op:0.18"></div>
             <div class="cel-planet-rotator" style="--dur:75s;--dir:reverse">
-              <!-- Planet A -->
               <div class="planet-arm" style="--init-deg:50deg">
                 <div class="planet-body bright" style="--psz:5px"></div>
               </div>
-              <!-- Planet B (Co-orbital partner) -->
               <div class="planet-arm" style="--init-deg:230deg">
                 <div class="planet-body shaded" style="--psz:6.2px"></div>
               </div>
@@ -1084,9 +1068,11 @@
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var root = document.documentElement;
       var reveal = document.querySelector('.reveal');
+      var topEl = document.querySelector('.top');
       var clock = document.getElementById('clock');
       var svg = clock.querySelector('.eye-svg');
       var iris = clock.querySelector('.iris');
+      var glint = clock.querySelector('.glint');
       var lids = clock.querySelectorAll('.lid-d');
       var lashes = clock.querySelector('.lashes');
       var glow = clock.querySelector('.eye-glow');
@@ -1114,7 +1100,7 @@
 
       var PF = 1500 / (1500 - 90);
       var W = 0, H = 0, zoomDist = 1, size = 510, vbEnd = 10, jumped = false;
-      var lastP = -1, lastHint = -1, flat = false, zoomed = false, covered = false, hubOn = false;
+      var lastP = -1, lastHint = -1, zoomed = false, hubOn = false;
 
       function layout() {
         W = window.innerWidth; H = window.innerHeight;
@@ -1154,30 +1140,55 @@
       }
 
       function apply(p) {
-        var near = 1 - Math.min(1, p / 0.3);
-        if (p >= 0.3) {
-          if (!flat) { flat = true; clock.classList.add('flat'); clock.style.transform = 'none'; }
-        } else {
-          if (flat) { flat = false; clock.classList.remove('flat'); }
-          clock.style.transform =
-            'translate3d(' + (cx * 60 * near) + 'px,' + (cy * 42 * near) + 'px,0) ' +
-            'rotateX(' + (-cy * 24 * near) + 'deg) rotateY(' + (cx * 24 * near) + 'deg)';
-        }
-        var zd = p > 0.05, cv = p > 0.55;
+        // 1. Continuous smoothstep centering: no abrupt cutoff or transform snapping
+        var u = Math.min(1, Math.max(0, p / 0.18));
+        var near = 1 - (u * u * (3 - 2 * u));
+
+        clock.style.transform =
+          'translate3d(' + (cx * 60 * near).toFixed(3) + 'px,' + (cy * 42 * near).toFixed(3) + 'px,0) ' +
+          'rotateX(' + (-cy * 24 * near).toFixed(3) + 'deg) rotateY(' + (cx * 24 * near).toFixed(3) + 'deg)';
+
+        var zd = p > 0.05;
         if (zd !== zoomed) { zoomed = zd; root.classList.toggle('zoomed', zd); }
-        if (cv !== covered) { covered = cv; root.classList.toggle('covered', cv); }
-        iris.setAttribute('transform', 'translate(' + (cx * 16 * near) + ' ' + (cy * 7 * near) + ')');
 
-        glow.style.opacity = Math.max(0, 1 - p * 4);
+        iris.setAttribute('transform', 'translate(' + (cx * 16 * near).toFixed(2) + ' ' + (cy * 7 * near).toFixed(2) + ')');
+
+        // Smooth glint fade as portal awakens
+        if (glint) {
+          var gt = Math.min(1, Math.max(0, (p - 0.2) / 0.15));
+          glint.style.opacity = (1 - (gt * gt * (3 - 2 * gt))).toFixed(3);
+        }
+
+        // Smooth header text fade
+        if (topEl) {
+          var tt = Math.min(1, Math.max(0, p / 0.32));
+          var topOp = 1 - (tt * tt * (3 - 2 * tt));
+          topEl.style.opacity = topOp.toFixed(3);
+          topEl.style.visibility = topOp <= 0.005 ? 'hidden' : 'visible';
+        }
+
+        glow.style.opacity = Math.max(0, 1 - p * 3.5).toFixed(3);
+
+        // Smooth continuous exponential zoom
         var w = 200 * Math.pow(vbEnd / 200, p);
-        svg.setAttribute('viewBox', (100 - w / 2) + ' ' + (100 - w / 2) + ' ' + w + ' ' + w);
+        svg.setAttribute('viewBox', (100 - w / 2).toFixed(3) + ' ' + (100 - w / 2).toFixed(3) + ' ' + w.toFixed(3) + ' ' + w.toFixed(3));
 
-        var q = Math.min(1, Math.max(0, (p - 0.3) / 0.2));
-        hub.style.opacity = q;
+        // Smooth S-curve hub portal fade
+        var ht = Math.min(1, Math.max(0, (p - 0.24) / 0.22));
+        var q = ht * ht * (3 - 2 * ht);
+        hub.style.opacity = q.toFixed(4);
         hub.style.visibility = q > 0 ? 'visible' : 'hidden';
-        if ((q > 0) !== hubOn) { hubOn = q > 0; hub.classList.toggle('on', hubOn); }
+
+        var shouldHubOn = q > 0;
+        if (shouldHubOn !== hubOn) {
+          hubOn = shouldHubOn;
+          hub.classList.toggle('on', hubOn);
+        }
+
+        // Subpixel portal clipping matched to the pupil
         var rp = 11 * size / w * PF;
-        hub.style.clipPath = rp > Math.hypot(W, H) / 2 * 1.02 ? 'none' : 'circle(' + rp + 'px at 50% 50%)';
+        var maxR = Math.hypot(W, H) / 2 * 1.02;
+        hub.style.clipPath = rp >= maxR ? 'none' : 'circle(' + rp.toFixed(2) + 'px at 50% 50%)';
       }
 
       var BLINK_MS = 160, blinkStart = -1, nextBlink = performance.now() + 2500;
@@ -1185,14 +1196,14 @@
         requestAnimationFrame(loop);
         var y = window.pageYOffset || 0;
         var p = Math.min(1, Math.max(0, y / zoomDist));
-        if (!reduce && p < 0.3 && now - lastMove > 5000 && now >= nextLook) {
+        if (!reduce && p < 0.25 && now - lastMove > 5000 && now >= nextLook) {
           tx = (Math.random() * 2 - 1) * 0.9;
           ty = (Math.random() * 2 - 1) * 0.7;
           nextLook = now + 1100 + Math.random() * 1800;
         }
         var moving = !reduce && (Math.abs(tx - cx) > 0.0005 || Math.abs(ty - cy) > 0.0005);
         if (moving) { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; }
-        if (p !== lastP || (moving && p < 0.3)) { apply(p); lastP = p; }
+        if (p !== lastP || (moving && p < 0.25)) { apply(p); lastP = p; }
 
         if (hubOn && !reduce && hubStage) {
           var tiltX = 64 + cy * 8;
